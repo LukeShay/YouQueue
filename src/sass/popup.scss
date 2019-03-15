@@ -1,0 +1,34 @@
+$background-dark: #36454f;
+$text-light: #ffffff;
+$window-height: 300px;
+$window-width: 200px;
+
+body{
+    margin: 0px;
+}
+
+.extensionContainer{
+    background-color: $background-dark;
+    width: $window-width;
+    height: $window-height;
+
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    
+    #app_name{
+        color: $text-light;
+        text-align: center;
+        font-family: 'Exo 2', sans-serif;
+    
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+}
+
+
+
+
+
