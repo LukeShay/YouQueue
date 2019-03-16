@@ -1,4 +1,4 @@
-
+var extensionOpened = false;
 
 console.log("script running.");
 
@@ -13,24 +13,23 @@ else{console.log(cookieInfo);} */
 //Event listeners:
 
 //-----Popup window opened
-chrome.runtime.onConnect.addListener(requestHandler);
+chrome.browserAction.onClicked.addListener(
+    function()
+    {
+        if (extensionOpened)
+        {
+            extensionOpened = false;
+        }
+        else{
+            console.log("Extension opened");
+            extensionOpened = true;
+        }
+    }
+);
 
 
 //Event Handlers:
-var requestHandler = function(port)
-{
-    console.log("Message recieved");
-    port.onMessage.addListener(function(request) {
-        switch(request)
-        {
-            case "login_status":
-                port.postMessage({response: {content: false}});
-                break;
-            default:
-                break;
-        }
-    });
-}
+
 
 
 

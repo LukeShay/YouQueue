@@ -10,7 +10,7 @@
         "tabs", "<all_urls>"
       ],
     "browser_action": {
-        "default_icon": "/resources/icons8-musical-notes-64.png",
-        "default_popup": "/html/popup.html"
+        "default_icon": "/resources/icons8-musical-notes-64.png"
+        /* "default_popup": "/html/popup.html" */
     }
 }
