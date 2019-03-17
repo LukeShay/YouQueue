@@ -10,13 +10,17 @@
         }
     ],
     "background": {
-        "scripts": ["/scripts/background.js"]
+        "scripts": ["/scripts/background.js", "/scripts/popup.js", "/scripts/authentication.js"],
+        "persistent": false
     },
     "permissions": [
         "activeTab",
         "tabs"
-      ],
+    ],
     "browser_action": {
-        "default_icon": "/resources/icons8-musical-notes-64.png"
-    }
+        "default_icon": "/resources/icons8-musical-notes-64.png",
+        "default_popup": "/html/authentication.html"
+    },
+
+    "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self';"
 }
