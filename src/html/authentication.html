@@ -11,11 +11,14 @@
     <h1>Authentication</h1>
     <br>
 
-    <input type="text" name="email" id="email" placeholder="Email" size="30px"><br>
-    <input type="text" name="password" id="password" placeholder="Password" size="30px"><br>
-    <button id="login">Log In</button>
-    <button id="signup">Sign Up</button>
-    <button id="logout" style="visibility: hidden">Log Out</button>
+    <div id="authForm">
+        <input type="text" name="email" id="email" placeholder="Email" size="30px"><br>
+        <input type="text" name="password" id="password" placeholder="Password" size="30px"><br>
+        <button id="login">Log In</button>
+        <button id="signup">Sign Up</button>
+        <button id="logout" style="visibility: hidden">Log Out</button>
+    </div>
+    <div id="invalid" style="color: red"></div>
 
     <script src="../scripts/authentication.js"></script>
 
