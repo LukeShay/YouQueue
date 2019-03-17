@@ -1,34 +1,73 @@
-var extensionOpened = false;
-
-console.log("script running.");
-
-/* var cookieInfo = document.cookie;
-
-if (cookieInfo === "")
-{
-    console.log("No cookie detected");
+//JSON Object containing all extension info. Add variables here as needed.
+var extInfo = {
+    extensionOpened: false
 }
-else{console.log(cookieInfo);} */
 
-//Event listeners:
+// Initialization Events/Actions:
+/* console.log("background script running."); */
 
-//-----Popup window opened
-chrome.browserAction.onClicked.addListener(
-    function()
+
+//-----Event listeners:
+
+//Popup window opened
+chrome.browserAction.onClicked.addListener(() =>
     {
-        if (extensionOpened)
+        if (extInfo.extensionOpened)
         {
-            extensionOpened = false;
+            manageExtension("hideExtension");
+            extInfo.extensionOpened = false;
         }
         else{
-            console.log("Extension opened");
-            extensionOpened = true;
-        }
+            /* console.log("Extension opened"); */
+            manageExtension("showExtension");
+            extInfo.extensionOpened = true;
+       }
     }
 );
 
 
-//Event Handlers:
+
+
+
+
+
+
+
+//-----Event Handlers
+
+//Handles the opening and closing of the extension
+var manageExtension = action =>
+{
+    chrome.tabs.query({"active": true, "currentWindow": true}, 
+        tab => {chrome.tabs.sendMessage(tab[0].id, constructTabMessage(action, extInfo, tab[0]), 
+            response => {console.log(response)}
+        )}
+    );
+}
+
+
+
+
+//-----Functions
+
+//Constucts messages to be sent to other parts of the extension.
+var constructTabMessage = (request, data, tab) =>
+{
+    let message = {
+        sender: "background_script",
+        request: request,
+        data: data,
+        currentTab: tab
+    }
+
+    return message;
+}
+
+
+
+
+
+
 
 
 

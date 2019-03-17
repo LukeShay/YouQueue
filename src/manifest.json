@@ -2,15 +2,21 @@
     "manifest_version": 2,
     "name": "YouQueue",
     "version": "0.1",
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "css": ["/styles/extensionUI.css"],
+            "js": ["/scripts/content.js"]
+        }
+    ],
     "background": {
-        "scripts": ["/scripts/background.js"],
-        "persistent": false
+        "scripts": ["/scripts/background.js"]
     },
     "permissions": [
-        "tabs", "<all_urls>"
+        "activeTab",
+        "tabs"
       ],
     "browser_action": {
         "default_icon": "/resources/icons8-musical-notes-64.png"
-        /* "default_popup": "/html/popup.html" */
     }
 }
