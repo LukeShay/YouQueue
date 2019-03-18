@@ -1,111 +1,124 @@
-(function () {
-    // Initialize Firebase
-    const config = {
-        apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
-        authDomain: "youqueue-c89b9.firebaseapp.com",
-        databaseURL: "https://youqueue-c89b9.firebaseio.com",
-        projectId: "youqueue-c89b9",
-        storageBucket: "youqueue-c89b9.appspot.com",
-        messagingSenderId: "420416303698"
-    };
-    firebase.initializeApp(config);
+var uid;
+var udb;
 
-    // Get elements
-    const txtEmail = document.getElementById("email");
-    const txtPassword = document.getElementById("password");
-    const btnLogin = document.getElementById("login");
-    const btnSignup = document.getElementById("signup");
-    const btnLogout = document.getElementById("logout");
+// Initialize Firebase
+const config = {
+    apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
+    authDomain: "youqueue-c89b9.firebaseapp.com",
+    databaseURL: "https://youqueue-c89b9.firebaseio.com",
+    projectId: "youqueue-c89b9",
+    storageBucket: "youqueue-c89b9.appspot.com",
+    messagingSenderId: "420416303698"
+};
+firebase.initializeApp(config);
 
-    // Add login event
-    btnLogin.addEventListener('click', e => {
-        const email = txtEmail.value;
-        const pass = txtPassword.value;
-        const auth = firebase.auth();
+const firestore = firebase.firestore();
 
-        // Sign in
-        const promise = auth.signInWithEmailAndPassword(email, pass);
+// Get elements
+const txtEmail = document.getElementById("email");
+const txtPassword = document.getElementById("password");
+const btnLogin = document.getElementById("login");
+const btnSignup = document.getElementById("signup");
+const btnLogout = document.getElementById("logout");
+
+// Add login event
+btnLogin.addEventListener('click', e => {
+    const email = txtEmail.value;
+    const pass = txtPassword.value;
+    const auth = firebase.auth();
+
+    // Sign in
+    const promise = auth.signInWithEmailAndPassword(email, pass);
+
+    // Catches error
+    promise.catch(e => {
+        console.log(e.code + ": " + e.message);
+        console.log(typeof e.code);
+        if (e.code === "auth/user-not-found") {
+            document.getElementById("invalid").innerHTML = "User not found";
+
+        } else if (e.code === "auth/wrong-password") {
+            var s;
+            if (passwordCheck(pass)) {
+                s = "Invalid password";
+            } else {
+                s = "Wrong password";
+            }
+            document.getElementById("invalid").innerHTML = s;
+
+        } else if (e.code === "auth/invalid-email") {
+            document.getElementById("invalid").innerHTML = "Invalid email";
+
+        } else {
+            document.getElementById("invalid").innerHTML = "Error";
+        }
+    });
+});
+
+btnSignup.addEventListener('click', e => {
+    const email = txtEmail.value;
+    const pass = txtPassword.value;
+    const auth = firebase.auth();
+
+    var e = emailCheck(email);
+    var p = passwordCheck(pass);
+
+    if (e && p) {
+        var err;
+
+        // Sign up
+        const promise = auth.createUserWithEmailAndPassword(email, pass);
 
         // Catches error
         promise.catch(e => {
             console.log(e.code + ": " + e.message);
-            console.log(typeof e.code);
-            if (e.code === "auth/user-not-found") {
-                document.getElementById("invalid").innerHTML = "User not found";
-
-            } else if (e.code === "auth/wrong-password") {
-                var s;
-                if(passwordCheck(pass)){
-                    s = "Invalid password";
-                }
-                else{
-                    s = "Wrong password";
-                }
-                document.getElementById("invalid").innerHTML = s;
-
-            } else if(e.code === "auth/invalid-email"){
-                document.getElementById("invalid").innerHTML = "Invalid email";
-
-            }else {
-                document.getElementById("invalid").innerHTML = "Error";
-            }
         });
-    });
 
-    btnSignup.addEventListener('click', e => {
-        // TODO: check for real email and secure password.
-        const email = txtEmail.value;
-        const pass = txtPassword.value;
-        const auth = firebase.auth();
+        console.log(firebase.auth().currentUser);
 
-        var e = emailCheck(email);
-        var p = passwordCheck(pass);
+        //database.doc(auth.uid);
 
-        if (e && p) {
-            var err;
+    } else if (!e && p) {
+        document.getElementById("invalid").innerHTML = "Invalid email";
 
-            // Sign up
-            const promise = auth.createUserWithEmailAndPassword(email, pass);
+    } else if (!p && e) {
+        document.getElementById("invalid").innerHTML = "Invalid password.<br>Must be 8 characters long<br>Must contain at least one letter and one number.";
 
-            // Catches error
-            promise.catch(e => {
-                console.log(e.code + ": " + e.message);
-            });
+    } else {
+        document.getElementById("invalid").innerHTML = "Invalid email and password.<br>Password must be 8 characters long<br>Password must contain at least one letter and one number.";
 
-        } else if (!e && p) {
-            document.getElementById("invalid").innerHTML = "Invalid email";
+    }
+});
 
-        } else if (!p && e) {
-            document.getElementById("invalid").innerHTML = "Invalid password.<br>Must be 8 characters long<br>Must contain at least one letter and one number.";
+btnLogout.addEventListener('click', e => {
+    firebase.auth().signOut();
+    document.getElementById("invalid").innerHTML = "";
+});
 
-        } else {
-            document.getElementById("invalid").innerHTML = "Invalid email and password.<br>Password must be 8 characters long<br>Password must contain at least one letter and one number.";
 
+
+// Add a realtime listener
+firebase.auth().onAuthStateChanged(firebaseUser => {
+    if (firebaseUser) {
+        console.log(firebaseUser);
+        uid = firebaseUser.uid;
+        console.log(uid);
+        firestore.doc(uid + "/blank").set({null:null});
+        udb = firestore.collection(uid);
+        console.log(udb);
+        
+        if (document.getElementById("logout").style.visibility == "hidden") {
+            document.getElementById("logout").style.visibility = "visible";
+            document.getElementById("invalid").innerHTML = "";
         }
-    });
-
-    btnLogout.addEventListener('click', e => {
-        firebase.auth().signOut();
-    });
-
-
-
-    // Add a realtime listener
-    firebase.auth().onAuthStateChanged(firebaseUser => {
-        if (firebaseUser) {
-            console.log(firebaseUser);
-            if (document.getElementById("logout").style.visibility == "hidden") {
-                document.getElementById("logout").style.visibility = "visible";
-                document.getElementById("invalid").innerHTML = "";
-            }
-        } else {
-            console.log("Not logged in");
-            if (document.getElementById("logout").style.visibility == "visible") {
-                document.getElementById("logout").style.visibility = "hidden";
-            }
+    } else {
+        console.log("Not logged in");
+        if (document.getElementById("logout").style.visibility == "visible") {
+            document.getElementById("logout").style.visibility = "hidden";
         }
-    });
-}());
+    }
+});
+
 
 function emailCheck(email) {
     atSplit = email.split('@');
