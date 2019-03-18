@@ -1,12 +1,12 @@
 (function () {
     // Initialize Firebase
     const config = {
-        apiKey: "AIzaSyCAbT074yEI04tEJyVog4TqhveMIBU1ARA",
-        authDomain: "test-85968.firebaseapp.com",
-        databaseURL: "https://test-85968.firebaseio.com",
-        projectId: "test-85968",
-        storageBucket: "test-85968.appspot.com",
-        messagingSenderId: "27175506409"
+        apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
+        authDomain: "youqueue-c89b9.firebaseapp.com",
+        databaseURL: "https://youqueue-c89b9.firebaseio.com",
+        projectId: "youqueue-c89b9",
+        storageBucket: "youqueue-c89b9.appspot.com",
+        messagingSenderId: "420416303698"
     };
     firebase.initializeApp(config);
 
@@ -29,6 +29,26 @@
         // Catches error
         promise.catch(e => {
             console.log(e.code + ": " + e.message);
+            console.log(typeof e.code);
+            if (e.code === "auth/user-not-found") {
+                document.getElementById("invalid").innerHTML = "User not found";
+
+            } else if (e.code === "auth/wrong-password") {
+                var s;
+                if(passwordCheck(pass)){
+                    s = "Invalid password";
+                }
+                else{
+                    s = "Wrong password";
+                }
+                document.getElementById("invalid").innerHTML = s;
+
+            } else if(e.code === "auth/invalid-email"){
+                document.getElementById("invalid").innerHTML = "Invalid email";
+
+            }else {
+                document.getElementById("invalid").innerHTML = "Error";
+            }
         });
     });
 
@@ -42,17 +62,15 @@
         var p = passwordCheck(pass);
 
         if (e && p) {
+            var err;
 
             // Sign up
             const promise = auth.createUserWithEmailAndPassword(email, pass);
 
             // Catches error
             promise.catch(e => {
-                console.log(e.code + ": " + e.message)
-
+                console.log(e.code + ": " + e.message);
             });
-
-            document.getElementById("invalid").innerHTML = "";
 
         } else if (!e && p) {
             document.getElementById("invalid").innerHTML = "Invalid email";
@@ -78,6 +96,7 @@
             console.log(firebaseUser);
             if (document.getElementById("logout").style.visibility == "hidden") {
                 document.getElementById("logout").style.visibility = "visible";
+                document.getElementById("invalid").innerHTML = "";
             }
         } else {
             console.log("Not logged in");

@@ -10,7 +10,7 @@
         }
     ],
     "background": {
-        "scripts": ["/scripts/background.js", "/scripts/popup.js", "/scripts/authentication.js"],
+        "scripts": ["/scripts/background.js", "/scripts/popup.js", "/scripts/authentication.js", "/scripts/queue_storage.js"],
         "persistent": false
     },
     "permissions": [
