@@ -1,5 +1,51 @@
-var uid;
-var udb;
+let user;
+let uid;
+let udb;
+
+var authForm = document.getElementById("authForm");
+
+var showSignIn = document.createElement("button");
+showSignIn.id = "showSignIn";
+showSignIn.innerHTML = "Sign In";
+
+authForm.appendChild(showSignIn);
+
+var showSignUp = document.createElement("button");
+showSignUp.id = "showSignUp";
+showSignUp.innerHTML = "Sign Up";
+
+authForm.appendChild(showSignUp);
+
+var txtEmail = document.createElement("input");
+txtEmail.type = "text";
+txtEmail.name = "email";
+txtEmail.id = "email";
+txtEmail.placeholder = "Email";
+txtEmail.size = 30;
+
+var txtPassword = document.createElement("input");
+txtPassword.type = "password";
+txtPassword.name = "password";
+txtPassword.id = "password";
+txtPassword.placeholder = "Password";
+txtPassword.size = 30;
+
+var btnLogin = document.createElement("button");
+btnLogin.id = "login";
+btnLogin.innerHTML = "Log In";
+
+var btnSignup = document.createElement("button");
+btnSignup.id = "signup";
+btnSignup.innerHTML = "Sign Up";
+
+var btnLogout = document.createElement("button");
+btnLogout.id = "logout";
+btnLogout.innerHTML = "Log Out";
+
+var cancel = document.createElement("button");
+cancel.id = "cancel";
+cancel.innerHTML = "cancel";
+
 
 // Initialize Firebase
 const config = {
@@ -12,14 +58,30 @@ const config = {
 };
 firebase.initializeApp(config);
 
-const firestore = firebase.firestore();
+let firestore = firebase.firestore();
 
-// Get elements
-const txtEmail = document.getElementById("email");
-const txtPassword = document.getElementById("password");
-const btnLogin = document.getElementById("login");
-const btnSignup = document.getElementById("signup");
-const btnLogout = document.getElementById("logout");
+showSignIn.addEventListener('click', e => {
+    authForm.removeChild(showSignIn)
+    authForm.removeChild(showSignUp);
+    authForm.appendChild(txtEmail);
+    authForm.appendChild(txtPassword);
+    authForm.appendChild(btnLogin);
+    authForm.appendChild(cancel);
+});
+
+showSignUp.addEventListener('click', e => {
+    authForm.removeChild(showSignIn)
+    authForm.removeChild(showSignUp);
+    authForm.appendChild(txtEmail);
+    authForm.appendChild(txtPassword);
+    authForm.appendChild(btnSignup);
+    authForm.appendChild(cancel);
+});
+
+cancel.addEventListener('click', e => {
+    removeForm();
+    notLoggedIn();
+});
 
 // Add login event
 btnLogin.addEventListener('click', e => {
@@ -33,7 +95,7 @@ btnLogin.addEventListener('click', e => {
     // Catches error
     promise.catch(e => {
         console.log(e.code + ": " + e.message);
-        console.log(typeof e.code);
+
         if (e.code === "auth/user-not-found") {
             document.getElementById("invalid").innerHTML = "User not found";
 
@@ -64,7 +126,6 @@ btnSignup.addEventListener('click', e => {
     var p = passwordCheck(pass);
 
     if (e && p) {
-        var err;
 
         // Sign up
         const promise = auth.createUserWithEmailAndPassword(email, pass);
@@ -99,32 +160,47 @@ btnLogout.addEventListener('click', e => {
 
 // Add a realtime listener
 firebase.auth().onAuthStateChanged(firebaseUser => {
+    removeForm();
     if (firebaseUser) {
         console.log(firebaseUser);
+        user = firebaseUser;
         uid = firebaseUser.uid;
-        console.log(uid);
-        firestore.doc(uid + "/blank").set({null:null});
-        udb = firestore.collection(uid);
-        console.log(udb);
-        
-        if (document.getElementById("logout").style.visibility == "hidden") {
-            document.getElementById("logout").style.visibility = "visible";
-            document.getElementById("invalid").innerHTML = "";
-        }
+
+        createUDB();
+        loggedIn();
+
     } else {
         console.log("Not logged in");
-        if (document.getElementById("logout").style.visibility == "visible") {
-            document.getElementById("logout").style.visibility = "hidden";
-        }
+        notLoggedIn();
     }
 });
 
+function removeForm() {
+    if (document.getElementById("email")) authForm.removeChild(txtEmail);
+    if (document.getElementById("password")) authForm.removeChild(txtPassword);
+    if (document.getElementById("signup")) authForm.removeChild(btnSignup);
+    if (document.getElementById("login")) authForm.removeChild(btnLogin);
+    if (document.getElementById("cancel")) authForm.removeChild(cancel);
+    document.getElementById("invalid").innerHTML = "";
+}
+
+function notLoggedIn() {
+    if (document.getElementById("logout")) authForm.removeChild(logout);
+    authForm.appendChild(showSignIn);
+    authForm.appendChild(showSignUp);
+}
+
+function loggedIn() {
+    if (document.getElementById("showSignIn")) authForm.removeChild(showSignIn);
+    if (document.getElementById("showSignUp")) authForm.removeChild(showSignUp);
+    authForm.appendChild(btnLogout);
+}
 
 function emailCheck(email) {
     atSplit = email.split('@');
-    if (atSplit.length == 2 && alphaNumCheck(atSplit[0])) {
+    if (atSplit.length == 2) {
         periodSplit = atSplit[1].split('.')
-        if (periodSplit.length == 2 && alphaNumCheck(periodSplit[0] + periodSplit[1])) {
+        if (periodSplit.length == 2) {
             return true;
         }
     }
@@ -136,16 +212,6 @@ function passwordCheck(entry) {
         return false;
     } else {
         return true;
-    }
-}
-
-// From example.
-function alphaNumCheck(entry) {
-    let regex = /^[a-z0-9]+$/i;
-    if (entry != null && entry.match(regex)) {
-        return true;
-    } else {
-        return false;
     }
 }
 
@@ -165,4 +231,12 @@ function numCheck(entry) {
     } else {
         return false;
     }
+}
+
+function createUDB() {
+    firebase.firestore().doc(uid + "/blank").set({
+        null: null
+    });
+    udb = firestore.collection(uid);
+    console.log(udb);
 }
