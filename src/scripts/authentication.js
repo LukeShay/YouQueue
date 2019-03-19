@@ -55,7 +55,6 @@ cancel.id = "cancel";
 cancel.innerHTML = "cancel";
 cancel.className = "button2";
 
-
 // Initialize Firebase
 const config = {
     apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
@@ -241,11 +240,4 @@ function numCheck(entry) {
     } else {
         return false;
     }
-}
-
-function createUDB() {
-    firebase.firestore().doc(uid + "/blank").set({
-        null: null
-    });
-    udb = firestore.collection(uid);
 }
