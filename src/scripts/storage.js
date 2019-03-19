@@ -4,16 +4,53 @@ function createUDB() {
     });
     udb = firestore.collection(uid);
 
-    //newQueue("test", {1:"link1", 2:"link2", 3:"link3"});
+    //newQueue("test", ["link1", "link2", "link3"]);
+    //addToQueue("test", ["link4"]);
 }
 
-function newQueue(queueName, list){ // List must be an object like above
+/**
+ * Creates a new queue with the given name and links. This function can also override a previously made queue.
+ * @param {string} queueName 
+ * @param {array} list 
+ */
+function newQueue(queueName, list) { // List must be an array like above
     var newQ = udb.doc(queueName); // Creates new queue
-    newQ.set(list);
+
+    var obj = {};
+    var i = 0;
+
+    list.forEach((value, index) => { // Turns array into an object
+        obj[index] = value;
+    });
+
+    newQ.set(obj); // Sets new queue to contain the array
 
     newQ.get().then(doc => { // Example of how to retrieve the data. newQ = firebase.firestore().collection(uid).doc(queueName)
-        var temp = doc.data();
         console.log(doc.data());
-        console.log(temp[1]);
+    });
+}
+
+/**
+ * Adds new items to an already existing queue. This can also create a new queue but cannot override an old one.
+ * @param {string} queueName 
+ * @param {array} list 
+ */
+function addToQueue(queueName, list) { // List must be an array
+    var q = udb.doc(queueName);
+    var curLen = 0;
+    var obj = {};
+
+    q.get().then(doc => {
+        obj = doc.data();
+        curLen = Object.keys(obj).length;
+
+        console.log(obj);
+        console.log(curLen);
+
+        list.forEach((value, index) => {
+            obj[index + curLen] = value;
+        });
+
+        q.update(obj);
     });
 }
