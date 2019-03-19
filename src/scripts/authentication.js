@@ -1,6 +1,6 @@
-let user;
-let uid;
-let udb;
+var user;
+var uid;
+var udb;
 
 var authForm = document.getElementById("authForm");
 
@@ -67,7 +67,7 @@ const config = {
 };
 firebase.initializeApp(config);
 
-let firestore = firebase.firestore();
+var firestore = firebase.firestore();
 
 showSignIn.addEventListener('click', e => {
     authForm.removeChild(showSignIn)
@@ -147,12 +147,7 @@ btnSignup.addEventListener('click', e => {
 
         const user = firebase.auth().currentUser
 
-        user.updateProfile({displayName: txtName.value});
-
-        console.log(user);
-
-        //database.doc(auth.uid);
-
+        user.updateProfile({displayName: txtName.value});//Not working
     } else if (!e && p) {
         document.getElementById("invalid").innerHTML = "Invalid email";
 
@@ -176,7 +171,7 @@ btnLogout.addEventListener('click', e => {
 firebase.auth().onAuthStateChanged(firebaseUser => {
     removeForm();
     if (firebaseUser) {
-        console.log(firebaseUser);
+        console.log("Logged in");
         user = firebaseUser;
         uid = firebaseUser.uid;
 
@@ -253,5 +248,4 @@ function createUDB() {
         null: null
     });
     udb = firestore.collection(uid);
-    console.log(udb);
 }
