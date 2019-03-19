@@ -11,8 +11,12 @@
         }
     ],
     "background": {
+<<<<<<< HEAD
         "page": "/html/background.html",
         /* "scripts": ["/scripts/background.js", "/scripts/popup.js", "/scripts/authentication.js"], */
+=======
+        "scripts": ["/scripts/background.js", "/scripts/popup.js", "/scripts/authentication.js", "/scripts/storage.js"],
+>>>>>>> 0a369e9c9b6f71b87e1973d0b12a22ccd314dcd0
         "persistent": false
     },
     "permissions": [
