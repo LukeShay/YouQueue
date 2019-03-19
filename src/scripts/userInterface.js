@@ -1,8 +1,17 @@
 /* console.log("content script running"); */
 var isInterfaceCreated = false;
+var interfaceElements = {
+    interface: {
+        container: null,
+        overlay: null,
+        css: null
+    }
+}
 
 
 //-----Event Listeners
+
+
 
 //Listens for runtime messages passed from other parts of the extension.
 chrome.runtime.onMessage.addListener(
@@ -54,6 +63,7 @@ var manageUI = option =>
             {
                 /* document.getElementById("extensionUI").style.display = "block"; */
                 openUI();
+                loadAuthPage();
             }
             else
             {
@@ -81,16 +91,19 @@ var getUI = () =>
     let ui = document.createElement('div');
     ui.id = "extensionUI";
     ui.className = "extensionContainer";
+    interfaceElements.interface.container = ui;
 
     let overlay = document.createElement('div');
     overlay.id = "overlay";
     document.body.appendChild(overlay);
+    interfaceElements.interface.overlay = overlay;
 
     var uiCSS = document.createElement('link');
     uiCSS.setAttribute('rel', 'stylesheet');
     uiCSS.setAttribute('type', 'text/html');
     uiCSS.setAttribute('href', '../styles/extensionUI.css');
     document.getElementsByTagName('head')[0].appendChild(uiCSS);
+    interfaceElements.interface.css = uiCSS;
 
     isInterfaceCreated = true;
     return ui;
@@ -106,4 +119,9 @@ var closeUI = () =>
 {
     document.getElementById("extensionUI").style.width = "0";
     document.getElementById("overlay").style.opacity = 0;
+}
+
+var loadAuthPage = () =>
+{
+    chrome.runtime.sendMessage({from:"interface_script",message:"hello!"});
 }

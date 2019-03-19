@@ -25,6 +25,26 @@ chrome.browserAction.onClicked.addListener(() =>
     }
 );
 
+/* chrome.runtime.onMessage.addListener(
+    (message, sender, sendResponse) =>
+    {
+        console.log("recieved message");
+        switch(message.from)
+        {
+            case "background_script":
+                handleBackgroundMessage(message);
+                break;
+            default:
+                break;
+        }
+
+        sendResponse({message: "goodbye"});
+        return true;
+    }
+); */
+
+
+
 
 
 
@@ -40,7 +60,7 @@ var manageExtension = action =>
 {
     chrome.tabs.query({"active": true, "currentWindow": true}, 
         tab => {chrome.tabs.sendMessage(tab[0].id, constructTabMessage(action, extInfo, tab[0]), 
-            response => {console.log(response)}
+            response => {}
         )}
     );
 }

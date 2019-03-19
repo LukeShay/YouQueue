@@ -6,11 +6,13 @@
         {
             "matches": ["<all_urls>"],
             "css": ["/styles/extensionUI.css"],
-            "js": ["/scripts/content.js"]
+            "js": ["/scripts/userInterface.js"],
+            "all_frames": true
         }
     ],
     "background": {
-        "scripts": ["/scripts/background.js", "/scripts/popup.js", "/scripts/authentication.js"],
+        "page": "/html/background.html",
+        /* "scripts": ["/scripts/background.js", "/scripts/popup.js", "/scripts/authentication.js"], */
         "persistent": false
     },
     "permissions": [
