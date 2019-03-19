@@ -7,44 +7,53 @@ var authForm = document.getElementById("authForm");
 var showSignIn = document.createElement("button");
 showSignIn.id = "showSignIn";
 showSignIn.innerHTML = "Sign In";
-
-authForm.appendChild(showSignIn);
+showSignIn.className = "button1";
 
 var showSignUp = document.createElement("button");
 showSignUp.id = "showSignUp";
 showSignUp.innerHTML = "Sign Up";
+showSignUp.className = "button2";
 
-authForm.appendChild(showSignUp);
+var txtName = document.createElement("input");
+txtName.type = "text";
+txtName.name = "name";
+txtName.id = "name";
+txtName.placeholder = "Name";
+txtName.className = "txtIn";
 
 var txtEmail = document.createElement("input");
 txtEmail.type = "text";
 txtEmail.name = "email";
 txtEmail.id = "email";
 txtEmail.placeholder = "Email";
-txtEmail.size = 30;
+txtEmail.className = "txtIn";
 
 var txtPassword = document.createElement("input");
 txtPassword.type = "password";
 txtPassword.name = "password";
 txtPassword.id = "password";
 txtPassword.placeholder = "Password";
-txtPassword.size = 30;
+txtPassword.className = "txtIn";
 
 var btnLogin = document.createElement("button");
 btnLogin.id = "login";
 btnLogin.innerHTML = "Log In";
+btnLogin.className = "button1";
 
 var btnSignup = document.createElement("button");
 btnSignup.id = "signup";
 btnSignup.innerHTML = "Sign Up";
+btnSignup.className = "button1";
 
 var btnLogout = document.createElement("button");
 btnLogout.id = "logout";
 btnLogout.innerHTML = "Log Out";
+btnLogout.className = "logout"
 
 var cancel = document.createElement("button");
 cancel.id = "cancel";
 cancel.innerHTML = "cancel";
+cancel.className = "button2";
 
 
 // Initialize Firebase
@@ -72,6 +81,7 @@ showSignIn.addEventListener('click', e => {
 showSignUp.addEventListener('click', e => {
     authForm.removeChild(showSignIn)
     authForm.removeChild(showSignUp);
+    authForm.appendChild(txtName);
     authForm.appendChild(txtEmail);
     authForm.appendChild(txtPassword);
     authForm.appendChild(btnSignup);
@@ -135,7 +145,11 @@ btnSignup.addEventListener('click', e => {
             console.log(e.code + ": " + e.message);
         });
 
-        console.log(firebase.auth().currentUser);
+        const user = firebase.auth().currentUser
+
+        user.updateProfile({displayName: txtName.value});
+
+        console.log(user);
 
         //database.doc(auth.uid);
 
@@ -181,6 +195,7 @@ function removeForm() {
     if (document.getElementById("signup")) authForm.removeChild(btnSignup);
     if (document.getElementById("login")) authForm.removeChild(btnLogin);
     if (document.getElementById("cancel")) authForm.removeChild(cancel);
+    if (document.getElementById("name")) authForm.removeChild(txtName);
     document.getElementById("invalid").innerHTML = "";
 }
 
