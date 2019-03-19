@@ -116,13 +116,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         if (document.getElementById("logout").style.visibility == "visible") {
             document.getElementById("logout").style.visibility = "hidden";
         }
-<<<<<<< HEAD
-    });
-}());
-
-
-
-=======
     }
 });
 
@@ -173,4 +166,3 @@ function numCheck(entry) {
         return false;
     }
 }
->>>>>>> 0a369e9c9b6f71b87e1973d0b12a22ccd314dcd0
