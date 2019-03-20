@@ -11,13 +11,10 @@ var interfaceElements = {
 
 //-----Event Listeners
 
-
-
 //Listens for runtime messages passed from other parts of the extension.
 chrome.runtime.onMessage.addListener(
     (message, sender, sendResponse) =>
     {
-        /* console.log(document); */
         switch(message.sender)
         {
             case "background_script":
@@ -42,11 +39,9 @@ var handleBackgroundMessage = (message) =>
     switch(message.request)
     {
         case "showExtension":
-            console.log("opening extension");
             manageUI("open");
             break;
         case "hideExtension":
-            console.log("hiding extension");
             manageUI("hide");
         default:
             break;
@@ -86,7 +81,7 @@ var manageUI = option =>
 
 
 
-var getUI = () =>
+/* var getUI = () =>
 {
     let ui = document.createElement('div');
     ui.id = "extensionUI";
@@ -123,5 +118,34 @@ var closeUI = () =>
 
 var loadAuthPage = () =>
 {
-    chrome.runtime.sendMessage({from:"interface_script",message:"hello!"});
+    chrome.runtime.sendMessage(constructMessage("getAuthState", ""), 
+        () =>
+        {
+            return true;
+        }
+    );
+
+
+
+
+    /* var xhr= new XMLHttpRequest();
+    xhr.open('GET', '../html/authentication.html', true);
+    xhr.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        document.getElementById('extensionUI').innerHTML= this.responseText;
+    };
+    xhr.send(); */
+
+
+
+var constructMessage = (request, data) =>
+{
+    let message = {
+        sender: "interface_script",
+        request: request,
+        data: data,
+    }
+
+    return message;
 }
