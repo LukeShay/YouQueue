@@ -240,8 +240,4 @@ function numCheck(entry) {
     } else {
         return false;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 3bfb72b20bbb4524e7f0f82cb7555f96950b7d9b
