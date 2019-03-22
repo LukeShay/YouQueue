@@ -56,7 +56,7 @@ cancel.innerHTML = "cancel";
 cancel.className = "button2";
 
 // Initialize Firebase
-const config = {
+/* const config = {
     apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
     authDomain: "youqueue-c89b9.firebaseapp.com",
     databaseURL: "https://youqueue-c89b9.firebaseio.com",
@@ -64,7 +64,7 @@ const config = {
     storageBucket: "youqueue-c89b9.appspot.com",
     messagingSenderId: "420416303698"
 };
-firebase.initializeApp(config);
+firebase.initializeApp(config); */
 
 var firestore = firebase.firestore();
 
@@ -240,4 +240,8 @@ function numCheck(entry) {
     } else {
         return false;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3bfb72b20bbb4524e7f0f82cb7555f96950b7d9b

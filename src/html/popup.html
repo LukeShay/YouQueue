@@ -6,17 +6,26 @@
     <title>Extension Popup Page</title>
     <meta name="extension_popup_window" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../styles/popup.css">
+    <script src="../scripts/jquery-3.3.1.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
     <script src="../scripts/popup.js"></script>
+    <script src="../scripts/search.js"></script>
+    <!-- <script src="../scripts/authentication.js"></script> -->
 </head>
 <body>
     <div id="extensionContainer" class="extensionContainer">
         <div id="app_name">YouQueue</div>
 
+        <div id="splashContainer">
+        </div>
         <div id="authForm"></div>
-        <div id="invalid" style="color: red"></div>
+        <div id="invalid"></div>
+        <div id="searchContainer">
+            <img id="searchIcon" src="../resources/icons8-search-50.png" alt="Search icon">
+            <input id="searchBox" type="text"  />
+        </div>
+        <div id="authContainer"></div>
     </div>
-
     <script src="../scripts/authentication.js"></script>
     <script src="../scripts/storage.js"></script>
 </body>

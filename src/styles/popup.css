@@ -6,23 +6,41 @@ body {
   background-color: #36454f;
   width: 200px;
   height: 300px;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  /* #app_name{
+      position: fixed;
+      left: 50%;
+      bottom: 0px;
+      transform: translate(-50%, -50%);
+      margin: 0 auto;
+      color: $text-light;
+      font-family: 'Exo 2', sans-serif;
+  } */
 }
 
-.extensionContainer #app_name {
-  color: #ffffff;
-  text-align: center;
-  font-family: "Exo 2", sans-serif;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
+#loader {
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .extensionContainer #authForm {
-  grid-row-start: 5;
+  position: fixed;
+  width: 200px;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
   vertical-align: bottom;
 }
 
@@ -62,7 +80,7 @@ body {
   font-size: 12px;
 }
 
-.txtIn{
+.txtIn {
   background-color: whitesmoke;
   padding: 2px;
   border: none;
@@ -72,6 +90,32 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
+}
+
+#searchContainer {
+  display: grid;
+  grid-template-columns: 30px, auto, 30px;
+  grid-template-rows: 50px, auto, 50px;
+}
+#searchContainer #searchBox {
+  border-radius: 5px;
+  border: none;
+  width: 90%;
+  height: 25px;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 30px;
+  z-index: 0;
+}
+#searchContainer #searchIcon {
+  width: 20px;
+  height: 20px;
+  position: fixed;
+  left: 22px;
+  top: 31px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 /*# sourceMappingURL=popup.css.map */

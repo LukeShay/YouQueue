@@ -2,19 +2,6 @@
     "manifest_version": 2,
     "name": "YouQueue",
     "version": "0.1",
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "css": ["/styles/extensionUI.css"],
-            "js": ["/scripts/userInterface.js"],
-            "all_frames": true
-        }
-    ],
-    "background": {
-        "page": "/html/background.html",
-        /* "scripts": ["/scripts/background.js", "/scripts/popup.js", "/scripts/authentication.js"], */
-        "persistent": false
-    },
     "permissions": [
         "activeTab",
         "tabs"
@@ -23,6 +10,9 @@
         "default_icon": "/resources/icons8-musical-notes-64.png",
         "default_popup": "/html/popup.html"
     },
+    "web_accessible_resources": [
+        "https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"
+      ],
 
     "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self';"
 }

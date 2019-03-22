@@ -4,11 +4,7 @@ $window-height: 300px;
 $window-width: 200px;
 
 
-
-
 body{
-    top: 0px;
-    right: 0px;
     margin: 0px;
 }
 
@@ -17,21 +13,90 @@ body{
     width: $window-width;
     height: $window-height;
 
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
     
-    #app_name{
+    /* #app_name{
+        position: fixed;
+        left: 50%;
+        bottom: 0px;
+        transform: translate(-50%, -50%);
+        margin: 0 auto;
         color: $text-light;
-        text-align: center;
         font-family: 'Exo 2', sans-serif;
-    
-        grid-column-start: 1;
-        grid-column-end: 2;
-        grid-row-start: 1;
-        grid-row-end: 2;
+    } */
+}
+
+#loader{
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 }
+
+.extensionContainer #authForm {
+    position: fixed;
+    width: 200px;
+        left: 50%;
+        bottom: 0px;
+        transform: translate(-50%, -50%);
+        margin: 0 auto;
+    vertical-align: bottom;
+  }
+  
+  .button1 {
+    background-color: lightskyblue;
+    border: none;
+    margin: 3px;
+    width: 94px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+  }
+  
+  .button2 {
+    background-color: whitesmoke;
+    border: none;
+    margin: 3px;
+    width: 94px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+  }
+  
+  .logout {
+    background-color: lightskyblue;
+    border: none;
+    margin: 3px;
+    width: 194px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+  }
+  
+  .txtIn{
+    background-color: whitesmoke;
+    padding: 2px;
+    border: none;
+    margin: 3px;
+    width: 190px;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+  }
+
+@import 'search';
+
 
 
 
