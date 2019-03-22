@@ -10,10 +10,6 @@
             "all_frames": true
         }
     ],
-    "background": {
-        "page": "/html/background.html",
-        "persistent": false
-    },
     "permissions": [
         "activeTab",
         "tabs"

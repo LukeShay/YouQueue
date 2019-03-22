@@ -2,6 +2,10 @@
 var extInfo = {
   extensionOpened: false,
   currentUser: null,
+  containers: [
+    "searchContainer",
+    "splashContainer"
+  ],
   config: {
     apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
     authDomain: "youqueue-c89b9.firebaseapp.com",
@@ -17,16 +21,10 @@ extInfo.currentUser = firebase.auth().currentUser;
 
 window.onload = () => 
 {
-  var txtEmail = document.getElementById("email");
-    var txtPassword = document.getElementById("password");
-    var btnLogin = document.getElementById("login");
-    var btnSignup = document.getElementById("signup");
-    var btnLogout = document.getElementById("logout");
-  setPopupPage();
-  initializeAuth();
+  setContainer();
 }
 
-var setPopupPage = () =>
+var setContainer = () =>
 {
   if (extInfo.currentUser != null)
   {
@@ -34,22 +32,30 @@ var setPopupPage = () =>
   }
   else
   {
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("authForm").style.display = "block";
+    /* loadContainer("searchContainer"); */
   }
+}
 
-  /* chrome.runtime.sendMessage({message: "hello"}, () =>{}); */
+var loadContainer = (selectedContainer) =>
+{
+  extInfo.containers.forEach(element => {
+    if (element != selectedContainer)
+    {
+      document.getElementById(element).style.display = "none";
+    }
+    else
+    {
+      document.getElementById(element).style.display = "block";
+
+    }
+  });
 }
 
 
 
 
-// Initialization Events/Actions:
-/* console.log("background script running."); */
 
 
-//-----Event listeners:
-/* chrome.browserAction.setPopup({popup: "../html/popup.html"}, () => {}); */
+//-----Functions
 
-//Popup window opened
 
