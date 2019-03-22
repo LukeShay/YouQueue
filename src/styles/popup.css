@@ -118,4 +118,57 @@ body {
   z-index: 1;
 }
 
+#authForm {
+  position: fixed;
+  width: 200px;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  vertical-align: bottom;
+}
+#authForm #email {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+#authForm #password {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+#authForm button {
+  border: none;
+  margin: 3px;
+  width: 94px;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+#authForm #login #showLogin #signup {
+  background-color: lightskyblue;
+}
+#authForm #logout {
+  background-color: lightskyblue;
+  width: 194px;
+}
+#authForm #cancel #showSignup {
+  background-color: white;
+}
+#authForm input {
+  background-color: whitesmoke;
+  padding: 2px;
+  border: none;
+  margin: 3px;
+  width: 190px;
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
 /*# sourceMappingURL=popup.css.map */
