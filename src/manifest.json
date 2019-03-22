@@ -2,14 +2,6 @@
     "manifest_version": 2,
     "name": "YouQueue",
     "version": "0.1",
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "css": ["/styles/extensionUI.css"],
-            "js": ["/scripts/userInterface.js"],
-            "all_frames": true
-        }
-    ],
     "permissions": [
         "activeTab",
         "tabs"
