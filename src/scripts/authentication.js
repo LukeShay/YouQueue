@@ -69,22 +69,11 @@ firebase.initializeApp(config); */
 var firestore = firebase.firestore();
 
 showSignIn.addEventListener('click', e => {
-    authForm.removeChild(showSignIn)
-    authForm.removeChild(showSignUp);
-    authForm.appendChild(txtEmail);
-    authForm.appendChild(txtPassword);
-    authForm.appendChild(btnLogin);
-    authForm.appendChild(cancel);
+
 });
 
 showSignUp.addEventListener('click', e => {
-    authForm.removeChild(showSignIn)
-    authForm.removeChild(showSignUp);
-    authForm.appendChild(txtName);
-    authForm.appendChild(txtEmail);
-    authForm.appendChild(txtPassword);
-    authForm.appendChild(btnSignup);
-    authForm.appendChild(cancel);
+
 });
 
 cancel.addEventListener('click', e => {
@@ -93,7 +82,7 @@ cancel.addEventListener('click', e => {
 });
 
 // Add login event
-btnLogin.addEventListener('click', e => {
+document.getElementById("login").addEventListener('click', e => {
     const email = txtEmail.value;
     const pass = txtPassword.value;
     const auth = firebase.auth();
@@ -126,7 +115,7 @@ btnLogin.addEventListener('click', e => {
     });
 });
 
-btnSignup.addEventListener('click', e => {
+document.getElementById("signup").addEventListener('click', e => {
     const email = txtEmail.value;
     const pass = txtPassword.value;
     const auth = firebase.auth();
@@ -159,7 +148,7 @@ btnSignup.addEventListener('click', e => {
     }
 });
 
-btnLogout.addEventListener('click', e => {
+document.getElementById("logout").addEventListener('click', e => {
     firebase.auth().signOut();
     document.getElementById("invalid").innerHTML = "";
 });
@@ -184,25 +173,25 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 });
 
 function removeForm() {
-    if (document.getElementById("email")) authForm.removeChild(txtEmail);
-    if (document.getElementById("password")) authForm.removeChild(txtPassword);
-    if (document.getElementById("signup")) authForm.removeChild(btnSignup);
-    if (document.getElementById("login")) authForm.removeChild(btnLogin);
-    if (document.getElementById("cancel")) authForm.removeChild(cancel);
-    if (document.getElementById("name")) authForm.removeChild(txtName);
-    document.getElementById("invalid").innerHTML = "";
+    // if (document.getElementById("email")) authForm.removeChild(txtEmail);
+    // if (document.getElementById("password")) authForm.removeChild(txtPassword);
+    // if (document.getElementById("signup")) authForm.removeChild(btnSignup);
+    // if (document.getElementById("login")) authForm.removeChild(btnLogin);
+    // if (document.getElementById("cancel")) authForm.removeChild(cancel);
+    // if (document.getElementById("name")) authForm.removeChild(txtName);
+    // document.getElementById("invalid").innerHTML = "";
 }
 
 function notLoggedIn() {
-    if (document.getElementById("logout")) authForm.removeChild(logout);
-    authForm.appendChild(showSignIn);
-    authForm.appendChild(showSignUp);
+    // if (document.getElementById("logout")) authForm.removeChild(logout);
+    // authForm.appendChild(showSignIn);
+    // authForm.appendChild(showSignUp);
 }
 
 function loggedIn() {
-    if (document.getElementById("showSignIn")) authForm.removeChild(showSignIn);
-    if (document.getElementById("showSignUp")) authForm.removeChild(showSignUp);
-    authForm.appendChild(btnLogout);
+    // if (document.getElementById("showSignIn")) authForm.removeChild(showSignIn);
+    // if (document.getElementById("showSignUp")) authForm.removeChild(showSignUp);
+    // authForm.appendChild(btnLogout);
 }
 
 function emailCheck(email) {

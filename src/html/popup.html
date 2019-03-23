@@ -10,9 +10,12 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
     <script src="../scripts/popup.js"></script>
     <script src="../scripts/search.js"></script>
+<<<<<<< HEAD
+=======
     
     
     <!-- <script src="../scripts/authentication.js"></script> -->
+>>>>>>> a0ed666b6b046732cad9546d2eb1faa4602c397f
 </head>
 <body>
     <div id="extensionContainer" class="extensionContainer">
@@ -23,7 +26,18 @@
         <div id="searchContainer">
             <input id="searchBox" type="text" placeholder="Search..."  />
         </div>
-        <div id="authContainer"></div>
+        <div id="authContainer">
+                <input type="text" id="name" placeholder="Name"></input>
+                <input type="text" id="email" placeholder="Email"></input>
+                <input type="password" id="password" placeholder="Password"></input>
+                <button id="showSignIn">Sign In</button>
+                <button id="showSignUp">Sign Up</button>
+                <button id="login">Log In</button>
+                <button id="signup">Sign Up</button>
+                <button id="logout">Log Out</button>
+                <button id="cancel">Cancel</button>
+            <div id="invalid"></div>
+        </div>
     </div>
     
     <script src="../scripts/authentication.js"></script>
