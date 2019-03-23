@@ -23,6 +23,7 @@ extInfo.currentUser = firebase.auth().currentUser;
 window.onload = () => 
 {
   setContainer();
+  addSearchListener();
 }
 
 
@@ -54,8 +55,8 @@ var setContainer = () =>
   }
   else
   {
-    loadContainer("authContainer");
     // Show login page
+    loadContainer("searchContainer");
   }
 }
 

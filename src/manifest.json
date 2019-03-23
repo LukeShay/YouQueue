@@ -4,7 +4,8 @@
     "version": "0.1",
     "permissions": [
         "activeTab",
-        "tabs"
+        "tabs",
+        "https://developers.google.com/"
     ],
     "browser_action": {
         "default_icon": "/resources/icons8-musical-notes-64.png",
