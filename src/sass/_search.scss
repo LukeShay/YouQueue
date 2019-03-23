@@ -4,9 +4,15 @@
     grid-template-rows: 50px, auto, 50px;
 
     #searchBox{
+        background-color: white;
+        background-image: url('../resources/iconfinder_icon-111-search_314478.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        padding: 0px 0px 0px 30px;
+
         border-radius: 5px;
         border: none;
-        width: 90%;
+        width: 80%;
         height: 25px;
         position: fixed;
         transform: translate(-50%, -50%);
@@ -15,15 +21,5 @@
         z-index: 0;
         
         
-    }
-
-    #searchIcon{
-        width: 20px;
-        height: 20px;
-        position: fixed;
-        left: 22px;
-        top: 31px;
-        transform: translate(-50%, -50%);
-        z-index: 1;
     }
 }

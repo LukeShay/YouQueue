@@ -4,7 +4,8 @@ var extInfo = {
   currentUser: null,
   containers: [
     "searchContainer",
-    "splashContainer"
+    "splashContainer",
+    "authContainer"
   ],
   config: {
     apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
@@ -24,15 +25,37 @@ window.onload = () =>
   setContainer();
 }
 
+
+
+/* Main view controller:
+  - View prcedence 
+    1. Sign-Up/Sign-In Page
+      -> based on user authentication status
+    2. User application page
+      -> includes search elements
+      -> includes active playlist
+      -> includes logout element
+    3. User settings page?
+*/
 var setContainer = () =>
 {
   if (extInfo.currentUser != null)
   {
-
+    /* Check user data
+        - Has active/favorited/recent/saved playlist?
+          - Show active/favorited/recent/saved playlist
+          - Show search elements
+          - Show logout button
+        - Else:
+          - Show search elements
+          - Show create playlist
+          - SHow logout button
+    */  
   }
   else
   {
-    /* loadContainer("searchContainer"); */
+    loadContainer("authContainer");
+    // Show login page
   }
 }
 
