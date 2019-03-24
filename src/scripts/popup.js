@@ -1,4 +1,3 @@
-
 var extInfo = {
   extensionOpened: false,
   currentUser: null,
@@ -20,8 +19,7 @@ var extInfo = {
 firebase.initializeApp(extInfo.config);
 extInfo.currentUser = firebase.auth().currentUser;
 
-window.onload = () => 
-{
+window.onload = () => {
   setContainer();
   addSearchListener();
 }
@@ -38,10 +36,8 @@ window.onload = () =>
       -> includes logout element
     3. User settings page?
 */
-var setContainer = () =>
-{
-  if (extInfo.currentUser != null)
-  {
+var setContainer = () => {
+  if (extInfo.currentUser != null) {
     /* Check user data
         - Has active/favorited/recent/saved playlist?
           - Show active/favorited/recent/saved playlist
@@ -51,25 +47,19 @@ var setContainer = () =>
           - Show search elements
           - Show create playlist
           - SHow logout button
-    */  
-  }
-  else
-  {
+    */
+  } else {
     // Show login page
-    loadContainer("searchContainer");
+    loadContainer("authContainer");
   }
 }
 
-var loadContainer = (selectedContainer) =>
-{
+var loadContainer = (selectedContainer) => {
   extInfo.containers.forEach(element => {
-    if (element != selectedContainer)
-    {
+    if (element != selectedContainer) {
       document.getElementById(element).style.display = "none";
-    }
-    else
-    {
-      document.getElementById(element).style.display = "block";
+    } else {
+      document.getElementById(element).style.display = "grid";
 
     }
   });
@@ -81,5 +71,3 @@ var loadContainer = (selectedContainer) =>
 
 
 //-----Functions
-
-
