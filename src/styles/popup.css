@@ -4,8 +4,8 @@ body {
 
 .extensionContainer {
   background-color: #36454f;
-  width: 200px;
-  height: 300px;
+  width: 600px;
+  height: 400px;
 }
 .extensionContainer #app_name {
   text-align: center;
@@ -52,8 +52,16 @@ body {
   top: 30px;
   z-index: 0;
 }
+#searchContainer #player {
+  width: 480px;
+  height: 270px;
+  position: fixed;
+  transform: translate(13%, -50%);
+  bottom: 50%;
+  top: 50%;
+}
 
-#authForm {
+#authContainer {
   position: fixed;
   width: 200px;
   left: 50%;
@@ -62,19 +70,19 @@ body {
   margin: 0 auto;
   vertical-align: bottom;
 }
-#authForm #email {
+#authContainer #email {
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
 }
-#authForm #password {
+#authContainer #password {
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 3;
 }
-#authForm button {
+#authContainer button {
   border: none;
   margin: 3px;
   width: 94px;
@@ -84,17 +92,17 @@ body {
   display: inline-block;
   font-size: 12px;
 }
-#authForm #login #showLogin #signup {
+#authContainer #login #showLogin #signup {
   background-color: lightskyblue;
 }
-#authForm #logout {
+#authContainer #logout {
   background-color: lightskyblue;
   width: 194px;
 }
-#authForm #cancel #showSignup {
+#authContainer #cancel #showSignup {
   background-color: white;
 }
-#authForm input {
+#authContainer input {
   background-color: whitesmoke;
   padding: 2px;
   border: none;

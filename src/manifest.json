@@ -5,15 +5,15 @@
     "permissions": [
         "activeTab",
         "tabs",
-        "https://developers.google.com/"
+        "https://apis.google.com/"
     ],
     "browser_action": {
         "default_icon": "/resources/icons8-musical-notes-64.png",
         "default_popup": "/html/popup.html"
     },
     "web_accessible_resources": [
-        "https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"
+        "https://www.youtube.com"
       ],
 
-    "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self';"
+    "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com/ https://www.youtube.com https://s.ytimg.com; object-src 'self';"
 }

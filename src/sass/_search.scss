@@ -19,7 +19,15 @@
         left: 50%;
         top: 30px;
         z-index: 0;
-        
-        
+    }
+
+    #player{
+        width: 480px;
+        height: 270px;
+        position: fixed;
+        transform: translate(13%, -50%);
+        bottom: 50%;
+        top: 50%;
+
     }
 }

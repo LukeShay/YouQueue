@@ -20,6 +20,7 @@ var extInfo = {
 firebase.initializeApp(extInfo.config);
 extInfo.currentUser = firebase.auth().currentUser;
 
+
 window.onload = () => 
 {
   setContainer();
@@ -42,6 +43,7 @@ var setContainer = () =>
 {
   if (extInfo.currentUser != null)
   {
+    loadContainer("searchContainer");
     /* Check user data
         - Has active/favorited/recent/saved playlist?
           - Show active/favorited/recent/saved playlist
@@ -56,7 +58,7 @@ var setContainer = () =>
   else
   {
     // Show login page
-    loadContainer("searchContainer");
+    loadContainer("searchContainer");//<----Change this manually during development to change the container shown (unless you're logged in)
   }
 }
 
