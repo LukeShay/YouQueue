@@ -62,56 +62,91 @@ body {
 }
 
 #authContainer {
-  position: fixed;
+  display: grid;
+  grid-gap: 0px 4px;
+  grid-template-columns: 97px 97px;
+  grid-template-rows: 26px 26px 26px 26px auto;
+  justify-content: center;
+  align-items: center;
   width: 200px;
-  left: 50%;
-  bottom: 0px;
-  transform: translate(-50%, -50%);
-  margin: 0 auto;
-  vertical-align: bottom;
-}
-#authContainer #email {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-}
-#authContainer #password {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
 }
 #authContainer button {
   border: none;
-  margin: 3px;
-  width: 94px;
   color: black;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 12px;
+  height: 20px;
 }
-#authContainer #login #showLogin #signup {
+#authContainer #showSignIn {
+  grid-column: 1;
   background-color: lightskyblue;
+  width: 94px;
+  margin-left: 3px;
+}
+#authContainer #showSignUp {
+  grid-column: 2;
+  background-color: whitesmoke;
+  width: 94px;
+}
+#authContainer #login {
+  grid-row: 4;
+  grid-column: 1;
+  background-color: lightskyblue;
+  width: 94px;
+  margin-left: 3px;
+}
+#authContainer #signup {
+  grid-row: 4;
+  grid-column: 1;
+  background-color: lightskyblue;
+  width: 94px;
+  margin-left: 3px;
 }
 #authContainer #logout {
   background-color: lightskyblue;
   width: 194px;
+  margin-left: 3px;
 }
-#authContainer #cancel #showSignup {
-  background-color: white;
+#authContainer #cancel {
+  grid-row: 4;
+  grid-column: 2;
+  background-color: whitesmoke;
+  width: 94px;
 }
 #authContainer input {
-  background-color: whitesmoke;
+  background-color: white;
   padding: 2px;
   border: none;
   margin: 3px;
-  width: 190px;
+  width: 188px;
   color: black;
   text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
+  font-size: 14px;
+}
+#authContainer #name {
+  grid-row: 1;
+  grid-column: 1;
+}
+#authContainer #email {
+  grid-row: 2;
+  grid-column: 1;
+}
+#authContainer #password {
+  grid-row: 3;
+  grid-column: 1;
+}
+#authContainer #msg {
+  grid-row: 5;
+  margin: 0;
+  padding-left: 20px;
+  padding-right: 6px;
+  padding-bottom: 2px;
+  padding-top: 0px;
+  width: 188px;
+  color: red;
+  position: absolute;
+  bottom: 104px;
 }
 
 /*# sourceMappingURL=popup.css.map */

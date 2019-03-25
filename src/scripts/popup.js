@@ -1,4 +1,3 @@
-
 var extInfo = {
   extensionOpened: false,
   currentUser: null,
@@ -53,25 +52,19 @@ var setContainer = () =>
           - Show search elements
           - Show create playlist
           - SHow logout button
-    */  
-  }
-  else
-  {
+    */
+  } else {
     // Show login page
     loadContainer("searchContainer");//<----Change this manually during development to change the container shown (unless you're logged in)
   }
 }
 
-var loadContainer = (selectedContainer) =>
-{
+var loadContainer = (selectedContainer) => {
   extInfo.containers.forEach(element => {
-    if (element != selectedContainer)
-    {
+    if (element != selectedContainer) {
       document.getElementById(element).style.display = "none";
-    }
-    else
-    {
-      document.getElementById(element).style.display = "block";
+    } else {
+      document.getElementById(element).style.display = "grid";
 
     }
   });
@@ -83,5 +76,3 @@ var loadContainer = (selectedContainer) =>
 
 
 //-----Functions
-
-
