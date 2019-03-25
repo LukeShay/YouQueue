@@ -35,16 +35,17 @@ var APISearch = (searchTerm) =>
     Http.responseType = 'json';
     Http.open("GET", url, true);
     Http.send();
-    Http.onload =(e)=>{
-    var videoID = Http.response.items[2].id.videoId;
-    console.log(Http.response);
-    currentVideo = videoID;
-      
-    player.loadVideoById({videoId: videoID,
-      startSeconds:0,
-      endSeconds:0,
-      origin: "http://www.youtube.com"
-    });
+    Http.onload =(e)=>
+    {
+      var videoID = Http.response.items[2].id.videoId;
+      console.log(Http.response);
+      currentVideo = videoID;
+        
+      player.loadVideoById({videoId: videoID,
+        startSeconds:0,
+        endSeconds:0,
+        origin: "http://www.youtube.com"
+      });
     
     };
 }
