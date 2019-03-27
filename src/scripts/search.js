@@ -1,3 +1,6 @@
+const ytdl = require('ytdl-core');
+
+
 var searchParams = {
     apiKey : "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
     previousInput : null,
@@ -37,7 +40,7 @@ var APISearch = (searchTerm) =>
     Http.send();
     Http.onload =(e)=>
     {
-      var videoID = Http.response.items[2].id.videoId;
+      var videoID = Http.response.items[0].id.videoId;
       console.log(Http.response);
       currentVideo = videoID;
         
