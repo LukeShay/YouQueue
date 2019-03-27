@@ -19,10 +19,9 @@ firebase.initializeApp(extInfo.config);
 extInfo.currentUser = firebase.auth().currentUser;
 
 
-window.onload = () => 
-{
+window.onload = () => {
   setContainer();
-  /* addSearchListener(); */
+  addSearchListener();
 }
 
 
@@ -37,10 +36,8 @@ window.onload = () =>
       -> includes logout element
     3. User settings page?
 */
-var setContainer = () =>
-{
-  if (extInfo.currentUser != null)
-  {
+var setContainer = () => {
+  if (extInfo.currentUser != null) {
     loadContainer("searchContainer");
     /* Check user data
         - Has active/favorited/recent/saved playlist?
@@ -54,7 +51,7 @@ var setContainer = () =>
     */
   } else {
     // Show login page
-    loadContainer("searchContainer");//<----Change this manually during development to change the container shown (unless you're logged in)
+    loadContainer("searchContainer"); //<----Change this manually during development to change the container shown (unless you're logged in)
   }
 }
 
