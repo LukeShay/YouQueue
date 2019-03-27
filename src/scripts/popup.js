@@ -21,7 +21,7 @@ extInfo.currentUser = firebase.auth().currentUser;
 
 window.onload = () => {
   setContainer();
-  addSearchListener();
+  addSearchListener(); 
 }
 
 
