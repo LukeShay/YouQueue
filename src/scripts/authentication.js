@@ -116,10 +116,12 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
     createUDB();
     loggedIn();
+    console.log(getNamesOfQueues());
 
   } else {
     console.log("Not logged in");
     notLoggedIn();
+    console.log(getNamesOfQueues());
     
   }
 });
