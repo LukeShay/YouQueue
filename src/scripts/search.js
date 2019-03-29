@@ -1,6 +1,3 @@
-const ytdl = require('ytdl-core');
-
-
 var searchParams = {
     apiKey : "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
     previousInput : null,

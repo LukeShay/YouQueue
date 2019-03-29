@@ -63,41 +63,41 @@ body {
 
 #authContainer {
   display: grid;
-  grid-gap: 0px 4px;
+  grid-gap: 0px 6px;
   grid-template-columns: 97px 97px;
-  grid-template-rows: 26px 26px 26px 26px auto;
+  grid-template-rows: repeat(6, 30px) auto;
   justify-content: center;
   align-items: center;
-  width: 200px;
-}
-#authContainer button {
-  border: none;
-  color: black;
-  text-align: center;
-  text-decoration: none;
-  font-size: 12px;
-  height: 20px;
+  font-weight: bold button;
+  font-weight-border: none;
+  font-weight-color: black;
+  font-weight-text-align: center;
+  font-weight-text-decoration: none;
+  font-weight-font-size: 14px;
+  font-weight-height: 20px;
 }
 #authContainer #showSignIn {
+  grid-row: 2;
   grid-column: 1;
   background-color: lightskyblue;
   width: 94px;
   margin-left: 3px;
 }
 #authContainer #showSignUp {
+  grid-row: 2;
   grid-column: 2;
   background-color: whitesmoke;
   width: 94px;
 }
 #authContainer #login {
-  grid-row: 4;
+  grid-row: 6;
   grid-column: 1;
   background-color: lightskyblue;
   width: 94px;
   margin-left: 3px;
 }
 #authContainer #signup {
-  grid-row: 4;
+  grid-row: 6;
   grid-column: 1;
   background-color: lightskyblue;
   width: 94px;
@@ -109,7 +109,7 @@ body {
   margin-left: 3px;
 }
 #authContainer #cancel {
-  grid-row: 4;
+  grid-row: 6;
   grid-column: 2;
   background-color: whitesmoke;
   width: 94px;
@@ -125,28 +125,28 @@ body {
   font-size: 14px;
 }
 #authContainer #name {
-  grid-row: 1;
-  grid-column: 1;
-}
-#authContainer #email {
-  grid-row: 2;
-  grid-column: 1;
-}
-#authContainer #password {
   grid-row: 3;
   grid-column: 1;
 }
-#authContainer #msg {
+#authContainer #email {
+  grid-row: 4;
+  grid-column: 1;
+}
+#authContainer #password {
   grid-row: 5;
+  grid-column: 1;
+}
+#authContainer #msg {
+  grid-row: 7;
+  grid-column: 1;
   margin: 0;
   padding-left: 20px;
   padding-right: 6px;
-  padding-bottom: 2px;
-  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-top: 6px;
   width: 188px;
   color: red;
-  position: absolute;
-  bottom: 104px;
+  font-size: 14px;
 }
 
 /*# sourceMappingURL=popup.css.map */

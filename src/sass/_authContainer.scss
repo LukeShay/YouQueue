@@ -1,101 +1,106 @@
+$start-row: 3;
+$show-row: 2;
+$num-rows: $start-row + 4;
+$row-height: 30px;
+
 #authContainer {
-    display: grid;
-    grid-gap: 0px 4px;
-    grid-template-columns: 97px 97px;
-    grid-template-rows: 26px 26px 26px 26px auto;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    
-    button {
-        border: none;
-        color: black;
-        text-align: center;
-        text-decoration: none;
-        font-size: 12px;
-        height: 20px;
-    }
+  display: grid;
+  grid-gap: 0px 6px;
+  grid-template-columns: 97px 97px;
+  grid-template-rows: repeat($num-rows - 1, $row-height) auto;
+  //justify-content: center;
+  //align-items: center;
+  font-weight: bold;
 
-    #showSignIn {
-        grid-column: 1;
-        background-color: lightskyblue;
-        width: 94px;
-        margin-left: 3px;
-    }
+  button {
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    height: 20px;
+  }
 
-    #showSignUp {
-        grid-column: 2;
-        background-color: whitesmoke;
-        width: 94px;
-        //margin-left: 3px;
-    }
+  #showSignIn {
+    grid-row: $show-row;
+    grid-column: 1;
+    background-color: lightskyblue;
+    width: 94px;
+    margin-left: 3px;
+  }
 
-    #login {
-        grid-row: 4;
-        grid-column: 1;
-        background-color: lightskyblue;
-        width: 94px;
-        margin-left: 3px;
-    }
+  #showSignUp {
+    grid-row: $show-row;
+    grid-column: 2;
+    background-color: whitesmoke;
+    width: 94px;
+  }
 
-    #signup {
-        grid-row: 4;
-        grid-column: 1;
-        background-color: lightskyblue;
-        width: 94px;
-        margin-left: 3px;
-    }
+  #login {
+    grid-row: $start-row + 3;
+    grid-column: 1;
+    background-color: lightskyblue;
+    width: 94px;
+    margin-left: 3px;
+  }
 
-    #logout {
-        background-color: lightskyblue;
-        width: 194px;
-        margin-left: 3px;
-    }
+  #signup {
+    grid-row: $start-row + 3;
+    grid-column: 1;
+    background-color: lightskyblue;
+    width: 94px;
+    margin-left: 3px;
+  }
 
-    #cancel {
-        grid-row: 4;
-        grid-column: 2;
-        background-color: whitesmoke;
-        width: 94px;
-        //margin-left: 3px;
-    }
+  #logout {
+    background-color: lightskyblue;
+    width: 194px;
+    margin-left: 3px;
+  }
 
-    input {
-        background-color: white;
-        padding: 2px;
-        border: none;
-        margin: 3px;
-        width: 188px;
-        color: black;
-        text-decoration: none;
-        font-size: 14px;
-    }
+  #cancel {
+    grid-row: $start-row + 3;
+    grid-column: 2;
+    background-color: whitesmoke;
+    width: 94px;
+  }
 
-    #name{
-        grid-row: 1;
-        grid-column: 1;
-    }
+  input {
+    background-color: white;
+    padding: 2px;
+    border: none;
+    margin: 3px;
+    width: 188px;
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+  }
 
-    #email{
-        grid-row: 2;
-        grid-column: 1;
-    }
+  #name {
+    grid-row: $start-row;
+    grid-column: 1;
+  }
 
-    #password{
-        grid-row: 3;
-        grid-column: 1;
-    }
+  #email {
+    grid-row: $start-row + 1;
+    grid-column: 1;
+  }
 
-    #msg {
-        grid-row: 5;
-        margin: 0;
-        padding-left: 20px;
-        padding-right: 6px;
-        padding-bottom: 2px;
-        padding-top: 0px;
-        width: 188px;
-        color: red;
-        position: absolute;
-        bottom: 104px;
-    }
+  #password {
+    grid-row: $start-row + 2;
+    grid-column: 1;
+  }
+
+  #msg {
+    grid-row: $num-rows;
+    grid-column: 1;
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 6px;
+    padding-bottom: 0px;
+    padding-top: 6px;
+    width: 188px;
+    color: red;
+    font-size: 14px;
+  }
 }
