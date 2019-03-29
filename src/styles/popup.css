@@ -5,7 +5,7 @@ body {
 .extensionContainer {
   background-color: #36454f;
   width: 600px;
-  height: 400px;
+  height: 1000px;
 }
 .extensionContainer #app_name {
   text-align: center;
@@ -34,7 +34,7 @@ body {
 #searchContainer {
   display: grid;
   grid-template-columns: 30px, auto, 30px;
-  grid-template-rows: 50px, auto, 50px;
+  grid-template-rows: 50px, auto, 50px, 50px;
 }
 #searchContainer #searchBox {
   background-color: white;
@@ -57,8 +57,13 @@ body {
   height: 270px;
   position: fixed;
   transform: translate(13%, -50%);
-  bottom: 50%;
-  top: 50%;
+  top: 35%;
+}
+#searchContainer #queue {
+  width: 600px;
+  position: fixed;
+  top: 60%;
+  text-align: center;
 }
 
 #authContainer {
@@ -66,15 +71,15 @@ body {
   grid-gap: 0px 6px;
   grid-template-columns: 97px 97px;
   grid-template-rows: repeat(6, 30px) auto;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold button;
-  font-weight-border: none;
-  font-weight-color: black;
-  font-weight-text-align: center;
-  font-weight-text-decoration: none;
-  font-weight-font-size: 14px;
-  font-weight-height: 20px;
+  font-weight: bold;
+}
+#authContainer button {
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  height: 20px;
 }
 #authContainer #showSignIn {
   grid-row: 2;
