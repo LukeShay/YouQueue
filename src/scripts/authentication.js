@@ -114,14 +114,21 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     user = firebaseUser;
     uid = firebaseUser.uid;
 
+    var obj = {};
+
     createUDB();
     loggedIn();
-    console.log(getNamesOfQueues());
+    getNamesOfQueues(obj);
+
+    setTimeout(() => {
+    }, 3000);
+    
+    console.log(obj);
+    
 
   } else {
     console.log("Not logged in");
     notLoggedIn();
-    console.log(getNamesOfQueues());
     
   }
 });
@@ -137,7 +144,7 @@ function loggedIn() {
   clearContainer();
 
   document.getElementById("logout").innerHTML =
-    "Log Out " + firebase.auth().currentUser.displayName;
+    "Log Out"; // " + firebase.auth().currentUser.displayName;
   document.getElementById("logout").style.display = "block";
 }
 

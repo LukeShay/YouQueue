@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "YouQueue",
   "version": "0.1",
-  "permissions": ["activeTab", "tabs", "https://apis.google.com/"],
+  "permissions": ["activeTab", "tabs", "https://apis.google.com/", "storage"],
   "browser_action": {
     "default_icon": "/resources/icons8-musical-notes-64.png",
     "default_popup": "/html/popup.html"

@@ -1,10 +1,6 @@
 var extInfo = {
   currentUser: null,
-  containers: [
-    "searchContainer",
-    "splashContainer",
-    "authContainer"
-  ],
+  containers: ["searchContainer", "splashContainer", "authContainer"],
   config: {
     apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
     authDomain: "youqueue-c89b9.firebaseapp.com",
@@ -13,18 +9,16 @@ var extInfo = {
     storageBucket: "youqueue-c89b9.appspot.com",
     messagingSenderId: "420416303698"
   }
-}
+};
 
 firebase.initializeApp(extInfo.config);
 extInfo.currentUser = firebase.auth().currentUser;
 
-
 window.onload = () => {
   setContainer();
-  addSearchListener(); 
-}
-
-
+  addSearchListener();
+  addQueueToSearch();
+};
 
 /* Main view controller:
   - View prcedence 
@@ -53,22 +47,24 @@ var setContainer = () => {
     // Show login page
     loadContainer("searchContainer"); //<----Change this manually during development to change the container shown (unless you're logged in)
   }
-}
+};
 
-var loadContainer = (selectedContainer) => {
+var loadContainer = selectedContainer => {
   extInfo.containers.forEach(element => {
     if (element != selectedContainer) {
       document.getElementById(element).style.display = "none";
     } else {
       document.getElementById(element).style.display = "grid";
-
     }
   });
-}
+};
 
-
-
-
-
+var addQueueToSearch = () => {
+  chrome.storage.sync.get(null, result => {
+    Object.values(result).forEach((obj, index) => {
+      document.getElementById("queue").innerHTML += Object.values(obj) + "<br>";
+    });
+  });
+};
 
 //-----Functions
