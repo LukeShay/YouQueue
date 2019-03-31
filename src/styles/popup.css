@@ -64,6 +64,7 @@ body {
   position: fixed;
   top: 60%;
   text-align: center;
+  color: white;
 }
 
 #authContainer {
@@ -71,6 +72,8 @@ body {
   grid-gap: 0px 6px;
   grid-template-columns: 97px 97px;
   grid-template-rows: repeat(6, 30px) auto;
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
 }
 #authContainer button {

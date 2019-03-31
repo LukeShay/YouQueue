@@ -5,7 +5,9 @@ var searchParams = {
   currentVideo: null
 };
 
-const queueJSONPath = "../resources/curQueue.json";
+
+//chrome.storage.sync.clear(); clears storage.
+
 var curQueue = {};
 
 var addSearchListener = () => {
@@ -18,6 +20,11 @@ var addSearchListener = () => {
 };
 
 var APISearch = searchTerm => {
+  chrome.storage.sync.get(null, result => {
+    curQueue = result;
+  });
+  console.log(curQueue);
+
   const Http = new XMLHttpRequest();
   const url =
     "https://www.googleapis.com/youtube/v3/search?" +
@@ -36,18 +43,21 @@ var APISearch = searchTerm => {
     var video = Http.response.items[2];
     var videoID = video.id.videoId;
 
-    curQueue[video.id.videoId] = video.snippet.title;
-    /* saveJSON(curQueue, queueJSONPath); */
+    var obj = {};
+    obj[videoID] = video.snippet.title;
+    curQueue[Object.values(curQueue).length] = obj;
 
     document.getElementById("queue").innerHTML = "";
 
-    Object.values(curQueue).forEach((value, index)=>{
-      document.getElementById("queue").innerHTML += value + "<br>";
+    Object.values(curQueue).forEach((obj, index) => {
+      document.getElementById("queue").innerHTML += Object.values(obj) + "<br>";
+    });
+
+    chrome.storage.sync.set(curQueue, () => {
+      console.log("Storage has been set to: ", curQueue);
     });
 
     currentVideo = video.id.videoId;
-
-    var msg = new Message("test", "test data", (response)=>{console.log(response);});
-    msg.sendMessage();
   };
 };
+

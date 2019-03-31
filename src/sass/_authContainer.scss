@@ -8,8 +8,8 @@ $row-height: 30px;
   grid-gap: 0px 6px;
   grid-template-columns: 97px 97px;
   grid-template-rows: repeat($num-rows - 1, $row-height) auto;
-  //justify-content: center;
-  //align-items: center;
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
 
   button {
