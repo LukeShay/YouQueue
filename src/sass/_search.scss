@@ -1,7 +1,7 @@
 #searchContainer{
     display: grid;
     grid-template-columns: 30px, auto, 30px;
-    grid-template-rows: 50px, auto, 50px;
+    grid-template-rows: 50px, auto, 50px, 50px;
 
     #searchBox{
         background-color: white;
@@ -26,8 +26,14 @@
         height: 270px;
         position: fixed;
         transform: translate(13%, -50%);
-        bottom: 50%;
-        top: 50%;
+        top: 35%;
 
+    }
+
+    #queue {
+        width: 600px;
+        position: fixed;
+        top: 60%;
+        text-align: center;
     }
 }

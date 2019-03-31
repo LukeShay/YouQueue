@@ -1,5 +1,7 @@
+const queueNameDB = "queues";
+
 function createUDB() {
-    firebase.firestore().doc(uid + "/blank").set({
+    firebase.firestore().doc(uid + "/" + queueNameDB).set({
         null: null
     });
     udb = firestore.collection(uid);
@@ -15,6 +17,7 @@ function createUDB() {
  */
 function newQueue(queueName, list) { // List must be an array like above
     var newQ = udb.doc(queueName); // Creates new queue
+    addToQueue(queueNameDB, [queueName]);
 
     var obj = {};
     var i = 0;
@@ -52,5 +55,20 @@ function addToQueue(queueName, list) { // List must be an array
         });
 
         q.update(obj);
+    });
+}
+
+/**
+ * Gets the names of all the queues and returns them as an array.
+ */
+function getNamesOfQueues(){
+    var arr = [];
+    var obj = {};
+
+    udb.doc(queueNameDB).get().then(doc => {
+        obj = doc.data();
+        arr = Object.values(obj);
+
+        console.log(arr);
     });
 }
