@@ -15,6 +15,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 console.log(`Background script recieved message of type (test).`);
                 sendRepsonse("Test message recieved. This is the response.");
                 break;
+            case "playAudio":
+                playAudio();
             default:
                 console.log(`Background script recieved message of type (${message.requestType}),`+
                             `which is not a recognized request.`);
@@ -24,3 +26,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
     }
     
 });
+
+
+var playAudio = (mp3Path) =>
+{
+    if (mp3Path === "")
+    {
+        mp3Path = "../resources/Adele - Hello.mp3";
+    }
+    document.write(`<audio id="player" src="${mp3Path}" >`);
+    document.getElementById('player').play();
+}

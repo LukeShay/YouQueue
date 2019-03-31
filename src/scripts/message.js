@@ -33,10 +33,13 @@ class Message
 /*
 Example usage:
     var myMessage = new Message();
-    message.requestType = "test";
-    message.data = data;
-    message.callback = (response) => {console.log(response);};
+    myMessage.requestType = "test";
+    myMessage.data = data;
+    myMessage.callback = (response) => {console.log(response);};
+    myMessage.sendMessage();
+    
 
     OR
     var msg = new Message("test", "test data", (response)=>{console.log(response);});
+    msg.sendMessage();
 */
