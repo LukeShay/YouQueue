@@ -1,6 +1,7 @@
 var name;
 var uid;
 var udb;
+var queues = {};
 
 const elements = [
   "name",
@@ -44,7 +45,6 @@ document.getElementById("login").addEventListener("click", e => {
 
     if (e.code === "auth/user-not-found") {
       document.getElementById("invalid").innerHTML = "User not found";
-
     } else if (e.code === "auth/wrong-password") {
       var s;
       if (passwordCheck(pass)) {
@@ -53,13 +53,10 @@ document.getElementById("login").addEventListener("click", e => {
         s = "Wrong password";
       }
       document.getElementById("invalid").innerHTML = s;
-
     } else if (e.code === "auth/invalid-email") {
       document.getElementById("invalid").innerHTML = "Invalid email";
-
     } else {
       document.getElementById("invalid").innerHTML = "Error";
-
     }
   });
 });
@@ -87,19 +84,16 @@ document.getElementById("signup").addEventListener("click", e => {
       });
   } else if (!e && p) {
     document.getElementById("msg").innerHTML = "Invalid email";
-
   } else if (!p && e) {
     document.getElementById("msg").innerHTML =
       "<li>Invalid password.</li>" +
       "<li>Must be 8 characters long.</li>" +
       "<li>Must contain at least one letter and one number.</li>";
-
   } else {
     document.getElementById("msg").innerHTML =
       "<li>Invalid email and password.</li>" +
       "<li>Password must be 8 characters long.</li>" +
       "<li>Password must contain at least one letter and one number.</li>";
-
   }
 });
 
@@ -114,22 +108,22 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     user = firebaseUser;
     uid = firebaseUser.uid;
 
-    var obj = {};
-
     createUDB();
     loggedIn();
-    getNamesOfQueues(obj);
 
-    setTimeout(() => {
-    }, 3000);
-    
-    console.log(obj);
-    
+    newQueue("queue1", {
+      0: { videoID: "title" },
+      1: { videoID: "title" },
+      2: { videoID: "title" }
+    });
+    newQueue("queue2", {});
+    newQueue("queue3", {});
+
+    getNamesOfQueues();
 
   } else {
     console.log("Not logged in");
     notLoggedIn();
-    
   }
 });
 
@@ -143,8 +137,7 @@ function notLoggedIn() {
 function loggedIn() {
   clearContainer();
 
-  document.getElementById("logout").innerHTML =
-    "Log Out"; // " + firebase.auth().currentUser.displayName;
+  document.getElementById("logout").innerHTML = "Log Out"; // " + firebase.auth().currentUser.displayName;
   document.getElementById("logout").style.display = "block";
 }
 
