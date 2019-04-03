@@ -111,7 +111,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     createUDB();
     loggedIn();
 
-    newQueue("queue1", {
+/*     newQueue("queue1", {
       0: { videoID: "title" },
       1: { videoID: "title" },
       2: { videoID: "title" }
@@ -119,7 +119,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     newQueue("queue2", {});
     newQueue("queue3", {});
 
-    getNamesOfQueues();
+    getNamesOfQueues(); */
 
   } else {
     console.log("Not logged in");
