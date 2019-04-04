@@ -31,7 +31,7 @@ window.onload = () => {
     3. User settings page?
 */
 var setContainer = () => {
-  if (extInfo.currentUser != null) {
+  if (!extInfo.currentUser) {
     loadContainer("searchContainer");
     /* Check user data
         - Has active/favorited/recent/saved playlist?
