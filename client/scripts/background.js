@@ -115,7 +115,3 @@ Object.shift = (obj) => {
   return ret;
 }
 
-    currentPlayer.play();
-
-}
-
