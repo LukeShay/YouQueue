@@ -7,6 +7,10 @@ queuedPlayer.id = "queuedPlayer";
 document.body.appendChild(currentPlayer);
 document.body.appendChild(queuedPlayer);
 
+console.log(currentPlayer.src);
+
+
+
 chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
 {
     if (!message.func === null)
@@ -21,7 +25,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 sendRepsonse("Test message recieved. This is the response.");
                 break;
             case "fetchAudio":
-                queueAudio(message.data, "current");
+                /* queueAudio(message.data, "current"); */
                 break;
             default:
                 console.log(`Background script recieved message of type (${message.requestType}),`+
@@ -42,8 +46,6 @@ var queueAudio = (videoID, option) =>
       ID: videoID
     }));
 
-
-    
     vidReq.onload = e =>
     {
         setTimeout(() => {
@@ -58,8 +60,22 @@ var queueAudio = (videoID, option) =>
             
         }, 2000);
     }
-
-    currentPlayer.play();
-
 }
+
+
+var manageQueue = () =>
+{
+    if (currentPlayer.src == "")
+    {
+        queueAudio("Q9hLcRU5wE4", "current");
+        currentPlayer.play();
+    }
+    else if (currentPlayer.paused)
+    {
+        currentPlayer.play();
+    }
+}
+
+/* manageQueue(); */
+
 
