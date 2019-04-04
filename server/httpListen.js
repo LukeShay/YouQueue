@@ -4,18 +4,21 @@ const fs = require('fs');
 const url = require('url');
 const path = require('path');
 const bodyParser = require('body-parser');
+const ffmpeg = require('fluent-ffmpeg');
 
 
 const app = express();
 
-app.use(express.static('public'));
 app.use(bodyParser.json()); // support json encoded bodies
+app.use(express.static('public'));
+
 
 app.post('/', function(req, res) {
-  var id = req.body.videoID;
+  var id = req.body.ID;
   
-  ytdl(`https://www.youtube.com/watch?v=YQHsXMglC9A`, {filter: ('audioonly')}).pipe(fs.createWriteStream(`public/test.mp3`));
-  var pathname = `${id}.mp3`;
+  ytdl(`https://www.youtube.com/watch?v=${id}`).pipe(fs.createWriteStream(`public/${id}.mp4`));
+  var pathname = `${id}.mp4`;
+  res.send("audio ready");
 
     /* fs.exists(pathname, function (exist) {
         if(!exist) {
@@ -44,16 +47,14 @@ app.post('/', function(req, res) {
           }
         });
     }); */
-
-  res.send();
 });
 
-app.get('/', (req, res) => {
+/* app.get('/', (req, res) => {
     var id = req.body;
     console.log(id);
     
     
-});
+}); */
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
 

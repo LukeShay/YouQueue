@@ -64,23 +64,12 @@ var APISearch = searchTerm => {
 
     currentVideo = video.id.videoId;
 
-
-
-    const vidReq = new XMLHttpRequest();
-    vidReq.open("POST", `http://localhost:3000/`);
-    vidReq.setRequestHeader('Content-Type', 'application/json');
-    vidReq.send(JSON.stringify({
-      videoID: currentVideo
-    }));
+    var msg = new Message();
+    msg.requestType = "fetchAudio";
+    msg.data = currentVideo;
+    msg.sendMessage();
 
     
-
-   /*  var vidElem = document.createElement('video');
-    vidElem.src = "http://localhost:3000/video.mp4";
-    vidElem.type = "video/mp4";
-    document.getElementById("searchContainer").appendChild(vidElem);
-
-    vidElem.play(); */
 
   };
 };
