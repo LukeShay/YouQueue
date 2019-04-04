@@ -7,10 +7,12 @@ var searchParams = {
   currentVideo: null
 };
 
-
-//chrome.storage.sync.clear(); clears storage.
+chrome.storage.sync.clear(()=>{
+  console.log("Storage cleared.");
+});
 
 var curQueue = {};
+var cur = "curQueueKey";
 
 var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
@@ -46,6 +48,7 @@ var APISearch = searchTerm => {
     var videoID = video.id.videoId;
 
     var obj = {};
+
     obj[videoID] = video.snippet.title;
     curQueue[Object.values(curQueue).length] = obj;
 
@@ -95,4 +98,3 @@ var APISearch = searchTerm => {
 
 
 } */
-

@@ -37,3 +37,37 @@ var playAudio = (mp3Path) =>
     document.write(`<audio id="player" src="${mp3Path}" >`);
     document.getElementById('player').play();
 }
+
+var nextSong = () => {
+  var next = {};
+  var queue = {};
+  var lastSongIndex;
+
+  chrome.storage.sync.get(null, result =>{
+    queue = result;
+  });
+
+  lastSongIndex = Object.keys(queue).length - 1;
+
+  next = Object.shift(obj);
+  console.log(next);
+
+  chrome.storage.sync.set(queue, () => {
+    console.log("Storage has been set to: ", queue);
+  })
+
+  chrome.storage.sync.remove([lastSongIndex + ""]);
+
+  return next;
+}
+
+Object.shift = (obj) => {
+  var ret = obj[0];
+
+  for(var i = 1; i < Object.keys(obj).length; i++){
+    obj[i-1] = obj[i];
+  }
+  obj[i] = null;
+
+  return ret;
+}
