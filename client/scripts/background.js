@@ -1,9 +1,14 @@
-/* document.write('<audio id="player" src="../resources/Adele - Hello.mp3" >');
-document.getElementById('player').play(); */
+var currentPlayer = document.createElement('video');
+currentPlayer.id = "currentPlayer";
+
+var queuedPlayer = document.createElement('video');
+queuedPlayer.id = "queuedPlayer";
+
+document.body.appendChild(currentPlayer);
+document.body.appendChild(queuedPlayer);
 
 chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
 {
-    console.log(message);
     if (!message.func === null)
     {
         message.func(message);
@@ -15,8 +20,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 console.log(`Background script recieved message of type (test).`);
                 sendRepsonse("Test message recieved. This is the response.");
                 break;
-            case "playAudio":
-                playAudio();
+            case "fetchAudio":
+                queueAudio(message.data, "current");
+                break;
             default:
                 console.log(`Background script recieved message of type (${message.requestType}),`+
                             `which is not a recognized request.`);
@@ -27,13 +33,33 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
     
 });
 
-
-var playAudio = (mp3Path) =>
+var queueAudio = (videoID, option) =>
 {
-    if (mp3Path === "")
+    const vidReq = new XMLHttpRequest();
+    vidReq.open("POST", `http://localhost:3000/`);
+    vidReq.setRequestHeader('Content-Type', 'application/json');
+    vidReq.send(JSON.stringify({
+      ID: videoID
+    }));
+
+
+    
+    vidReq.onload = e =>
     {
-        mp3Path = "../resources/Adele - Hello.mp3";
+        setTimeout(() => {
+            if (option === "current")
+            {
+                currentPlayer.src = `http://localhost:3000/${videoID}.mp4`;
+            }
+            if (option === "queued")
+            {
+                queuedPlayer.src = `http://localhost:3000/${videoID}.mp4`;
+            }
+            
+        }, 2000);
     }
-    document.write(`<audio id="player" src="${mp3Path}" >`);
-    document.getElementById('player').play();
+
+    currentPlayer.play();
+
 }
+
