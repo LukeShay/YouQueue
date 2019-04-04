@@ -45,7 +45,7 @@ var setContainer = () => {
     */
   } else {
     // Show login page
-    loadContainer("searchContainer"); //<----Change this manually during development to change the container shown (unless you're logged in)
+    loadContainer("authContainer"); //<----Change this manually during development to change the container shown (unless you're logged in)
   }
 };
 
