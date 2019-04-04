@@ -52,23 +52,24 @@ var queueAudio = (videoID, option) =>
             if (option === "current")
             {
                 currentPlayer.src = `http://localhost:3000/${videoID}.mp4`;
+                
             }
             if (option === "queued")
             {
                 queuedPlayer.src = `http://localhost:3000/${videoID}.mp4`;
             }
             
-        }, 2000);
+        }, 3000);
     }
 }
 
 
-var manageQueue = () =>
+var managePlayer = () =>
 {
     if (currentPlayer.src == "")
     {
-        queueAudio("Q9hLcRU5wE4", "current");
-        currentPlayer.play();
+        queueAudio("LbrvCyEoW0Q", "current");
+        currentPlayer.oncanplaythrough = () => {currentPlayer.play()};
     }
     else if (currentPlayer.paused)
     {
@@ -76,6 +77,6 @@ var manageQueue = () =>
     }
 }
 
-/* manageQueue(); */
+managePlayer();
 
 
