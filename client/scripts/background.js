@@ -34,10 +34,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 console.log(`Background script recieved message of type (${message.requestType}),`+
                             `which is not a recognized request.`);
                 break;
-
         }
     }
-    
 });
 
 var overrideAudio = (id) =>

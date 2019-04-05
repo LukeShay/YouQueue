@@ -83,19 +83,6 @@ var APISearch = searchTerm => {
     msg.data = currentVideo;
     msg.sendMessage();
 
+    return currentVideo;
   };
 };
-
-/* var getMP3 = () =>
-{
-  const req = new XMLHttpRequest();
-  const url = "cs319-016.misc.iastate.edu";
-  req.open("GET", url);
-  req.send();
-  req.onload = e =>
-  {
-    console.log(req.response);
-  }
-
-
-} */
