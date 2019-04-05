@@ -21,11 +21,23 @@
         </div>
         <div id="searchContainer">
             <input id="searchBox" type="text" placeholder="Search..."  />
+            <select id="containerSelector">
+                <option value="" selected disabled hidden>Navigation</option>
+                <option value="authContainer">Login</option>
+                <option value="searchContainer">Search</option>
+                <option value="queueContainer">View Queues</option>
+            </select>
             <div id="player"></div>
             <div id="queue"></div>
     
         </div>
         <div id="authContainer">
+                <select id="containerSelector">
+                    <option value="" selected disabled hidden>Navigation</option>
+                    <option value="authContainer">Login</option>
+                    <option value="searchContainer">Search</option>
+                    <option value="queue">View Queues</option>
+                </select>
                 <input type="text" id="name" placeholder="Name"></input>
                 <input type="text" id="email" placeholder="Email"></input>
                 <input type="password" id="password" placeholder="Password"></input>
