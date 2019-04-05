@@ -49,7 +49,7 @@ body {
   position: fixed;
   transform: translate(-50%, -50%);
   left: 50%;
-  top: 30px;
+  top: 50px;
   z-index: 0;
 }
 #searchContainer #player {
@@ -155,6 +155,21 @@ body {
   width: 188px;
   color: red;
   font-size: 14px;
+}
+
+#selectContainer #containerSelector {
+  background-image: url("../resources/icons8-musical-notes-64.png");
+  background-color: white;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 0px 0px 0px 30px;
+  border-radius: 5px;
+  width: 25%;
+  height: 25px;
+  position: fixed;
+  right: 3px;
+  top: 3px;
+  z-index: 0;
 }
 
 /*# sourceMappingURL=popup.css.map */

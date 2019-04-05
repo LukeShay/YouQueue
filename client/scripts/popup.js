@@ -15,29 +15,11 @@ firebase.initializeApp(extInfo.config);
 extInfo.currentUser = firebase.auth().currentUser;
 
 window.onload = () => {
-  setContainer();
+  loadContainer("searchContainer");
   addSearchListener();
   addQueueToSearch();
+  document.getElementById("containerSelector").style.display = "grid";
 };
-
-var cSelect = document.getElementById('containerSelect');
-cSelect.addEventListener('change', function() {
-  if(cSelect.value == "authContainer")
-    {
-      setContainer("authContainer");
-    }
-    if(cSelect.value == "searchContainer")
-    {
-    	setContainer("searchContainer");
-    }
-    /*
-    if(cSelect.value == "queueContainer")
-    {
-    		
-    }
-    */
-    console.log(cSelect.value);
-}, false);
 
 /* Main view controller:
   - View prcedence 
