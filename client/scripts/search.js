@@ -14,7 +14,7 @@ chrome.storage.sync.clear(()=>{
 var curQueue = {};
 var cur = "curQueueKey";
 
-var cSelect = document.getElementById('containerSelect');
+/* var cSelect = document.getElementById('containerSelect');
 cSelect.addEventListener('change', function() {
   if(cSelect.value == "authContainer")
     {
@@ -24,14 +24,9 @@ cSelect.addEventListener('change', function() {
     {
     	setContainer("searchContainer");
     }
-    /*
-    if(cSelect.value == "queueContainer")
-    {
-    		
-    }
-    */
+  
     console.log(cSelect.value);
-}, false);
+}, false); */
 
 var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
@@ -84,11 +79,9 @@ var APISearch = searchTerm => {
     currentVideo = video.id.videoId;
 
     var msg = new Message();
-    msg.requestType = "fetchAudio";
+    msg.requestType = "overrideAudio";
     msg.data = currentVideo;
     msg.sendMessage();
-
-    
 
   };
 };

@@ -1,14 +1,15 @@
-var currentPlayer = document.createElement('video');
-currentPlayer.id = "currentPlayer";
+var currentPlayer = 1;
+var songQueued = false;
+var songPlaying = false;
 
-var queuedPlayer = document.createElement('video');
-queuedPlayer.id = "queuedPlayer";
+var primaryPlayer = document.createElement('video');
+primaryPlayer.id = "primaryPlayer";
 
-document.body.appendChild(currentPlayer);
-document.body.appendChild(queuedPlayer);
+var secondaryPlayer = document.createElement('video');
+secondaryPlayer.id = "secondaryPlayer";
 
-console.log(currentPlayer.src);
-
+document.body.appendChild(primaryPlayer);
+document.body.appendChild(secondaryPlayer);
 
 
 chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
@@ -24,7 +25,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 console.log(`Background script recieved message of type (test).`);
                 sendRepsonse("Test message recieved. This is the response.");
                 break;
-            case "fetchAudio":
+            case "overrideAudio":
+                overrideAudio(message.data);
+                break;
+            case "queueChange":
+                playSearchedAudio();
+               /*  managePlayer(); */
                 /* queueAudio(message.data, "current"); */
                 break;
             default:
@@ -37,7 +43,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
     
 });
 
-var queueAudio = (videoID, option) =>
+var overrideAudio = (id) =>
+{
+    console.log("playing:" + id);
+    queueAudio(id);
+    primaryPlayer.oncanplaythrough = () => {primaryPlayer.play();}
+}
+
+
+var queueAudio = (videoID) =>
 {
     const vidReq = new XMLHttpRequest();
     vidReq.open("POST", `http://localhost:3000/`);
@@ -49,32 +63,84 @@ var queueAudio = (videoID, option) =>
     vidReq.onload = e =>
     {
         setTimeout(() => {
-            if (option === "current")
+            if (currentPlayer === 1)
             {
-                currentPlayer.src = `http://localhost:3000/${videoID}.mp4`;
-                
+                primaryPlayer.src = `http://localhost:3000/${videoID}.mp4`;
             }
-            if (option === "queued")
+            /* if (currentPlayer === 2)
             {
-                queuedPlayer.src = `http://localhost:3000/${videoID}.mp4`;
-            }
+                primary.src = `http://localhost:3000/${videoID}.mp4`;
+            } */
             
         }, 3000);
     }
 }
 
+var nextSong = () => {
+    var next = {};
+    var queue = [];
+    var lastSongIndex;
+  
+    chrome.storage.sync.get(null, result =>{
+      queue = result;
+    });
+
+    lastSongIndex = Object.keys(queue).length - 1;
+
+    if (songPlaying)
+    {
+        next = Object.shift(queue);
+    }
+    else{
+        next = queue[0];
+    }
+
+    /* chrome.storage.sync.set(queue, () => {
+      console.log("Storage has been set to: ", queue);
+      
+    }); */
+
+    chrome.storage.sync.remove([lastSongIndex + ""]);
+  
+    
+    return next;
+  }
+  
+  Object.shift = (obj) => {
+    var ret = obj[0];
+  
+    for(var i = 1; i < Object.keys(obj).length; i++){
+      obj[i-1] = obj[i];
+    }
+    obj[i] = null;
+  
+    return ret;
+  }
+
 
 var managePlayer = () =>
 {
-    if (currentPlayer.src == "")
+    console.log("managing");
+    console.log(songPlaying);
+    console.log(songQueued);
+
+    if (songPlaying === false && songQueued === false)
+    {
+        if (nextSong())
+        {
+            console.log("queueing audio");
+            queueAudio(nextSong());
+        }
+    }
+    /* if (currentPlayer.src == "")
     {
         queueAudio("LbrvCyEoW0Q", "current");
         currentPlayer.oncanplaythrough = () => {currentPlayer.play()};
-    }
-    else if (currentPlayer.paused)
+    } */
+    /* else if (currentPlayer.paused)
     {
         currentPlayer.play();
-    }
+    } */
 }
 
 managePlayer();
@@ -82,39 +148,7 @@ managePlayer();
 
 
 
-var nextSong = () => {
-  var next = {};
-  var queue = {};
-  var lastSongIndex;
 
-  chrome.storage.sync.get(null, result =>{
-    queue = result;
-  });
-
-  lastSongIndex = Object.keys(queue).length - 1;
-
-  next = Object.shift(obj);
-  console.log(next);
-
-  chrome.storage.sync.set(queue, () => {
-    console.log("Storage has been set to: ", queue);
-  })
-
-  chrome.storage.sync.remove([lastSongIndex + ""]);
-
-  return next;
-}
-
-Object.shift = (obj) => {
-  var ret = obj[0];
-
-  for(var i = 1; i < Object.keys(obj).length; i++){
-    obj[i-1] = obj[i];
-  }
-  obj[i] = null;
-
-  return ret;
-}
 
 /* manageQueue(); */
 

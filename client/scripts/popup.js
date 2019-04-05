@@ -20,7 +20,7 @@ window.onload = () => {
   addQueueToSearch();
 };
 
-var cSelect = document.getElementById('containerSelect');
+/* var cSelect = document.getElementById('containerSelect');
 cSelect.addEventListener('change', function() {
   if(cSelect.value == "authContainer")
     {
@@ -30,14 +30,9 @@ cSelect.addEventListener('change', function() {
     {
     	setContainer("searchContainer");
     }
-    /*
-    if(cSelect.value == "queueContainer")
-    {
-    		
-    }
-    */
+
     console.log(cSelect.value);
-}, false);
+}, false); */
 
 /* Main view controller:
   - View prcedence 
