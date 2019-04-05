@@ -11,6 +11,14 @@ secondaryPlayer.id = "secondaryPlayer";
 document.body.appendChild(primaryPlayer);
 document.body.appendChild(secondaryPlayer);
 
+primaryPlayer.onended = () => {
+    songPlaying = false;
+    if (songQueued) 
+    {
+        secondaryPlayer.oncanplaythrough = () => {secondaryPlayer.play();};
+        songQueued = false;
+    }
+};
 
 chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
 {
@@ -40,22 +48,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
 
 var overrideAudio = (id) =>
 {
-    if (songPlaying)
-    {
-
+    if (songPlaying){
+        queueAudio(id, 2);
+        songQueued = true;
     }
     else{
         console.log("playing:" + id);
-        queueAudio(id);
+        queueAudio(id, 1);
         primaryPlayer.oncanplaythrough = () => {primaryPlayer.play();}
         songPlaying = true;
     }
     
 }
 
-primaryPlayer.onended = () => {songPlaying = false;};
-
-var queueAudio = (videoID) =>
+var queueAudio = (videoID, playerNum) =>
 {
     const vidReq = new XMLHttpRequest();
     vidReq.open("POST", `http://localhost:3000/`);
@@ -67,18 +73,19 @@ var queueAudio = (videoID) =>
     vidReq.onload = e =>
     {
         setTimeout(() => {
-            if (currentPlayer === 1)
+            if (playerNum == 1)
             {
                 primaryPlayer.src = `http://localhost:3000/${videoID}.mp4`;
             }
-            /* if (currentPlayer === 2)
+            if (playerNum == 2)
             {
-                primary.src = `http://localhost:3000/${videoID}.mp4`;
-            } */
+                secondaryPlayer.src = `http://localhost:3000/${videoID}.mp4`;
+            }
             
         }, 3000);
     }
 }
+
 
 var nextSong = () => {
     var next = {};
@@ -137,6 +144,7 @@ var managePlayer = () =>
         currentPlayer.play();
     } */
 }
+
 
 managePlayer();
 
