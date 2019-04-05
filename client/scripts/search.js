@@ -7,12 +7,26 @@ var searchParams = {
   currentVideo: null
 };
 
-chrome.storage.sync.clear(()=>{
+/* chrome.storage.sync.clear(()=>{
   console.log("Storage cleared.");
-});
+}); */
 
 var curQueue = {};
 var cur = "curQueueKey";
+
+/* var cSelect = document.getElementById('containerSelect');
+cSelect.addEventListener('change', function() {
+  if(cSelect.value == "authContainer")
+    {
+      setContainer("authContainer");
+    }
+    if(cSelect.value == "searchContainer")
+    {
+    	setContainer("searchContainer");
+    }
+  
+    console.log(cSelect.value);
+}, false); */
 
 var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
@@ -65,11 +79,9 @@ var APISearch = searchTerm => {
     currentVideo = video.id.videoId;
 
     var msg = new Message();
-    msg.requestType = "fetchAudio";
+    msg.requestType = "overrideAudio";
     msg.data = currentVideo;
     msg.sendMessage();
-
-    
 
   };
 };

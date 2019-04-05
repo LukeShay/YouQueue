@@ -21,6 +21,20 @@ window.onload = () => {
   document.getElementById("containerSelector").style.display = "grid";
 };
 
+/* var cSelect = document.getElementById('containerSelect');
+cSelect.addEventListener('change', function() {
+  if(cSelect.value == "authContainer")
+    {
+      setContainer("authContainer");
+    }
+    if(cSelect.value == "searchContainer")
+    {
+    	setContainer("searchContainer");
+    }
+
+    console.log(cSelect.value);
+}, false); */
+
 /* Main view controller:
   - View prcedence 
     1. Sign-Up/Sign-In Page

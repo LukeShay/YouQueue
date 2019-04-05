@@ -1,14 +1,15 @@
-var currentPlayer = document.createElement('video');
-currentPlayer.id = "currentPlayer";
+var currentPlayer = 1;
+var songQueued = false;
+var songPlaying = false;
 
-var queuedPlayer = document.createElement('video');
-queuedPlayer.id = "queuedPlayer";
+var primaryPlayer = document.createElement('video');
+primaryPlayer.id = "primaryPlayer";
 
-document.body.appendChild(currentPlayer);
-document.body.appendChild(queuedPlayer);
+var secondaryPlayer = document.createElement('video');
+secondaryPlayer.id = "secondaryPlayer";
 
-console.log(currentPlayer.src);
-
+document.body.appendChild(primaryPlayer);
+document.body.appendChild(secondaryPlayer);
 
 
 chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
@@ -24,8 +25,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 console.log(`Background script recieved message of type (test).`);
                 sendRepsonse("Test message recieved. This is the response.");
                 break;
-            case "fetchAudio":
-                /* queueAudio(message.data, "current"); */
+            case "overrideAudio":
+                overrideAudio(message.data);
+                break;
+            case "queueChange":
                 break;
             default:
                 console.log(`Background script recieved message of type (${message.requestType}),`+
@@ -37,7 +40,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
     
 });
 
-var queueAudio = (videoID, option) =>
+var overrideAudio = (id) =>
+{
+    console.log("playing:" + id);
+    queueAudio(id);
+    primaryPlayer.oncanplaythrough = () => {primaryPlayer.play();}
+}
+
+
+var queueAudio = (videoID) =>
 {
     const vidReq = new XMLHttpRequest();
     vidReq.open("POST", `http://localhost:3000/`);
@@ -49,72 +60,79 @@ var queueAudio = (videoID, option) =>
     vidReq.onload = e =>
     {
         setTimeout(() => {
-            if (option === "current")
+            if (currentPlayer === 1)
             {
-                currentPlayer.src = `http://localhost:3000/${videoID}.mp4`;
+                primaryPlayer.src = `http://localhost:3000/${videoID}.mp4`;
             }
-            if (option === "queued")
+            /* if (currentPlayer === 2)
             {
-                queuedPlayer.src = `http://localhost:3000/${videoID}.mp4`;
-            }
+                primary.src = `http://localhost:3000/${videoID}.mp4`;
+            } */
             
-        }, 2000);
+        }, 3000);
     }
 }
-
-
-var manageQueue = () =>
-{
-    if (currentPlayer.src == "")
-    {
-        queueAudio("Q9hLcRU5wE4", "current");
-        currentPlayer.play();
-    }
-    else if (currentPlayer.paused)
-    {
-        currentPlayer.play();
-    }
-}
-
-/* manageQueue(); */
-
-
-
 
 var nextSong = () => {
-  var next = {};
-  var queue = {};
-  var lastSongIndex;
+    var next = {};
+    var queue = {};
+    var lastSongIndex;
+  
+    chrome.storage.sync.get(null, result =>{
+      queue = result;
+    });
 
-  chrome.storage.sync.get(null, result =>{
-    queue = result;
-  });
+    var nextSong = setTimeout(() => {
+        lastSongIndex = Object.keys(queue).length - 1;
 
-  lastSongIndex = Object.keys(queue).length - 1;
+    if (songPlaying)
+    {
+        next = Object.shift(queue);
+    }
+    else{
+        next = queue[0];
+    }
+    chrome.storage.sync.remove([lastSongIndex + ""]);
+    return next;
+    }, 3000);
 
-  next = Object.shift(obj);
-  console.log(next);
-
-  chrome.storage.sync.set(queue, () => {
-    console.log("Storage has been set to: ", queue);
-  })
-
-  chrome.storage.sync.remove([lastSongIndex + ""]);
-
-  return next;
-}
-
-Object.shift = (obj) => {
-  var ret = obj[0];
-
-  for(var i = 1; i < Object.keys(obj).length; i++){
-    obj[i-1] = obj[i];
   }
-  obj[i] = null;
+  
+  Object.shift = (obj) => {
+    var ret = obj[0];
+  
+    for(var i = 1; i < Object.keys(obj).length; i++){
+      obj[i-1] = obj[i];
+    }
+    obj[i] = null;
+  
+    return ret;
+  }
 
-  return ret;
+
+var managePlayer = () =>
+{
+    if (songPlaying === false && songQueued === false)
+    {
+        if (nextSong())
+        {
+            console.log("queueing audio");
+            queueAudio(nextSong());
+        }
+    }
+    /* if (currentPlayer.src == "")
+    {
+        queueAudio("LbrvCyEoW0Q", "current");
+        currentPlayer.oncanplaythrough = () => {currentPlayer.play()};
+    } */
+    /* else if (currentPlayer.paused)
+    {
+        currentPlayer.play();
+    } */
 }
 
-/* manageQueue(); */
+managePlayer();
+
+
 
 
