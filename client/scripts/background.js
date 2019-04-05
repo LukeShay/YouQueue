@@ -29,9 +29,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 overrideAudio(message.data);
                 break;
             case "queueChange":
-                playSearchedAudio();
-               /*  managePlayer(); */
-                /* queueAudio(message.data, "current"); */
                 break;
             default:
                 console.log(`Background script recieved message of type (${message.requestType}),`+
@@ -78,14 +75,15 @@ var queueAudio = (videoID) =>
 
 var nextSong = () => {
     var next = {};
-    var queue = [];
+    var queue = {};
     var lastSongIndex;
   
     chrome.storage.sync.get(null, result =>{
       queue = result;
     });
 
-    lastSongIndex = Object.keys(queue).length - 1;
+    var nextSong = setTimeout(() => {
+        lastSongIndex = Object.keys(queue).length - 1;
 
     if (songPlaying)
     {
@@ -94,16 +92,10 @@ var nextSong = () => {
     else{
         next = queue[0];
     }
-
-    /* chrome.storage.sync.set(queue, () => {
-      console.log("Storage has been set to: ", queue);
-      
-    }); */
-
     chrome.storage.sync.remove([lastSongIndex + ""]);
-  
-    
     return next;
+    }, 3000);
+
   }
   
   Object.shift = (obj) => {
@@ -120,10 +112,6 @@ var nextSong = () => {
 
 var managePlayer = () =>
 {
-    console.log("managing");
-    console.log(songPlaying);
-    console.log(songQueued);
-
     if (songPlaying === false && songQueued === false)
     {
         if (nextSong())
@@ -146,10 +134,5 @@ var managePlayer = () =>
 managePlayer();
 
 
-
-
-
-
-/* manageQueue(); */
 
 

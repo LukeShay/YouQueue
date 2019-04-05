@@ -7,9 +7,9 @@ var searchParams = {
   currentVideo: null
 };
 
-chrome.storage.sync.clear(()=>{
+/* chrome.storage.sync.clear(()=>{
   console.log("Storage cleared.");
-});
+}); */
 
 var curQueue = {};
 var cur = "curQueueKey";
