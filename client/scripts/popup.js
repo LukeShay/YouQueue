@@ -15,9 +15,10 @@ firebase.initializeApp(extInfo.config);
 extInfo.currentUser = firebase.auth().currentUser;
 
 window.onload = () => {
-  setContainer();
+  loadContainer("searchContainer");
   addSearchListener();
   addQueueToSearch();
+  document.getElementById("containerSelector").style.display = "grid";
 };
 
 /* var cSelect = document.getElementById('containerSelect');

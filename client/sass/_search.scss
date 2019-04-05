@@ -4,37 +4,22 @@
     grid-template-rows: 50px, auto, 50px, 50px;
 
     #searchBox{
-        background-color: white;
-        background-image: url('../resources/iconfinder_icon-111-search_314478.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        padding: 0px 0px 0px 30px;
+      background-color: white;
+      background-image: url('../resources/iconfinder_icon-111-search_314478.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      padding: 0px 0px 0px 30px;
 
-        border-radius: 5px;
-        border: none;
-        width: 80%;
-        height: 25px;
-        position: fixed;
-        transform: translate(-50%, -50%);
-        left: 50%;
-        top: 30px;
-        z-index: 0;
-    }
+      border-radius: 5px;
+      border: none;
+      width: 80%;
+      height: 25px;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50px;
+      z-index: 0;
 
-    #activitySelector{
-        background-color: white;
-        background-size: contain;
-        background-repeat: no-repeat;
-        padding: 0px 0px 0px 30px;
-
-        border-radius: 5px;
-        width: 25%;
-        height: 25px;
-        position: fixed;
-        transform: translate(-50%, -50%);
-        left: 50%;
-        top: 70px;
-        z-index: 0;
     }
 
     #player{

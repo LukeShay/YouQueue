@@ -30,25 +30,6 @@ document.getElementById("cancel").addEventListener("click", e => {
   notLoggedIn();
 });
 
-var cSelect = document.getElementById('containerSelect');
-cSelect.addEventListener('change', function() {
-  if(cSelect.value == "authContainer")
-    {
-      setContainer("authContainer");
-    }
-    if(cSelect.value == "searchContainer")
-    {
-    	setContainer("searchContainer");
-    }
-    /*
-    if(cSelect.value == "queueContainer")
-    {
-    		
-    }
-    */
-    console.log(cSelect.value);
-}, false);
-
 // Add login event
 document.getElementById("login").addEventListener("click", e => {
   const email = document.getElementById("email").value;
@@ -227,3 +208,32 @@ function numCheck(entry) {
     return false;
   }
 }
+
+
+var cSelect = document.getElementById("containerSelector");
+cSelect.addEventListener('change', () => {
+  if(cSelect.value == "authContainer")
+    {
+      loadContainer("authContainer");
+    }
+    if(cSelect.value == "searchContainer")
+    {
+    	loadContainer("searchContainer");
+    }
+    /*
+    if(cSelect.value == "queueContainer")
+    {
+    		
+    }
+    */
+}, false);
+
+var loadContainer = selectedContainer => {
+  extInfo.containers.forEach(element => {
+    if (element != selectedContainer) {
+      document.getElementById(element).style.display = "none";
+    } else {
+      document.getElementById(element).style.display = "grid";
+    }
+  });
+};
