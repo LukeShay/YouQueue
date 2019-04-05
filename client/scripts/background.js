@@ -40,11 +40,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
 
 var overrideAudio = (id) =>
 {
-    console.log("playing:" + id);
-    queueAudio(id);
-    primaryPlayer.oncanplaythrough = () => {primaryPlayer.play();}
+    if (songPlaying)
+    {
+
+    }
+    else{
+        console.log("playing:" + id);
+        queueAudio(id);
+        primaryPlayer.oncanplaythrough = () => {primaryPlayer.play();}
+        songPlaying = true;
+    }
+    
 }
 
+primaryPlayer.onended = () => {songPlaying = false;};
 
 var queueAudio = (videoID) =>
 {
