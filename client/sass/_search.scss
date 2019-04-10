@@ -34,8 +34,37 @@
     #queue {
         width: 600px;
         position: fixed;
-        top: 60%;
+        top: 10%;
         text-align: center;
         color: white;
     }
+
+    #controls {
+        top: 90%;
+        position: fixed;
+        left: 30%;
+    }
+
+    #pause {
+        background-image: url('../resources/pause-circle-outline-512.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 50px;
+        height: 50px;
+    }
+
+    #play {
+        background-image: url('../resources/play-button.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 50px;
+        height: 50px;
+    }
+
+    #clearQueue {
+        width: 75px;
+    }
 }
+
