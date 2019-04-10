@@ -15,7 +15,11 @@ class Message
         this.handler = (backgroundResponse) =>
         {
             this.lastResponse = backgroundResponse;
-            this.callback(backgroundResponse);
+            if (this.callback != null)
+            {
+                this.callback(backgroundResponse);
+            }
+            
         }
     }
 

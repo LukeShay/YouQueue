@@ -14,19 +14,6 @@ var searchParams = {
 var curQueue = {};
 var cur = "curQueueKey";
 
-/* var cSelect = document.getElementById('containerSelect');
-cSelect.addEventListener('change', function() {
-  if(cSelect.value == "authContainer")
-    {
-      setContainer("authContainer");
-    }
-    if(cSelect.value == "searchContainer")
-    {
-    	setContainer("searchContainer");
-    }
-  
-    console.log(cSelect.value);
-}, false); */
 
 var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
