@@ -1,23 +1,17 @@
-var currentPlayer = 1;
-var songQueued = false;
+var start = false;
 var songPlaying = false;
+var queueUpToDate = false;
+var queue = null;
+var songNum = 0;
 
 var primaryPlayer = document.createElement('video');
 primaryPlayer.id = "primaryPlayer";
 
-var secondaryPlayer = document.createElement('video');
-secondaryPlayer.id = "secondaryPlayer";
-
 document.body.appendChild(primaryPlayer);
-document.body.appendChild(secondaryPlayer);
 
 primaryPlayer.onended = () => {
     songPlaying = false;
-    if (songQueued) 
-    {
-        secondaryPlayer.oncanplaythrough = () => {secondaryPlayer.play();};
-        songQueued = false;
-    }
+    eventLoop();
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
@@ -34,7 +28,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 sendRepsonse("Test message recieved. This is the response.");
                 break;
             case "overrideAudio":
-                overrideAudio(message.data);
+                start = true;
+                queueUpToDate = false;
+                eventLoop();
+                break;
+            case "play":
+                primaryPlayer.play();
+                break;
+            case "pause":
+                primaryPlayer.pause();
                 break;
             case "queueChange":
                 break;
@@ -46,22 +48,46 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
     }
 });
 
-var overrideAudio = (id) =>
+var eventLoop = () =>
 {
-    if (songPlaying){
-        queueAudio(id, 2);
-        songQueued = true;
+    if (!queueUpToDate)
+    {
+        getQueue();
+        return;
     }
-    else{
-        console.log("playing:" + id);
-        queueAudio(id, 1);
-        primaryPlayer.oncanplaythrough = () => {primaryPlayer.play();}
-        songPlaying = true;
+
+    if (!start)
+    {
+        return;
     }
-    
+    else if (start && songPlaying)
+    {
+        return;
+    }
+    else if (start && !songPlaying)
+    {
+        if (queue[songNum] == undefined)
+        {
+            songNum = 0;
+        }
+        queueAudio(Object.keys(queue[songNum])[songNum]);
+    }
 }
 
-var queueAudio = (videoID, playerNum) =>
+var getQueue = () => {
+    chrome.storage.sync.get(null, result =>{
+        updateQueue(result);
+    });
+}
+
+var updateQueue = (updatedQueue) => {
+    queue = updatedQueue;
+    queueUpToDate = true;
+    eventLoop();
+}
+
+
+var queueAudio = (videoID) =>
 {
     const vidReq = new XMLHttpRequest();
     vidReq.open("POST", `http://localhost:3000/`);
@@ -73,80 +99,17 @@ var queueAudio = (videoID, playerNum) =>
     vidReq.onload = e =>
     {
         setTimeout(() => {
-            if (playerNum == 1)
-            {
-                primaryPlayer.src = `http://localhost:3000/${videoID}.mp4`;
-            }
-            if (playerNum == 2)
-            {
-                secondaryPlayer.src = `http://localhost:3000/${videoID}.mp4`;
-            }
-            
+            primaryPlayer.src = `http://localhost:3000/${videoID}.mp4`;
         }, 3000);
+
+        primaryPlayer.oncanplaythrough = () => {primaryPlayer.play();}
+        songPlaying = true;
+
+        songNum++;
     }
+    
 }
 
-
-var nextSong = () => {
-    var next = {};
-    var queue = {};
-    var lastSongIndex;
-  
-    chrome.storage.sync.get(null, result =>{
-      queue = result;
-    });
-
-    var nextSong = setTimeout(() => {
-        lastSongIndex = Object.keys(queue).length - 1;
-
-    if (songPlaying)
-    {
-        next = Object.shift(queue);
-    }
-    else{
-        next = queue[0];
-    }
-    chrome.storage.sync.remove([lastSongIndex + ""]);
-    return next;
-    }, 3000);
-
-  }
-  
-  Object.shift = (obj) => {
-    var ret = obj[0];
-  
-    for(var i = 1; i < Object.keys(obj).length; i++){
-      obj[i-1] = obj[i];
-    }
-    obj[i] = null;
-  
-    return ret;
-  }
-
-
-var managePlayer = () =>
-{
-    if (songPlaying === false && songQueued === false)
-    {
-        if (nextSong())
-        {
-            console.log("queueing audio");
-            queueAudio(nextSong());
-        }
-    }
-    /* if (currentPlayer.src == "")
-    {
-        queueAudio("LbrvCyEoW0Q", "current");
-        currentPlayer.oncanplaythrough = () => {currentPlayer.play()};
-    } */
-    /* else if (currentPlayer.paused)
-    {
-        currentPlayer.play();
-    } */
-}
-
-
-managePlayer();
 
 
 

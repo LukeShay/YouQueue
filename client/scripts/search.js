@@ -14,19 +14,6 @@ var searchParams = {
 var curQueue = {};
 var cur = "curQueueKey";
 
-/* var cSelect = document.getElementById('containerSelect');
-cSelect.addEventListener('change', function() {
-  if(cSelect.value == "authContainer")
-    {
-      setContainer("authContainer");
-    }
-    if(cSelect.value == "searchContainer")
-    {
-    	setContainer("searchContainer");
-    }
-  
-    console.log(cSelect.value);
-}, false); */
 
 var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
@@ -34,6 +21,34 @@ var addSearchListener = () => {
     if (event.key === "Enter") {
       APISearch(searchBar.value);
     }
+  });
+};
+
+//NOT WORKING YET
+// var addClearQueue = () => {
+//   var playButton = document.getElementById("clear");
+//   playButton.addEventListener("click", event => {
+//     clearQueue();
+//   });
+// };
+
+var addPlayListener = () => {
+  var playButton = document.getElementById("play");
+  playButton.addEventListener("click", event => {
+    var msg = new Message();
+    msg.requestType = "play";
+    msg.data = "";
+    msg.sendMessage();
+  });
+};
+
+var addPauseListener = () => {
+  var pauseButton = document.getElementById("pause");
+  pauseButton.addEventListener("click", event => {
+    var msg = new Message();
+    msg.requestType = "pause";
+    msg.data = "";
+    msg.sendMessage();  
   });
 };
 
