@@ -24,8 +24,8 @@
         <div id="selectContainer">
           <select id="containerSelector">
             <option value=""selected disabled hidden></option>
-            <option value="authContainer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login/Sign Up</option>
             <option value="searchContainer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</option>
+            <option value="authContainer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login/Sign Up</option>
             <option value="queueContainer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View Queues</option>
           </select>
         </div>
@@ -48,6 +48,16 @@
                 <button id="cancel">Cancel</button>
             <ul id="msg"></ul>
         </div>
+
+        <div id="queueContainer">
+          <button id="newQueueBtn">New Queue</button>
+          <input id="queueName" type="text" placeholder="Queue Name"></input>
+          <input id="videoSearch" type="text" placeholder="Search"></input>
+          <button id="undo">Undo</button>
+          <button id="save">Save</button>
+          <div id="searchError"></div>
+          <div id="curText"></div>
+        </div>
     </div>
 
     <div id = "qunit"></div>
@@ -55,6 +65,7 @@
     
     <script src="../scripts/authentication.js"></script>
     <script src="../scripts/storage.js"></script>
+    <script src="../scripts/queues.js"></script>
 </body>
 </html>
 
