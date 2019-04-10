@@ -1,6 +1,6 @@
 var extInfo = {
   currentUser: null,
-  containers: ["searchContainer", "splashContainer", "authContainer"],
+  containers: ["searchContainer", "splashContainer", "authContainer", "queueContainer"],
   config: {
     apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
     authDomain: "youqueue-c89b9.firebaseapp.com",
@@ -17,23 +17,12 @@ extInfo.currentUser = firebase.auth().currentUser;
 window.onload = () => {
   loadContainer("searchContainer");
   addSearchListener();
+  addPauseListener();
+  addPlayListener();
+  //addClearQueue();
   addQueueToSearch();
   document.getElementById("containerSelector").style.display = "grid";
 };
-
-/* var cSelect = document.getElementById('containerSelect');
-cSelect.addEventListener('change', function() {
-  if(cSelect.value == "authContainer")
-    {
-      setContainer("authContainer");
-    }
-    if(cSelect.value == "searchContainer")
-    {
-    	setContainer("searchContainer");
-    }
-
-    console.log(cSelect.value);
-}, false); */
 
 /* Main view controller:
   - View prcedence 

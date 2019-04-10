@@ -24,6 +24,34 @@ var addSearchListener = () => {
   });
 };
 
+//NOT WORKING YET
+// var addClearQueue = () => {
+//   var playButton = document.getElementById("clear");
+//   playButton.addEventListener("click", event => {
+//     clearQueue();
+//   });
+// };
+
+var addPlayListener = () => {
+  var playButton = document.getElementById("play");
+  playButton.addEventListener("click", event => {
+    var msg = new Message();
+    msg.requestType = "play";
+    msg.data = "";
+    msg.sendMessage();
+  });
+};
+
+var addPauseListener = () => {
+  var pauseButton = document.getElementById("pause");
+  pauseButton.addEventListener("click", event => {
+    var msg = new Message();
+    msg.requestType = "pause";
+    msg.data = "";
+    msg.sendMessage();  
+  });
+};
+
 var APISearch = searchTerm => {
   chrome.storage.sync.get(null, result => {
     curQueue = result;

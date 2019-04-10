@@ -32,6 +32,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 queueUpToDate = false;
                 eventLoop();
                 break;
+            case "play":
+                primaryPlayer.play();
+                break;
+            case "pause":
+                primaryPlayer.pause();
+                break;
             case "queueChange":
                 break;
             default:

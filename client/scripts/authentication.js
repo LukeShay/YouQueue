@@ -111,7 +111,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     createUDB();
     loggedIn();
 
-/*     newQueue("queue1", {
+    /*     newQueue("queue1", {
       0: { videoID: "title" },
       1: { videoID: "title" },
       2: { videoID: "title" }
@@ -120,7 +120,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     newQueue("queue3", {});
 
     getNamesOfQueues(); */
-
   } else {
     console.log("Not logged in");
     notLoggedIn();
@@ -209,24 +208,22 @@ function numCheck(entry) {
   }
 }
 
-
 var cSelect = document.getElementById("containerSelector");
-cSelect.addEventListener('change', () => {
-  if(cSelect.value == "authContainer")
-    {
+cSelect.addEventListener(
+  "change",
+  () => {
+    if (cSelect.value == "authContainer") {
       loadContainer("authContainer");
     }
-    if(cSelect.value == "searchContainer")
-    {
-    	loadContainer("searchContainer");
+    if (cSelect.value == "searchContainer") {
+      loadContainer("searchContainer");
     }
-    /*
-    if(cSelect.value == "queueContainer")
-    {
-    		
+    if (cSelect.value == "queueContainer") {
+      loadContainer("queueContainer");
     }
-    */
-}, false);
+  },
+  false
+);
 
 var loadContainer = selectedContainer => {
   extInfo.containers.forEach(element => {
