@@ -17,6 +17,9 @@ extInfo.currentUser = firebase.auth().currentUser;
 window.onload = () => {
   loadContainer("searchContainer");
   addSearchListener();
+  addPauseListener();
+  addPlayListener();
+  //addClearQueue();
   addQueueToSearch();
   document.getElementById("containerSelector").style.display = "grid";
 };

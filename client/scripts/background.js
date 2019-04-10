@@ -36,6 +36,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
             case "overrideAudio":
                 overrideAudio(message.data);
                 break;
+            case "play":
+                primaryPlayer.play();
+                break;
+            case "pause":
+                primaryPlayer.pause();
+                break;
             case "queueChange":
                 break;
             default:
