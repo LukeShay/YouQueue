@@ -26,7 +26,7 @@ function newQueue(queueName, list) {
 /**
  * Adds new items to an already existing queue. This can also create a new queue but cannot override an old one.
  * @param {string} queueName
- * @param {array} list
+ * @param {JSON Object} list
  */
 function addToQueue(queueName, list) {
   // List must be an object in the following format {1: {videoID:Title}}. Overwrites any with matching keys.

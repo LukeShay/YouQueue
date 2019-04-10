@@ -4,13 +4,14 @@
     background-image: url('../resources/icons8-musical-notes-64.png');
     background-color: white;
     background-repeat: no-repeat;
+    background-size: contain;
 
     border-radius: 5px;
-    width: 10%;
-    height: 50px;
+    width: 15%;
+    height: 20px;
     position: fixed;
     right: 3px;
-    top: 40px;
+    top: 10px;
 
     text-align: right;
 }
