@@ -7,10 +7,6 @@ var searchParams = {
   currentVideo: null
 };
 
-/* chrome.storage.sync.clear(()=>{
-  console.log("Storage cleared.");
-}); */
-
 var curQueue = {};
 var cur = "curQueueKey";
 
@@ -37,13 +33,14 @@ var addSearchListener = () => {
   });
 };
 
-//NOT WORKING YET
-// var addClearQueue = () => {
-//   var playButton = document.getElementById("clear");
-//   playButton.addEventListener("click", event => {
-//     clearQueue();
-//   });
-// };
+
+var addClearQueue = () => {
+  var clearButton = document.getElementById("clearQueue");
+  clearButton.addEventListener("click", event => {
+    console.log("tried to clear");
+    clearQueue();
+  });
+};
 
 var addPlayListener = () => {
   var playButton = document.getElementById("play");
@@ -114,3 +111,15 @@ var APISearch = searchTerm => {
     return currentVideo;
   };
 };
+
+var clearQueue = () =>{
+  chrome.storage.sync.clear(()=>{
+    console.log("Storage cleared.");
+  }); 
+  curQueue = {};
+  var msg = new Message();
+    msg.requestType = "clearedQueue";
+    msg.data = currentVideo;
+    msg.sendMessage();
+}
+
