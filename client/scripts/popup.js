@@ -19,7 +19,7 @@ window.onload = () => {
   addSearchListener();
   addPauseListener();
   addPlayListener();
-  //addClearQueue();
+  addClearQueue();
   addQueueToSearch();
   document.getElementById("containerSelector").style.display = "grid";
 };

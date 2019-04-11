@@ -38,6 +38,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
             case "pause":
                 primaryPlayer.pause();
                 break;
+            case "clearedQueue":
+                primaryPlayer.pause();
+                //primaryPlayer = null;
+                break;
             case "queueChange":
                 break;
             default:
