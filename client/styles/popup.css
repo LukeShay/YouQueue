@@ -14,23 +14,6 @@ body {
   font-family: "Exo 2", sans-serif;
 }
 
-#loader {
-  border: 16px solid #f3f3f3;
-  /* Light grey */
-  border-top: 16px solid #3498db;
-  /* Blue */
-  border-radius: 50%;
-  animation: spin 2s linear infinite;
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 #searchContainer {
   display: grid;
   grid-template-columns: 30px, auto, 30px;
@@ -52,19 +35,36 @@ body {
   top: 50px;
   z-index: 0;
 }
-#searchContainer #player {
-  width: 480px;
-  height: 270px;
-  position: fixed;
-  transform: translate(13%, -50%);
-  top: 35%;
-}
 #searchContainer #queue {
   width: 600px;
   position: fixed;
-  top: 60%;
+  top: 10%;
   text-align: center;
   color: white;
+}
+#searchContainer #controls {
+  top: 90%;
+  position: fixed;
+  left: 30%;
+}
+#searchContainer #pause {
+  background-image: url("../resources/pause-circle-outline-512.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50px;
+  height: 50px;
+}
+#searchContainer #play {
+  background-image: url("../resources/play-button.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50px;
+  height: 50px;
+}
+#searchContainer #clearQueue {
+  width: 75px;
 }
 
 #authContainer {
@@ -160,16 +160,76 @@ body {
 #selectContainer #containerSelector {
   background-image: url("../resources/icons8-musical-notes-64.png");
   background-color: white;
-  background-size: contain;
   background-repeat: no-repeat;
-  padding: 0px 0px 0px 30px;
+  background-size: contain;
   border-radius: 5px;
-  width: 25%;
-  height: 25px;
+  width: 15%;
+  height: 20px;
   position: fixed;
   right: 3px;
-  top: 3px;
-  z-index: 0;
+  top: 10px;
+  text-align: right;
+}
+
+#queueContainer {
+  display: grid;
+  grid-gap: 6px 6px;
+  grid-template-rows: 10px 20px 20px auto 400px 20px 20px;
+  grid-template-columns: auto;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+#queueContainer button {
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  height: 20px;
+}
+#queueContainer #newQueueBtn {
+  width: 200px;
+  grid-row: 2;
+}
+#queueContainer #undo {
+  width: 200px;
+  grid-row: 6;
+  transform: translate(100px, 0);
+}
+#queueContainer #save {
+  width: 200px;
+  grid-row: 7;
+  transform: translate(100px, 0);
+}
+#queueContainer input {
+  background-color: white;
+  padding: 2px;
+  border: none;
+  margin: 3px;
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+}
+#queueContainer #queueName {
+  width: 200px;
+  margin-bottom: 20px;
+  transform: translate(100px, 0);
+  grid-row: 2;
+}
+#queueContainer #videoSearch {
+  width: 400px;
+  grid-row: 3;
+}
+#queueContainer #searchError {
+  color: red;
+  grid-row: 4;
+  font-size: 14px;
+}
+#queueContainer #curText {
+  color: white;
+  grid-row: 5;
+  font-size: 14px;
 }
 
 /*# sourceMappingURL=popup.css.map */

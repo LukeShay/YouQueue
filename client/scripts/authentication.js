@@ -110,6 +110,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
     createUDB();
     loggedIn();
+    addQueuesToHTML();
 
     /*     newQueue("queue1", {
       0: { videoID: "title" },
