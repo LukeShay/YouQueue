@@ -11,7 +11,7 @@ document.body.appendChild(primaryPlayer);
 
 primaryPlayer.onended = () => {
     songPlaying = false;
-    eventLoop();
+    playerEvent();
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
@@ -27,10 +27,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 console.log(`Background script recieved message of type (test).`);
                 sendRepsonse("Test message recieved. This is the response.");
                 break;
-            case "overrideAudio":
+            case "addToQueue":
                 start = true;
                 queueUpToDate = false;
-                eventLoop();
+                playerEvent();
                 break;
             case "play":
                 primaryPlayer.play();
@@ -58,7 +58,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
     }
 });
 
-var eventLoop = () =>
+var playerEvent = () =>
 {
     if (!queueUpToDate)
     {
@@ -94,7 +94,8 @@ var getQueue = () => {
 var updateQueue = (updatedQueue) => {
     queue = updatedQueue;
     queueUpToDate = true;
-    eventLoop();
+    console.log(queue);
+    playerEvent();
 }
 
 
@@ -115,10 +116,10 @@ var queueAudio = (videoID) =>
 
         primaryPlayer.oncanplaythrough = () => {primaryPlayer.play();}
         songPlaying = true;
-
+        console.log("playing song:" + videoID);
         songNum++;
+        
     }
-    
 }
 
 

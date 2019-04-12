@@ -4,8 +4,8 @@ body {
 
 .extensionContainer {
   background-color: #36454f;
-  width: 600px;
-  height: 1000px;
+  width: 400px;
+  height: 400px;
 }
 .extensionContainer #app_name {
   text-align: center;
@@ -36,9 +36,9 @@ body {
   z-index: 0;
 }
 #searchContainer #queue {
-  width: 600px;
+  width: 90%;
   position: fixed;
-  top: 10%;
+  transform: translate(100%, 0);
   text-align: center;
   color: white;
 }
@@ -46,11 +46,16 @@ body {
   top: 90%;
   position: fixed;
   left: 36.5%;
+  transform: translate(-12%, -50%);
+  color: white;
 }
 #searchContainer #queueControls {
   top: 90%;
   position: fixed;
   left: 2%;
+  border: none;
+  background-color: #36454f;
+  transform: translate(90%, -50%);
 }
 #searchContainer #pause {
   background-image: url("../resources/pause-circle-outline-512.png");
@@ -59,6 +64,8 @@ body {
   background-position: center;
   width: 50px;
   height: 50px;
+  border: none;
+  background-color: #36454f;
 }
 #searchContainer #play {
   background-image: url("../resources/play-button.png");
@@ -67,10 +74,15 @@ body {
   background-position: center;
   width: 50px;
   height: 50px;
+  border: none;
+  background-color: #36454f;
 }
 #searchContainer #clearQueue {
+  color: white;
   width: 50px;
   height: 50px;
+  border: none;
+  background-color: #36454f;
 }
 #searchContainer #nextSong {
   background-image: url("../resources/next-song.png");
@@ -79,6 +91,8 @@ body {
   background-position: center;
   width: 50px;
   height: 50px;
+  border: none;
+  background-color: #36454f;
 }
 
 #authContainer {
@@ -177,7 +191,7 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
   border-radius: 5px;
-  width: 15%;
+  width: 25%;
   height: 20px;
   position: fixed;
   right: 3px;
@@ -188,7 +202,7 @@ body {
 #queueContainer {
   display: grid;
   grid-gap: 6px 6px;
-  grid-template-rows: 10px 20px 20px auto 400px 20px 20px;
+  grid-template-rows: 10px 20px 20px auto 80% 20px 20px;
   grid-template-columns: auto;
   justify-content: center;
   align-items: center;
@@ -219,7 +233,7 @@ body {
 #queueContainer #queueNameBtn {
   width: 100px;
   margin-bottom: 5px;
-  color: white;
+  color: #ffffff;
   background-color: #36454f;
 }
 #queueContainer input {

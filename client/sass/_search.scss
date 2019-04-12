@@ -23,9 +23,9 @@
     }
 
     #queue {
-        width: 600px;
+        width: 90%;
         position: fixed;
-        top: 10%;
+        transform: translate(100%, 0);
         text-align: center;
         color: white;
     }
@@ -34,12 +34,18 @@
         top: 90%;
         position: fixed;
         left: 36.5%;
+        transform: translate(-12%, -50%);
+        color: white;
+        
     }
 
     #queueControls{
         top: 90%;
         position: fixed;
         left: 2%;
+        border: none;
+        background-color: #36454f;
+        transform: translate(90%, -50%);
     }
 
     #pause {
@@ -49,6 +55,9 @@
         background-position: center;
         width: 50px;
         height: 50px;
+        border: none;
+        background-color: #36454f;
+        
     }
 
     #play {
@@ -58,11 +67,17 @@
         background-position: center;
         width: 50px;
         height: 50px;
+        border: none;
+        background-color: #36454f;
     }
 
     #clearQueue {
+        color: white;
         width: 50px;
         height: 50px;
+        border: none;
+        background-color: #36454f;
+        
     }
 
     #nextSong {
@@ -72,6 +87,8 @@
         background-position: center;
         width: 50px;
         height: 50px;
+        border: none;
+        background-color: #36454f;
     }
 }
 

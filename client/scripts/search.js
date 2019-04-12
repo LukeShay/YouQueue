@@ -101,7 +101,7 @@ var APISearch = searchTerm => {
     //console.log(currentVideo);
 
     var msg = new Message();
-    msg.requestType = "overrideAudio";
+    msg.requestType = "addToQueue";
     msg.data = currentVideo;
     msg.sendMessage();
 
