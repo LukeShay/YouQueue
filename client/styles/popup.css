@@ -202,6 +202,12 @@ body {
   grid-row: 7;
   transform: translate(100px, 0);
 }
+#queueContainer #queueNameBtn {
+  width: 100px;
+  margin-bottom: 5px;
+  color: white;
+  background-color: #36454f;
+}
 #queueContainer input {
   background-color: white;
   padding: 2px;
