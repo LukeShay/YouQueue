@@ -49,6 +49,18 @@ saveBtn.addEventListener("click", e => {
   addQueuesToHTML();
 });
 
+undoBtn.addEventListener("click", e => {
+  if (curNum > 1) {
+    curNum--;
+    delete tempQueue[curNum];
+    curText.innerHTML = "";
+
+    Object.values(tempQueue).forEach((value, index) => {
+      curText.innerHTML += Object.values(value) + "<br>";
+    });
+  }
+});
+
 /**
  * Fetches queues from firebase and adds them to the "curText" div in the queueContainer.
  */
@@ -69,8 +81,8 @@ var addQueuesToHTML = () => {
 var parseSearch = keyword => {
   var link = keyword.includes("www.youtube.com");
   if (link) {
-    var splitteroni = keyword.split("=");
-    runSearch(splitteroni[1]);
+    var split = keyword.split("=");
+    runSearch(split[split.length - 1]);
   } else {
     runSearch(keyword);
   }
