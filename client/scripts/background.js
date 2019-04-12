@@ -40,7 +40,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 break;
             case "clearedQueue":
                 primaryPlayer.pause();
-                //primaryPlayer = null;
+                primaryPlayer.src = "";
+                songPlaying = false;
+                queueUpToDate = false;
+                songNum = 0;
                 break;
             case "queueChange":
                 break;

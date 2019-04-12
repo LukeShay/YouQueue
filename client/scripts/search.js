@@ -24,7 +24,6 @@ var addSearchListener = () => {
 var addClearQueue = () => {
   var clearButton = document.getElementById("clearQueue");
   clearButton.addEventListener("click", event => {
-    console.log("tried to clear");
     clearQueue();
   });
 };
@@ -89,6 +88,7 @@ var APISearch = searchTerm => {
     });
 
     currentVideo = video.id.videoId;
+    //console.log(currentVideo);
 
     var msg = new Message();
     msg.requestType = "overrideAudio";
@@ -103,6 +103,7 @@ var clearQueue = () =>{
   chrome.storage.sync.clear(()=>{
     console.log("Storage cleared.");
   }); 
+  document.getElementById("queue").innerHTML = "";
   curQueue = {};
   var msg = new Message();
     msg.requestType = "clearedQueue";
