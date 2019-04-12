@@ -4,8 +4,8 @@ body {
 
 .extensionContainer {
   background-color: #36454f;
-  width: 600px;
-  height: 1000px;
+  width: 400px;
+  height: 400px;
 }
 .extensionContainer #app_name {
   text-align: center;
@@ -36,9 +36,10 @@ body {
   z-index: 0;
 }
 #searchContainer #queue {
-  width: 600px;
+  width: 90%;
   position: fixed;
-  top: 10%;
+  top: 20%;
+  right: 10%;
   text-align: center;
   color: white;
 }
@@ -46,6 +47,7 @@ body {
   top: 90%;
   position: fixed;
   left: 36.5%;
+  transform: translate(-12%, -50%);
 }
 #searchContainer #queueControls {
   top: 90%;
@@ -53,6 +55,7 @@ body {
   left: 2%;
   border: none;
   background-color: #36454f;
+  transform: translate(90%, -50%);
 }
 #searchContainer #pause {
   background-image: url("../resources/pause-circle-outline-512.png");
