@@ -75,9 +75,9 @@ function addQueueToStorage(queueName) {
       Object.values(snapshot.data()).forEach((obj, index) => {
         document.getElementById("queue").innerHTML += Object.values(obj) + "<br>";
       });
-    });
 
-    var msg = new Message();
-    msg.requestType = "addToQueue";
-    msg.sendMessage();
+      var msg = new Message();
+      msg.requestType = "changeQueue";
+      msg.sendMessage();
+    });
 }

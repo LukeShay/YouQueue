@@ -7,7 +7,7 @@ const curText = document.getElementById("curText");
 const searchError = document.getElementById("searchError");
 
 var tempQueue = {};
-var curNum = 1;
+var curNum = 0;
 
 newQueueBtn.style.display = "block";
 queueName.style.display = "none";
@@ -36,7 +36,7 @@ videoSearch.addEventListener("keyup", e => {
 saveBtn.addEventListener("click", e => {
   newQueue(queueName.value, tempQueue);
   tempQueue = {};
-  curNum = 1;
+  curNum = 0;
 
   newQueueBtn.style.display = "block";
   queueName.style.display = "none";
@@ -50,7 +50,7 @@ saveBtn.addEventListener("click", e => {
 });
 
 undoBtn.addEventListener("click", e => {
-  if (curNum > 1) {
+  if (curNum > 0) {
     curNum--;
     delete tempQueue[curNum];
     curText.innerHTML = "";
