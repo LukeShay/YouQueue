@@ -20,7 +20,7 @@ function newQueue(queueName, list) {
   var newQ = udb.doc(queueName); // Creates new queue
 
   newQ.set(list);
-  newQ.update({valid:true});
+  newQ.update({ valid: true });
 }
 
 /**
@@ -39,11 +39,14 @@ function addToQueue(queueName, list) {
  * Gets the names of all the queues and returns them as an object.
  */
 function getNamesOfQueues() {
-  udb.where("valid", "==", true).get().then(querySnap => {
-    querySnap.forEach(doc => {
-      console.log(doc.id, " => ", doc.data());
+  udb
+    .where("valid", "==", true)
+    .get()
+    .then(querySnap => {
+      querySnap.forEach(doc => {
+        console.log(doc.id, " => ", doc.data());
+      });
     });
-  });
 }
 
 function getCurQueue() {
@@ -52,4 +55,29 @@ function getCurQueue() {
     temp = result;
   });
   return temp;
+}
+
+function addQueueToStorage(queueName) {
+  chrome.storage.sync.clear(() => {
+    console.log("Storage cleared.");
+  });
+
+  document.getElementById("queue").innerHTML = "";
+
+  udb
+    .doc(queueName)
+    .get()
+    .then(snapshot => {
+      chrome.storage.sync.set(snapshot.data(), () => {
+        console.log("Storage set to: ", snapshot.data());
+      });
+
+      Object.values(snapshot.data()).forEach((obj, index) => {
+        document.getElementById("queue").innerHTML += Object.values(obj) + "<br>";
+      });
+    });
+
+    var msg = new Message();
+    msg.requestType = "addToQueue";
+    msg.sendMessage();
 }

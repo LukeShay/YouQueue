@@ -79,6 +79,11 @@ var addQueuesToHTML = () => {
         button.setAttribute("id", "queueNameBtn");
         button.setAttribute("value", doc.id);
         button.innerHTML = doc.id;
+
+        button.addEventListener("click", e => {
+          addQueueToStorage(button.value);
+        });
+
         docFrag.appendChild(button);
         docFrag.appendChild(br);
         console.log(doc.id);
@@ -87,11 +92,11 @@ var addQueuesToHTML = () => {
     });
 };
 
-var addQueueNameBtnListener = () =>{
-  document.getElementById("queueNameBtn").addEventListener("click", e => {
-
-  });
-};
+// var addQueueNameBtnListener = () =>{
+//   document.getElementById("queueNameBtn").addEventListener("click", e => {
+//     addQueueToStorage(this.value);
+//   });
+// };
 
 var parseSearch = keyword => {
   var link = keyword.includes("www.youtube.com");
