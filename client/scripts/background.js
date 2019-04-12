@@ -45,6 +45,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 queueUpToDate = false;
                 songNum = 0;
                 break;
+            case "nextSong":
+                primaryPlayer.onended();
+                break;
             case "queueChange":
                 break;
             default:
@@ -73,11 +76,12 @@ var eventLoop = () =>
     }
     else if (start && !songPlaying)
     {
+        console.log("song number:", songNum);
         if (queue[songNum] == undefined)
         {
             songNum = 0;
         }
-        queueAudio(Object.keys(queue[songNum])[songNum]);
+        queueAudio(Object.keys(queue[songNum])[0]);
     }
 }
 

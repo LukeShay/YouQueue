@@ -21,14 +21,14 @@ var addSearchListener = () => {
 };
 
 
-var addClearQueue = () => {
+var ClearQueueListener = () => {
   var clearButton = document.getElementById("clearQueue");
   clearButton.addEventListener("click", event => {
     clearQueue();
   });
 };
 
-var addPlayListener = () => {
+var PlayListener = () => {
   var playButton = document.getElementById("play");
   playButton.addEventListener("click", event => {
     var msg = new Message();
@@ -38,7 +38,17 @@ var addPlayListener = () => {
   });
 };
 
-var addPauseListener = () => {
+var NextSongListener = () => {
+  var playButton = document.getElementById("nextSong");
+  playButton.addEventListener("click", event => {
+    var msg = new Message();
+    msg.requestType = "nextSong";
+    msg.data = "";
+    msg.sendMessage();
+  });
+};
+
+var PauseListener = () => {
   var pauseButton = document.getElementById("pause");
   pauseButton.addEventListener("click", event => {
     var msg = new Message();
