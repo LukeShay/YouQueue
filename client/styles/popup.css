@@ -38,8 +38,7 @@ body {
 #searchContainer #queue {
   width: 90%;
   position: fixed;
-  top: 20%;
-  right: 10%;
+  transform: translate(100%, 0);
   text-align: center;
   color: white;
 }
@@ -48,6 +47,7 @@ body {
   position: fixed;
   left: 36.5%;
   transform: translate(-12%, -50%);
+  color: white;
 }
 #searchContainer #queueControls {
   top: 90%;
@@ -78,6 +78,7 @@ body {
   background-color: #36454f;
 }
 #searchContainer #clearQueue {
+  color: white;
   width: 50px;
   height: 50px;
   border: none;
@@ -190,7 +191,7 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
   border-radius: 5px;
-  width: 15%;
+  width: 25%;
   height: 20px;
   position: fixed;
   right: 3px;
