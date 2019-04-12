@@ -65,6 +65,8 @@ undoBtn.addEventListener("click", e => {
  * Fetches queues from firebase and adds them to the "curText" div in the queueContainer.
  */
 var addQueuesToHTML = () => {
+  var docFrag = document.createDocumentFragment();
+
   firebase
     .firestore()
     .collection(uid)
@@ -72,10 +74,23 @@ var addQueuesToHTML = () => {
     .get()
     .then(querySnap => {
       querySnap.forEach(doc => {
-        curText.innerHTML += doc.id + "<br>";
+        var button = document.createElement("button");
+        var br = document.createElement("br");
+        button.setAttribute("id", "queueNameBtn");
+        button.setAttribute("value", doc.id);
+        button.innerHTML = doc.id;
+        docFrag.appendChild(button);
+        docFrag.appendChild(br);
         console.log(doc.id);
       });
+      document.getElementById("curText").appendChild(docFrag);
     });
+};
+
+var addQueueNameBtnListener = () =>{
+  document.getElementById("queueNameBtn").addEventListener("click", e => {
+
+  });
 };
 
 var parseSearch = keyword => {
