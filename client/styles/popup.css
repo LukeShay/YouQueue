@@ -203,7 +203,7 @@ body {
   display: grid;
   grid-gap: 6px 6px;
   grid-template-rows: 10px 20px 20px auto 80% 20px 20px;
-  grid-template-columns: auto;
+  grid-template-columns: 100%;
   justify-content: center;
   align-items: center;
   font-weight: bold;
@@ -215,6 +215,12 @@ body {
   text-decoration: none;
   font-size: 14px;
   height: 20px;
+}
+#queueContainer button.videoNameBtn {
+  width: 100%;
+  margin-bottom: 5px;
+  color: #ffffff;
+  background-color: #36454f;
 }
 #queueContainer #newQueueBtn {
   width: 200px;
