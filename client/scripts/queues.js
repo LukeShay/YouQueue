@@ -18,13 +18,15 @@ curText.innerHTML = "";
 searchError.innerHTML = "";
 
 newQueueBtn.addEventListener("click", e => {
+  document.getElementById("queueContainer").style.gridTemplateRows = "20px 25px 25px 20px 250px 20px";
   newQueueBtn.style.display = "none";
   queueName.style.display = "block";
   videoSearch.style.display = "block";
-  undoBtn.style.display = "block";
+  undoBtn.style.display = "none";
   saveBtn.style.display = "block";
   curText.innerHTML = "";
-  searchError.innerHTML = "";
+  searchError.innerHTML = "Click on song to delete.";
+  curText.style.gridRow = "5";
 });
 
 videoSearch.addEventListener("keyup", e => {
