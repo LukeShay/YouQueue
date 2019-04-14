@@ -36,9 +36,10 @@ body {
   z-index: 0;
 }
 #searchContainer #queue {
+  top: 20%;
   width: 90%;
   position: fixed;
-  transform: translate(100%, 0);
+  transform: translate(5%, 0);
   text-align: center;
   color: white;
 }
