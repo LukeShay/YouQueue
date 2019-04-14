@@ -7,7 +7,7 @@ const curText = document.getElementById("curText");
 const searchError = document.getElementById("searchError");
 
 var tempQueue = {};
-var curNum = 1;
+var curNum = 0;
 
 newQueueBtn.style.display = "block";
 queueName.style.display = "none";
@@ -18,13 +18,15 @@ curText.innerHTML = "";
 searchError.innerHTML = "";
 
 newQueueBtn.addEventListener("click", e => {
+  document.getElementById("queueContainer").style.gridTemplateRows = "20px 25px 25px 20px 250px 20px";
   newQueueBtn.style.display = "none";
   queueName.style.display = "block";
   videoSearch.style.display = "block";
-  undoBtn.style.display = "block";
+  undoBtn.style.display = "none";
   saveBtn.style.display = "block";
   curText.innerHTML = "";
-  searchError.innerHTML = "";
+  searchError.innerHTML = "Click on song to delete.";
+  curText.style.gridRow = "5";
 });
 
 videoSearch.addEventListener("keyup", e => {
@@ -36,7 +38,7 @@ videoSearch.addEventListener("keyup", e => {
 saveBtn.addEventListener("click", e => {
   newQueue(queueName.value, tempQueue);
   tempQueue = {};
-  curNum = 1;
+  curNum = 0;
 
   newQueueBtn.style.display = "block";
   queueName.style.display = "none";
@@ -49,17 +51,15 @@ saveBtn.addEventListener("click", e => {
   addQueuesToHTML();
 });
 
-undoBtn.addEventListener("click", e => {
-  if (curNum > 1) {
+/* undoBtn.addEventListener("click", e => {
+  if (curNum > 0) {
     curNum--;
     delete tempQueue[curNum];
-    curText.innerHTML = "";
 
-    Object.values(tempQueue).forEach((value, index) => {
-      curText.innerHTML += Object.values(value) + "<br>";
-    });
+    var toRemove = document.getElementById(curNum);
+    document.getElementById("curText").removeChild(toRemove);
   }
-});
+}); */
 
 /**
  * Fetches queues from firebase and adds them to the "curText" div in the queueContainer.
@@ -79,6 +79,11 @@ var addQueuesToHTML = () => {
         button.setAttribute("id", "queueNameBtn");
         button.setAttribute("value", doc.id);
         button.innerHTML = doc.id;
+
+        button.addEventListener("click", e => {
+          addQueueToStorage(button.value);
+        });
+
         docFrag.appendChild(button);
         docFrag.appendChild(br);
         console.log(doc.id);
@@ -87,11 +92,11 @@ var addQueuesToHTML = () => {
     });
 };
 
-var addQueueNameBtnListener = () =>{
-  document.getElementById("queueNameBtn").addEventListener("click", e => {
-
-  });
-};
+// var addQueueNameBtnListener = () =>{
+//   document.getElementById("queueNameBtn").addEventListener("click", e => {
+//     addQueueToStorage(this.value);
+//   });
+// };
 
 var parseSearch = keyword => {
   var link = keyword.includes("www.youtube.com");
@@ -104,6 +109,7 @@ var parseSearch = keyword => {
 };
 
 var runSearch = keyword => {
+  var docFrag = document.createDocumentFragment();
   const Http = new XMLHttpRequest();
   const url =
     "https://www.googleapis.com/youtube/v3/search?" +
@@ -125,9 +131,31 @@ var runSearch = keyword => {
 
     tempQueue[curNum] = tempObj;
 
-    curText.innerHTML += video.snippet.title + "<br>";
+    var button = document.createElement("button");
+    var br = document.createElement("br");
+    button.setAttribute("id", curNum);
+    button.setAttribute("class", "videoNameBtn");
+    button.innerHTML = video.snippet.title;
+
+    button.addEventListener("click", e => {
+      button.parentNode.removeChild(button);
+      br.parentNode.removeChild(br);
+      removeNum(tempQueue, parseInt(button.id));
+      curNum--;
+    });
+
+    document.getElementById("curText").appendChild(button);
+    document.getElementById("curText").appendChild(br);
 
     curNum++;
     console.log(tempQueue);
   };
+};
+
+var removeNum = (object, index) => {
+  var i;
+  for(i = index; i < curNum - 2; i++){
+    object[i] = object[i + 1];
+  }
+  delete object[i + 1];
 };
