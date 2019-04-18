@@ -32,19 +32,21 @@ videoSearch.addEventListener("keyup", e => {
 saveBtn.addEventListener("click", e => {
   var invalid = 0;
   queueNames.forEach((value, index) => {
-    if (queueName.value == value) {
+    if (queueName.value.trim() == value) {
       searchError.innerHTML = "Name in use.";
       console.log(value);
       invalid = 1;
     }
   });
 
-  if (!invalid) {
-    newQueue(queueName.value, tempQueue);
+  if (!invalid && Object.keys(tempQueue).length > 0) {
+    newQueue(queueName.value.trim(), tempQueue);
     tempQueue = {};
     curNum = 0;
 
     queuePageHome();
+  } else if(Object.keys(tempQueue).length == 0) {
+    searchError.innerHTML += "No songs in queue.";
   }
 });
 
