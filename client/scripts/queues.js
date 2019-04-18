@@ -7,18 +7,12 @@ const curText = document.getElementById("curText");
 const searchError = document.getElementById("searchError");
 
 var tempQueue = {};
+var queueNames = [];
 var curNum = 0;
 
-newQueueBtn.style.display = "block";
-queueName.style.display = "none";
-videoSearch.style.display = "none";
-undoBtn.style.display = "none";
-saveBtn.style.display = "none";
-curText.innerHTML = "";
-searchError.innerHTML = "";
-
 newQueueBtn.addEventListener("click", e => {
-  document.getElementById("queueContainer").style.gridTemplateRows = "20px 25px 25px 20px 250px 20px";
+  document.getElementById("queueContainer").style.gridTemplateRows =
+    "20px 25px 25px 20px 250px 20px";
   newQueueBtn.style.display = "none";
   queueName.style.display = "block";
   videoSearch.style.display = "block";
@@ -36,30 +30,23 @@ videoSearch.addEventListener("keyup", e => {
 });
 
 saveBtn.addEventListener("click", e => {
-  newQueue(queueName.value, tempQueue);
-  tempQueue = {};
-  curNum = 0;
+  var invalid = 0;
+  queueNames.forEach((value, index) => {
+    if (queueName.value == value) {
+      searchError.innerHTML = "Name in use.";
+      console.log(value);
+      invalid = 1;
+    }
+  });
 
-  newQueueBtn.style.display = "block";
-  queueName.style.display = "none";
-  videoSearch.style.display = "none";
-  undoBtn.style.display = "none";
-  saveBtn.style.display = "none";
-  curText.innerHTML = "";
-  searchError.innerHTML = "";
+  if (!invalid) {
+    newQueue(queueName.value, tempQueue);
+    tempQueue = {};
+    curNum = 0;
 
-  addQueuesToHTML();
-});
-
-/* undoBtn.addEventListener("click", e => {
-  if (curNum > 0) {
-    curNum--;
-    delete tempQueue[curNum];
-
-    var toRemove = document.getElementById(curNum);
-    document.getElementById("curText").removeChild(toRemove);
+    queuePageHome();
   }
-}); */
+});
 
 /**
  * Fetches queues from firebase and adds them to the "curText" div in the queueContainer.
@@ -80,13 +67,14 @@ var addQueuesToHTML = () => {
         button.setAttribute("value", doc.id);
         button.innerHTML = doc.id;
 
+        queueNames.push(doc.id);
+
         button.addEventListener("click", e => {
           addQueueToStorage(button.value);
         });
 
         docFrag.appendChild(button);
         docFrag.appendChild(br);
-        console.log(doc.id);
       });
       document.getElementById("curText").appendChild(docFrag);
     });
@@ -154,8 +142,32 @@ var runSearch = keyword => {
 
 var removeNum = (object, index) => {
   var i;
-  for(i = index; i < curNum - 2; i++){
+  for (i = index; i < curNum - 2; i++) {
     object[i] = object[i + 1];
   }
   delete object[i + 1];
+};
+
+var queuePageHome = () => {
+  document.getElementById("queueContainer").style.gridTemplateRows = "20px 25px auto auto"
+  newQueueBtn.style.display = "block";
+  queueName.style.display = "none";
+  videoSearch.style.display = "none";
+  undoBtn.style.display = "none";
+  saveBtn.style.display = "none";
+  curText.innerHTML = "";
+  searchError.style.gridRow = "4"
+  searchError.innerHTML = "Click on queue to play.";
+
+  addQueuesToHTML();
+};
+
+var queuePageNotLoggedIn = () => {
+  newQueueBtn.style.display = "none";
+  queueName.style.display = "none";
+  videoSearch.style.display = "none";
+  undoBtn.style.display = "none";
+  saveBtn.style.display = "none";
+  curText.innerHTML = "";
+  searchError.innerHTML = "You are not logged in.";
 };

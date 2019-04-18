@@ -36,6 +36,7 @@ body {
   z-index: 0;
 }
 #searchContainer #queue {
+  grid-row: 2;
   width: 90%;
   position: fixed;
   transform: translate(100%, 0);
@@ -105,6 +106,8 @@ body {
   font-weight: bold;
 }
 #authContainer button {
+  border-radius: 5px;
+  padding: 0 0 0 0;
   border: none;
   color: black;
   text-align: center;
@@ -140,6 +143,7 @@ body {
   margin-left: 3px;
 }
 #authContainer #logout {
+  grid-row: 3;
   background-color: lightskyblue;
   width: 194px;
   margin-left: 3px;
@@ -201,7 +205,7 @@ body {
 
 #queueContainer {
   display: grid;
-  grid-template-rows: 20px 25px auto;
+  grid-template-rows: 20px 25px auto auto;
   grid-template-columns: 400px;
   justify-content: center;
   align-items: center;
