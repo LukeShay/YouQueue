@@ -9,6 +9,7 @@ body {
 }
 .extensionContainer #app_name {
   text-align: center;
+  font-size: 180%;
   margin: 0 auto;
   color: #ffffff;
   font-family: "Exo 2", sans-serif;
