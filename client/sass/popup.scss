@@ -16,6 +16,7 @@ body{
     
     #app_name{
         text-align: center;
+        font-size: 180%;
         margin: 0 auto;
         color: $text-light;
         font-family: 'Exo 2', sans-serif;
@@ -27,4 +28,5 @@ body{
 @import 'authContainer';
 @import 'selectContainer';
 @import 'queueContainer';
+@import 'menuToggle';
 
