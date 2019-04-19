@@ -110,7 +110,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
     createUDB();
     loggedIn();
-    addQueuesToHTML();
+    queuePageHome();
 
     /*     newQueue("queue1", {
       0: { videoID: "title" },
@@ -124,6 +124,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
   } else {
     console.log("Not logged in");
     notLoggedIn();
+    queuePageNotLoggedIn();
   }
 });
 

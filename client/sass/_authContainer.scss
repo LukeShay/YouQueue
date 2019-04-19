@@ -13,6 +13,8 @@ $row-height: 30px;
   font-weight: bold;
 
   button {
+    border-radius: 5px;
+    padding: 0 0 0 0;
     border: none;
     color: black;
     text-align: center;
@@ -53,6 +55,7 @@ $row-height: 30px;
   }
 
   #logout {
+    grid-row: $start-row;
     background-color: lightskyblue;
     width: 194px;
     margin-left: 3px;

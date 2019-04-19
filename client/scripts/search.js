@@ -102,7 +102,7 @@ var APISearch = searchTerm => {
     //console.log(currentVideo);
 
     var msg = new Message();
-    msg.requestType = "addToQueue";
+    msg.requestType = "changeQueue";
     msg.data = currentVideo;
     msg.sendMessage();
 
