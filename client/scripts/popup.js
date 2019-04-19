@@ -15,14 +15,16 @@ firebase.initializeApp(extInfo.config);
 extInfo.currentUser = firebase.auth().currentUser;
 
 window.onload = () => {
-  loadContainer("searchContainer");
   addSearchListener();
   PauseListener();
   PlayListener();
   ClearQueueListener();
   NextSongListener();
   addQueueToSearch();
-  document.getElementById("containerSelector").style.display = "grid";
+  setContainer();
+  addNavListeners();
+
+  /* document.getElementById("containerSelector").style.display = "grid"; */
 };
 
 /* Main view controller:
@@ -35,6 +37,27 @@ window.onload = () => {
       -> includes logout element
     3. User settings page?
 */
+
+var addNavListeners = () =>
+{
+  document.getElementById("searchNav").addEventListener("click", e =>
+  {
+    loadContainer("searchContainer");
+  });
+
+  document.getElementById("loginNav").addEventListener("click", e =>
+  {
+    loadContainer("authContainer");
+  });
+
+  document.getElementById("queueNav").addEventListener("click", e =>
+  {
+    loadContainer("queueContainer");
+  });
+
+}
+
+
 var setContainer = () => {
   if (!extInfo.currentUser) {
     loadContainer("searchContainer");
@@ -50,9 +73,11 @@ var setContainer = () => {
     */
   } else {
     // Show login page
-    loadContainer("searchContainer"); //<----Change this manually during development to change the container shown (unless you're logged in)
+    loadContainer("authContainer"); //<----Change this manually during development to change the container shown (unless you're logged in)
   }
 };
+
+
 
 var loadContainer = selectedContainer => {
   extInfo.containers.forEach(element => {

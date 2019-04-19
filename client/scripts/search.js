@@ -85,7 +85,7 @@ var APISearch = searchTerm => {
     var obj = {};
 
     obj[videoID] = video.snippet.title;
-    
+
     curQueue[Object.values(curQueue).length] = obj;
 
     document.getElementById("queue").innerHTML = "";
