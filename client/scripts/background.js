@@ -27,6 +27,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 console.log(`Background script recieved message of type (test).`);
                 sendRepsonse("Test message recieved. This is the response.");
                 break;
+            case "changeQueue":
+                queueUpToDate = false;songNum = 0;
+
             case "addToQueue":
                 start = true;
                 queueUpToDate = false;
@@ -43,7 +46,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) =>
                 primaryPlayer.src = "";
                 songPlaying = false;
                 queueUpToDate = false;
-                songNum = 0;
+                
                 break;
             case "nextSong":
                 primaryPlayer.onended();
