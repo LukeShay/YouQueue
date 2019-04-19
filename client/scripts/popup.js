@@ -92,7 +92,8 @@ var loadContainer = selectedContainer => {
 var addQueueToSearch = () => {
   chrome.storage.sync.get(null, result => {
     Object.values(result).forEach((obj, index) => {
-      document.getElementById("queue").innerHTML += Object.values(obj) + "<br>";
+      document.getElementById("thumbnail").appendChild()
+      document.getElementById("queue").innerHTML += Object.values(obj)[0] + "<br>";
     });
   });
 };

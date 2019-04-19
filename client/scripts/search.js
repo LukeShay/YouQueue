@@ -64,6 +64,18 @@ var PauseListener = () => {
 };
 
 var APISearch = searchTerm => {
+/*   var arr;
+  var nextSong;
+  chrome.storage.sync.get(null, result => {
+    arr = Object.values(result);
+    nextSong = arr.shift();
+    chrome.storage.sync.clear(() => {
+      chrome.storage.set(arr, ()=>{
+        //Stuff here
+      });
+    });
+  }); */
+
   chrome.storage.sync.get(null, result => {
     curQueue = result;
   });
@@ -98,7 +110,7 @@ var APISearch = searchTerm => {
     document.getElementById("queue").innerHTML = "";
 
     Object.values(curQueue).forEach((obj, index) => {
-      document.getElementById("queue").innerHTML += Object.values(obj) + "<br>";
+      document.getElementById("queue").innerHTML += Object.values(obj)[0] + "<br>";
     });
 
     chrome.storage.sync.set(curQueue, () => {
