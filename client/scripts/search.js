@@ -91,8 +91,12 @@ var APISearch = searchTerm => {
     var obj = {};
 
     obj[videoID] = video.snippet.title;
+<<<<<<< HEAD
     obj.thumbURL = video.snippet.thumbnails.default.url;
 
+=======
+    
+>>>>>>> 210f8fa1c401a6e98a217d670c6ee437e555a6cd
     curQueue[Object.values(curQueue).length] = obj;
 
     document.getElementById("queue").innerHTML = "";
@@ -111,7 +115,7 @@ var APISearch = searchTerm => {
     console.log("current song", currentVideo);
 
     var msg = new Message();
-    msg.requestType = "addToQueue";
+    msg.requestType = "changeQueue";
     msg.data = currentVideo;
     msg.sendMessage();
 

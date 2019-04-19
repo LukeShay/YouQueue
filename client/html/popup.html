@@ -18,7 +18,24 @@
 
         <div id="splashContainer">
         </div>
-        
+
+        <nav role="navigation">
+          <div id="menuToggle">
+            <input type="checkbox" />
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+            <ul id="menu">
+              <a href="#"><li>Search</li></a>
+              <a href="#"><li>Login</li></a>
+              <a href="#"><li>View Queues</li></a>
+            </ul>
+          </div>
+        </nav>              
+
+        <!--
         <div id="selectContainer">
           <select id="containerSelector">
             <option value=""selected disabled hidden></option>
@@ -27,6 +44,7 @@
             <option value="queueContainer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View Queues</option>
           </select>
         </div>
+        -->
 
         <div id="searchContainer">
             <input id="searchBox" type="text" placeholder="Search..."  />
@@ -65,10 +83,9 @@
           <div id="curText"></div>
         </div>
     </div>
-    
 
-    <div id = "qunit"></div>
-    <div id = "qunit-fixture"></div>
+   <!--  <div id = "qunit"></div>
+    <div id = "qunit-fixture"></div> -->
     
     <script src="../scripts/authentication.js"></script>
     <script src="../scripts/storage.js"></script>

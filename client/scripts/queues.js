@@ -7,24 +7,20 @@ const curText = document.getElementById("curText");
 const searchError = document.getElementById("searchError");
 
 var tempQueue = {};
-var curNum = 1;
-
-newQueueBtn.style.display = "block";
-queueName.style.display = "none";
-videoSearch.style.display = "none";
-undoBtn.style.display = "none";
-saveBtn.style.display = "none";
-curText.innerHTML = "";
-searchError.innerHTML = "";
+var queueNames = [];
+var curNum = 0;
 
 newQueueBtn.addEventListener("click", e => {
+  document.getElementById("queueContainer").style.gridTemplateRows =
+    "20px 25px 25px 20px 250px 20px";
   newQueueBtn.style.display = "none";
   queueName.style.display = "block";
   videoSearch.style.display = "block";
-  undoBtn.style.display = "block";
+  undoBtn.style.display = "none";
   saveBtn.style.display = "block";
   curText.innerHTML = "";
-  searchError.innerHTML = "";
+  searchError.innerHTML = "Click on song to delete.";
+  curText.style.gridRow = "5";
 });
 
 videoSearch.addEventListener("keyup", e => {
@@ -34,30 +30,23 @@ videoSearch.addEventListener("keyup", e => {
 });
 
 saveBtn.addEventListener("click", e => {
-  newQueue(queueName.value, tempQueue);
-  tempQueue = {};
-  curNum = 1;
+  var invalid = 0;
+  queueNames.forEach((value, index) => {
+    if (queueName.value.trim() == value) {
+      searchError.innerHTML = "Name in use.";
+      console.log(value);
+      invalid = 1;
+    }
+  });
 
-  newQueueBtn.style.display = "block";
-  queueName.style.display = "none";
-  videoSearch.style.display = "none";
-  undoBtn.style.display = "none";
-  saveBtn.style.display = "none";
-  curText.innerHTML = "";
-  searchError.innerHTML = "";
+  if (!invalid && Object.keys(tempQueue).length > 0) {
+    newQueue(queueName.value.trim(), tempQueue);
+    tempQueue = {};
+    curNum = 0;
 
-  addQueuesToHTML();
-});
-
-undoBtn.addEventListener("click", e => {
-  if (curNum > 1) {
-    curNum--;
-    delete tempQueue[curNum];
-    curText.innerHTML = "";
-
-    Object.values(tempQueue).forEach((value, index) => {
-      curText.innerHTML += Object.values(value) + "<br>";
-    });
+    queuePageHome();
+  } else if(Object.keys(tempQueue).length == 0) {
+    searchError.innerHTML += "No songs in queue.";
   }
 });
 
@@ -79,19 +68,25 @@ var addQueuesToHTML = () => {
         button.setAttribute("id", "queueNameBtn");
         button.setAttribute("value", doc.id);
         button.innerHTML = doc.id;
+
+        queueNames.push(doc.id);
+
+        button.addEventListener("click", e => {
+          addQueueToStorage(button.value);
+        });
+
         docFrag.appendChild(button);
         docFrag.appendChild(br);
-        console.log(doc.id);
       });
       document.getElementById("curText").appendChild(docFrag);
     });
 };
 
-var addQueueNameBtnListener = () =>{
-  document.getElementById("queueNameBtn").addEventListener("click", e => {
-
-  });
-};
+// var addQueueNameBtnListener = () =>{
+//   document.getElementById("queueNameBtn").addEventListener("click", e => {
+//     addQueueToStorage(this.value);
+//   });
+// };
 
 var parseSearch = keyword => {
   var link = keyword.includes("www.youtube.com");
@@ -104,6 +99,7 @@ var parseSearch = keyword => {
 };
 
 var runSearch = keyword => {
+  var docFrag = document.createDocumentFragment();
   const Http = new XMLHttpRequest();
   const url =
     "https://www.googleapis.com/youtube/v3/search?" +
@@ -125,9 +121,55 @@ var runSearch = keyword => {
 
     tempQueue[curNum] = tempObj;
 
-    curText.innerHTML += video.snippet.title + "<br>";
+    var button = document.createElement("button");
+    var br = document.createElement("br");
+    button.setAttribute("id", curNum);
+    button.setAttribute("class", "videoNameBtn");
+    button.innerHTML = video.snippet.title;
+
+    button.addEventListener("click", e => {
+      button.parentNode.removeChild(button);
+      br.parentNode.removeChild(br);
+      removeNum(tempQueue, parseInt(button.id));
+      curNum--;
+    });
+
+    document.getElementById("curText").appendChild(button);
+    document.getElementById("curText").appendChild(br);
 
     curNum++;
     console.log(tempQueue);
   };
+};
+
+var removeNum = (object, index) => {
+  var i;
+  for (i = index; i < curNum - 2; i++) {
+    object[i] = object[i + 1];
+  }
+  delete object[i + 1];
+};
+
+var queuePageHome = () => {
+  document.getElementById("queueContainer").style.gridTemplateRows = "20px 25px auto auto"
+  newQueueBtn.style.display = "block";
+  queueName.style.display = "none";
+  videoSearch.style.display = "none";
+  undoBtn.style.display = "none";
+  saveBtn.style.display = "none";
+  curText.innerHTML = "";
+  searchError.style.gridRow = "4"
+  searchError.innerHTML = "Click on queue to play.";
+
+  addQueuesToHTML();
+};
+
+var queuePageNotLoggedIn = () => {
+  newQueueBtn.style.display = "none";
+  queueName.style.display = "none";
+  videoSearch.style.display = "none";
+  undoBtn.style.display = "none";
+  saveBtn.style.display = "none";
+  curText.innerHTML = "";
+  searchError.innerHTML = "You are not logged in.";
 };
