@@ -9,6 +9,8 @@ var searchParams = {
 
 var curQueue = {};
 var cur = "curQueueKey";
+var thumbnail = new Image();
+var current = 0;
 
 
 var addSearchListener = () => {
@@ -39,13 +41,16 @@ var PlayListener = () => {
 };
 
 var NextSongListener = () => {
-  var playButton = document.getElementById("nextSong");
-  playButton.addEventListener("click", event => {
+  var nextButton = document.getElementById("nextSong");
+  nextButton.addEventListener("click", event => {
     var msg = new Message();
     msg.requestType = "nextSong";
     msg.data = "";
     msg.sendMessage();
+    current ++;
+    displayThumbnail();
   });
+  
 };
 
 var PauseListener = () => {
@@ -81,10 +86,13 @@ var APISearch = searchTerm => {
   Http.onload = e => {
     var video = Http.response.items[0];
     var videoID = video.id.videoId;
+    var thumbURL = "default";
 
     var obj = {};
 
     obj[videoID] = video.snippet.title;
+    obj.thumbURL = video.snippet.thumbnails.default.url;
+
     curQueue[Object.values(curQueue).length] = obj;
 
     document.getElementById("queue").innerHTML = "";
@@ -98,22 +106,42 @@ var APISearch = searchTerm => {
     });
 
     currentVideo = video.id.videoId;
-    //console.log(currentVideo);
+  
+    console.log("current video: ",curQueue);
+    console.log("current song", currentVideo);
 
     var msg = new Message();
     msg.requestType = "addToQueue";
     msg.data = currentVideo;
     msg.sendMessage();
 
+    displayThumbnail();
+
     return currentVideo;
   };
 };
+
+var displayThumbnail = () =>{
+  console.log(current);
+  if(thumbnail.src == curQueue[current].thumbURL){
+    
+  } else{
+    if(current != 0){
+      document.getElementById('thumbnail').removeChild(thumbnail);
+    }
+    thumbnail.src = curQueue[current].thumbURL;
+    document.getElementById('thumbnail').appendChild(thumbnail);
+  }
+}
+
 
 var clearQueue = () =>{
   chrome.storage.sync.clear(()=>{
     console.log("Storage cleared.");
   }); 
+  current = 0;
   document.getElementById("queue").innerHTML = "";
+  document.getElementById('thumbnail').removeChild(thumbnail);
   curQueue = {};
   var msg = new Message();
     msg.requestType = "clearedQueue";
