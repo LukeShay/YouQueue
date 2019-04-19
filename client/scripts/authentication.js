@@ -209,13 +209,3 @@ function numCheck(entry) {
     return false;
   }
 }
-
-var loadContainer = selectedContainer => {
-  extInfo.containers.forEach(element => {
-    if (element != selectedContainer) {
-      document.getElementById(element).style.display = "none";
-    } else {
-      document.getElementById(element).style.display = "grid";
-    }
-  });
-};

@@ -1,6 +1,6 @@
 var extInfo = {
   currentUser: null,
-  containers: ["searchContainer", "splashContainer", "authContainer", "queueContainer"],
+  containers: ["searchContainer", "authContainer", "queueContainer"],
   config: {
     apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
     authDomain: "youqueue-c89b9.firebaseapp.com",
