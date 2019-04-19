@@ -210,23 +210,6 @@ function numCheck(entry) {
   }
 }
 
-var cSelect = document.getElementById("containerSelector");
-cSelect.addEventListener(
-  "change",
-  () => {
-    if (cSelect.value == "authContainer") {
-      loadContainer("authContainer");
-    }
-    if (cSelect.value == "searchContainer") {
-      loadContainer("searchContainer");
-    }
-    if (cSelect.value == "queueContainer") {
-      loadContainer("queueContainer");
-    }
-  },
-  false
-);
-
 var loadContainer = selectedContainer => {
   extInfo.containers.forEach(element => {
     if (element != selectedContainer) {

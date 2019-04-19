@@ -12,12 +12,12 @@
 
       border-radius: 5px;
       border: none;
-      width: 80%;
+      width: 70%;
       height: 25px;
       position: fixed;
       transform: translate(-50%, -50%);
       left: 50%;
-      top: 75px;
+      top: 10%;
       z-index: 0;
 
     }
@@ -52,12 +52,14 @@
         position: fixed;
         left: 2%;
         border: none;
-        background-color: #36454f;
+        
         transform: translate(90%, -50%);
+        border-radius: 50%;
+        z-index: 0;
     }
 
     #pause {
-        background-image: url('../resources/pause-circle-outline-512.png');
+        background-image: url('../resources/iconfinder_button_grey_pause_50038.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -69,7 +71,7 @@
     }
 
     #play {
-        background-image: url('../resources/play-button.png');
+        background-image: url('../resources/iconfinder_button_grey_play_50039.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -80,16 +82,19 @@
     }
 
     #clearQueue {
-        color: white;
-        width: 50px;
-        height: 50px;
+        background: rgb(222,219,219);
+        background: radial-gradient(circle, rgba(222,219,219,1) 0%, rgba(135,135,135,1) 87%, rgba(98,105,106,1) 100%);
+        width: 42px;
+        height: 42px;
         border: none;
-        background-color: #36454f;
+        background-color: 	#C0C0C0;
+        border-radius: 50%;
+        
         
     }
 
     #nextSong {
-        background-image: url('../resources/next-song.png');
+        background-image: url('../resources/iconfinder_Button\ Next_58484.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
