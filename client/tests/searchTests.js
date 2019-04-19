@@ -1,4 +1,11 @@
 QUnit.test( "TestSquare", function( assert ) {
+    var result = APISearch("sorry");
+    assert.equal( currentVideo, "fRh_vgS2dFE");
+ });
+
+
+ QUnit.test( "clearQueue", function( assert ) {
     var result = APISearch("hello");
-    assert.equal( result, "YQHsXMglC9A", "" );
+    clearQueue();
+    assert.equal( result, null);
  });
