@@ -216,7 +216,7 @@ body {
 #queueContainer {
   display: grid;
   grid-template-rows: 20px 25px auto auto;
-  grid-template-columns: 400px;
+  grid-template-columns: 133px 133px 133px;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -248,8 +248,25 @@ body {
   display: block;
   margin-right: auto;
   margin-left: auto;
-  width: 200px;
+  width: 130px;
   grid-row: 2;
+  grid-column: 1;
+}
+#queueContainer #editQueueBtn {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 130px;
+  grid-row: 2;
+  grid-column: 2;
+}
+#queueContainer #deleteQueueBtn {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 130px;
+  grid-row: 2;
+  grid-column: 3;
 }
 #queueContainer #undo {
   display: block;
@@ -306,6 +323,8 @@ body {
   color: red;
   grid-row: 4;
   font-size: 14px;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 #queueContainer #curText {
   align-self: top;
@@ -314,6 +333,8 @@ body {
   font-size: 14px;
   vertical-align: top;
   height: 250px;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 
 a {

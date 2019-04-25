@@ -1,4 +1,6 @@
 const newQueueBtn = document.getElementById("newQueueBtn");
+const editQueueBtn = document.getElementById("editQueueBtn");
+const deleteQueueBtn = document.getElementById("deleteQueueBtn");
 const queueName = document.getElementById("queueName");
 const videoSearch = document.getElementById("videoSearch");
 const undoBtn = document.getElementById("undo");
@@ -11,16 +13,7 @@ var queueNames = [];
 var curNum = 0;
 
 newQueueBtn.addEventListener("click", e => {
-  document.getElementById("queueContainer").style.gridTemplateRows =
-    "20px 25px 25px 20px 250px 20px";
-  newQueueBtn.style.display = "none";
-  queueName.style.display = "block";
-  videoSearch.style.display = "block";
-  undoBtn.style.display = "none";
-  saveBtn.style.display = "block";
-  curText.innerHTML = "";
-  searchError.innerHTML = "Click on song to delete.";
-  curText.style.gridRow = "5";
+  newQueuePage();
 });
 
 videoSearch.addEventListener("keyup", e => {
@@ -31,23 +24,29 @@ videoSearch.addEventListener("keyup", e => {
 
 saveBtn.addEventListener("click", e => {
   var invalid = 0;
-  queueNames.forEach((value, index) => {
-    if (queueName.value.trim() == value) {
-      searchError.innerHTML = "Name in use.";
-      console.log(value);
-      invalid = 1;
-    }
-  });
 
-  if (!invalid && Object.keys(tempQueue).length > 0) {
+  if (queueName.value.trim().length != 0) {
+    queueNames.forEach((value, index) => {
+      if (queueName.value.trim() == value) {
+        searchError.innerHTML = "Name in use.";
+        console.log(value);
+        invalid = 1;
+      }
+    });
+  } else if (queueName.value.trim().length == 0) {
+    earchError.innerHTML = "No name entered"
+
+  } else if(Object.keys(tempQueue).length == 0) {
+    searchError.innerHTML = "No songs in queue.";
+  } 
+  
+  if (!invalid) {
     newQueue(queueName.value.trim(), tempQueue);
     tempQueue = {};
     curNum = 0;
 
     queuePageHome();
-  } else if(Object.keys(tempQueue).length == 0) {
-    searchError.innerHTML += "No songs in queue.";
-  }
+  } 
 });
 
 /**
@@ -152,7 +151,10 @@ var removeNum = (object, index) => {
 
 var queuePageHome = () => {
   document.getElementById("queueContainer").style.gridTemplateRows = "20px 25px auto auto"
+  document.getElementById("queueContainer").style.gridTemplateColumns = "133px 133px 133px"
   newQueueBtn.style.display = "block";
+  editQueueBtn.style.display = "block";
+  deleteQueueBtn.style.display = "block";
   queueName.style.display = "none";
   videoSearch.style.display = "none";
   undoBtn.style.display = "none";
@@ -172,4 +174,20 @@ var queuePageNotLoggedIn = () => {
   saveBtn.style.display = "none";
   curText.innerHTML = "";
   searchError.innerHTML = "You are not logged in.";
+};
+
+var newQueuePage = () => {
+  document.getElementById("queueContainer").style.gridTemplateRows =
+    "20px 25px 25px 20px 215px 20px";
+    document.getElementById("queueContainer").style.gridTemplateColumns = "auto";
+  newQueueBtn.style.display = "none";
+  editQueueBtn.style.display = "none";
+  deleteQueueBtn.style.display = "none";
+  queueName.style.display = "block";
+  videoSearch.style.display = "block";
+  undoBtn.style.display = "none";
+  saveBtn.style.display = "block";
+  curText.innerHTML = "";
+  searchError.innerHTML = "Click on song to delete.";
+  curText.style.gridRow = "5";
 };
