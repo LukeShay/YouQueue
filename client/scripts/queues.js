@@ -34,25 +34,29 @@ saveBtn.addEventListener("click", e => {
       }
     });
   } else if (queueName.value.trim().length == 0) {
-    earchError.innerHTML = "No name entered"
-
-  } else if(Object.keys(tempQueue).length == 0) {
+    earchError.innerHTML = "No name entered";
+  } else if (Object.keys(tempQueue).length == 0) {
     searchError.innerHTML = "No songs in queue.";
-  } 
-  
+  }
+
   if (!invalid) {
     newQueue(queueName.value.trim(), tempQueue);
     tempQueue = {};
     curNum = 0;
 
     queuePageHome();
-  } 
+  }
+});
+
+deleteQueueBtn.addEventListener("click", e => {
+  addQueuesToHTML(1);
 });
 
 /**
  * Fetches queues from firebase and adds them to the "curText" div in the queueContainer.
+ * @var func - 0 for playing, 1 for deleting, and 2 for editing.
  */
-var addQueuesToHTML = () => {
+var addQueuesToHTML = func => {
   var docFrag = document.createDocumentFragment();
 
   firebase
@@ -71,21 +75,29 @@ var addQueuesToHTML = () => {
         queueNames.push(doc.id);
 
         button.addEventListener("click", e => {
-          addQueueToStorage(button.value);
+          if (func == 0) {
+            addQueueToStorage(button.value);
+          } else if (func == 1) {
+          } else if (func == 2) {
+          }
         });
 
         docFrag.appendChild(button);
         docFrag.appendChild(br);
       });
-      document.getElementById("curText").appendChild(docFrag);
+
+      if (func == 0) {
+        searchError.innerHTML = "Click on queue to play.";
+      } else if (func == 1) {
+        searchError.innerHTML = "Click on queue to delete.";
+      } else if (func == 2) {
+        searchError.innerHTML = "Click on queue to edit.";
+      }
+
+      curText.innerHTML = "";
+      curText.appendChild(docFrag);
     });
 };
-
-// var addQueueNameBtnListener = () =>{
-//   document.getElementById("queueNameBtn").addEventListener("click", e => {
-//     addQueueToStorage(this.value);
-//   });
-// };
 
 var parseSearch = keyword => {
   var link = keyword.includes("www.youtube.com");
@@ -150,8 +162,10 @@ var removeNum = (object, index) => {
 };
 
 var queuePageHome = () => {
-  document.getElementById("queueContainer").style.gridTemplateRows = "20px 25px auto auto"
-  document.getElementById("queueContainer").style.gridTemplateColumns = "133px 133px 133px"
+  document.getElementById("queueContainer").style.gridTemplateRows =
+    "20px 25px auto auto";
+  document.getElementById("queueContainer").style.gridTemplateColumns =
+    "133px 133px 133px";
   newQueueBtn.style.display = "block";
   editQueueBtn.style.display = "block";
   deleteQueueBtn.style.display = "block";
@@ -160,10 +174,9 @@ var queuePageHome = () => {
   undoBtn.style.display = "none";
   saveBtn.style.display = "none";
   curText.innerHTML = "";
-  searchError.style.gridRow = "4"
-  searchError.innerHTML = "Click on queue to play.";
+  searchError.style.gridRow = "4";
 
-  addQueuesToHTML();
+  addQueuesToHTML(0);
 };
 
 var queuePageNotLoggedIn = () => {
@@ -179,7 +192,7 @@ var queuePageNotLoggedIn = () => {
 var newQueuePage = () => {
   document.getElementById("queueContainer").style.gridTemplateRows =
     "20px 25px 25px 20px 215px 20px";
-    document.getElementById("queueContainer").style.gridTemplateColumns = "auto";
+  document.getElementById("queueContainer").style.gridTemplateColumns = "auto";
   newQueueBtn.style.display = "none";
   editQueueBtn.style.display = "none";
   deleteQueueBtn.style.display = "none";
