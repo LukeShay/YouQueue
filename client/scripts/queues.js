@@ -78,6 +78,7 @@ var addQueuesToHTML = func => {
           if (func == 0) {
             addQueueToStorage(button.value);
           } else if (func == 1) {
+            deleteQueueFromFirestore(button.value);
           } else if (func == 2) {
           }
         });
@@ -204,3 +205,8 @@ var newQueuePage = () => {
   searchError.innerHTML = "Click on song to delete.";
   curText.style.gridRow = "5";
 };
+
+var deleteQueueFromFirestore = (queueName) => {
+  deleteQueue(queueName);
+  addQueuesToHTML(1);
+}

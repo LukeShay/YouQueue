@@ -35,20 +35,6 @@ function addToQueue(queueName, list) {
   q.update(list);
 }
 
-/**
- * Gets the names of all the queues and returns them as an object.
- */
-function getNamesOfQueues() {
-  udb
-    .where("valid", "==", true)
-    .get()
-    .then(querySnap => {
-      querySnap.forEach(doc => {
-        console.log(doc.id, " => ", doc.data());
-      });
-    });
-}
-
 function getCurQueue() {
   var temp = {};
   chrome.storage.sync.get(null, result => {
@@ -80,4 +66,10 @@ function addQueueToStorage(queueName) {
       msg.requestType = "changeQueue";
       msg.sendMessage();
     });
+}
+
+function deleteQueue(queueName) {
+  udb.doc(queueName).delete().then(() =>{
+    console.log(queueName + " has been deleted.");
+  });
 }
