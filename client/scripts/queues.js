@@ -5,8 +5,13 @@ const queueName = document.getElementById("queueName");
 const videoSearch = document.getElementById("videoSearch");
 const undoBtn = document.getElementById("undo");
 const saveBtn = document.getElementById("save");
+const cancelBtn = document.getElementById("cancelQueueBtn");
 const curText = document.getElementById("curText");
 const searchError = document.getElementById("searchError");
+
+const PLAY = 0;
+const DELETE = 1;
+const EDIT = 2;
 
 var tempQueue = {};
 var queueNames = [];
@@ -34,7 +39,7 @@ saveBtn.addEventListener("click", e => {
       }
     });
   } else if (queueName.value.trim().length == 0) {
-    earchError.innerHTML = "No name entered";
+    searchError.innerHTML = "No name entered";
   } else if (Object.keys(tempQueue).length == 0) {
     searchError.innerHTML = "No songs in queue.";
   }
@@ -49,12 +54,21 @@ saveBtn.addEventListener("click", e => {
 });
 
 deleteQueueBtn.addEventListener("click", e => {
-  addQueuesToHTML(1);
+  addQueuesToHTML(DELETE);
+  cancelQueueBtn.style.display = "block";
+});
+
+editQueueBtn.addEventListener("click", e => {
+  addQueuesToHTML(EDIT);
+});
+
+cancelQueueBtn.addEventListener("click", e=> {
+  queuePageHome();
 });
 
 /**
  * Fetches queues from firebase and adds them to the "curText" div in the queueContainer.
- * @var func - 0 for playing, 1 for deleting, and 2 for editing.
+ * @var func - Action
  */
 var addQueuesToHTML = func => {
   var docFrag = document.createDocumentFragment();
@@ -75,11 +89,12 @@ var addQueuesToHTML = func => {
         queueNames.push(doc.id);
 
         button.addEventListener("click", e => {
-          if (func == 0) {
+          if (func == PLAY) {
             addQueueToStorage(button.value);
-          } else if (func == 1) {
+          } else if (func == DELETE) {
             deleteQueueFromFirestore(button.value);
-          } else if (func == 2) {
+          } else if (func == EDIT) {
+            editQueueFromFirestore(button.value);
           }
         });
 
@@ -87,11 +102,11 @@ var addQueuesToHTML = func => {
         docFrag.appendChild(br);
       });
 
-      if (func == 0) {
+      if (func == PLAY) {
         searchError.innerHTML = "Click on queue to play.";
-      } else if (func == 1) {
+      } else if (func == DELETE) {
         searchError.innerHTML = "Click on queue to delete.";
-      } else if (func == 2) {
+      } else if (func == EDIT) {
         searchError.innerHTML = "Click on queue to edit.";
       }
 
@@ -164,7 +179,7 @@ var removeNum = (object, index) => {
 
 var queuePageHome = () => {
   document.getElementById("queueContainer").style.gridTemplateRows =
-    "20px 25px auto auto";
+    "1px 30px auto auto";
   document.getElementById("queueContainer").style.gridTemplateColumns =
     "133px 133px 133px";
   newQueueBtn.style.display = "block";
@@ -176,8 +191,9 @@ var queuePageHome = () => {
   saveBtn.style.display = "none";
   curText.innerHTML = "";
   searchError.style.gridRow = "4";
+  cancelBtn.style.display = "none";
 
-  addQueuesToHTML(0);
+  addQueuesToHTML(PLAY);
 };
 
 var queuePageNotLoggedIn = () => {
@@ -192,11 +208,12 @@ var queuePageNotLoggedIn = () => {
 
 var newQueuePage = () => {
   document.getElementById("queueContainer").style.gridTemplateRows =
-    "20px 25px 25px 20px 215px 20px";
+    "0px 25px 25px 20px 195px 22px 20px";
   document.getElementById("queueContainer").style.gridTemplateColumns = "auto";
   newQueueBtn.style.display = "none";
   editQueueBtn.style.display = "none";
   deleteQueueBtn.style.display = "none";
+  cancelBtn.style.display = "block";
   queueName.style.display = "block";
   videoSearch.style.display = "block";
   undoBtn.style.display = "none";
@@ -208,5 +225,40 @@ var newQueuePage = () => {
 
 var deleteQueueFromFirestore = (queueName) => {
   deleteQueue(queueName);
-  addQueuesToHTML(1);
-}
+  addQueuesToHTML(DELETE);
+};
+
+var editQueueFromFirestore = (queueName) => {
+  curNum = 0;
+  curText.innerHTML = "";
+
+  newQueuePage();
+
+  udb
+    .doc(queueName)
+    .get()
+    .then(snapshot => {
+      
+      tempQueue = snapshot.data()
+
+      Object.values(snapshot.data()).forEach((obj, index) => {
+        var button = document.createElement("button");
+        var br = document.createElement("br");
+        button.setAttribute("id", curNum);
+        button.setAttribute("class", "videoNameBtn");
+        button.innerHTML = Object.values(obj);
+    
+        button.addEventListener("click", e => {
+          button.parentNode.removeChild(button);
+          br.parentNode.removeChild(br);
+          removeNum(tempQueue, parseInt(button.id));
+          curNum--;
+        });
+        
+        curText.appendChild(button);
+        curText.appendChild(br);
+        curNum ++;
+      });
+      deleteQueue(queueName);
+    });
+};

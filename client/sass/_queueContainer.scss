@@ -84,6 +84,16 @@
     padding: 0 0 0 0;
   }
 
+  #cancelQueueBtn {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+    grid-row: 8;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
   input {
     border-radius: 5px;
     height: 25px;
@@ -132,7 +142,7 @@
     grid-row: 3;
     font-size: 14px;
     vertical-align: top;
-    height: 250px;
+    height: 270px;
     grid-column-start: 1;
     grid-column-end: 4;
   }
