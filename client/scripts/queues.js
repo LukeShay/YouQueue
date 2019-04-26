@@ -3,7 +3,6 @@ const editQueueBtn = document.getElementById("editQueueBtn");
 const deleteQueueBtn = document.getElementById("deleteQueueBtn");
 const queueName = document.getElementById("queueName");
 const videoSearch = document.getElementById("videoSearch");
-const undoBtn = document.getElementById("undo");
 const saveBtn = document.getElementById("save");
 const cancelBtn = document.getElementById("cancelQueueBtn");
 const curText = document.getElementById("curText");
@@ -30,22 +29,24 @@ videoSearch.addEventListener("keyup", e => {
 saveBtn.addEventListener("click", e => {
   var invalid = 0;
 
-  if (queueName.value.trim().length != 0) {
+  if (Object.keys(tempQueue).length == 0) {
+    searchError.innerHTML = "No songs in queue.";
+    invalid = 1;
+  } else if (queueName.value.trim().length != 0) {
     queueNames.forEach((value, index) => {
       if (queueName.value.trim() == value) {
         searchError.innerHTML = "Name in use.";
-        console.log(value);
         invalid = 1;
       }
     });
   } else if (queueName.value.trim().length == 0) {
     searchError.innerHTML = "No name entered";
-  } else if (Object.keys(tempQueue).length == 0) {
-    searchError.innerHTML = "No songs in queue.";
+    invalid = 1;
   }
 
   if (!invalid) {
     newQueue(queueName.value.trim(), tempQueue);
+    console.log(tempQueue);
     tempQueue = {};
     curNum = 0;
 
@@ -72,6 +73,7 @@ cancelQueueBtn.addEventListener("click", e=> {
  */
 var addQueuesToHTML = func => {
   var docFrag = document.createDocumentFragment();
+  queueNames = [];
 
   firebase
     .firestore()
@@ -161,8 +163,8 @@ var runSearch = keyword => {
       curNum--;
     });
 
-    document.getElementById("curText").appendChild(button);
-    document.getElementById("curText").appendChild(br);
+    curText.appendChild(button);
+    curText.appendChild(br);
 
     curNum++;
     console.log(tempQueue);
@@ -187,7 +189,6 @@ var queuePageHome = () => {
   deleteQueueBtn.style.display = "block";
   queueName.style.display = "none";
   videoSearch.style.display = "none";
-  undoBtn.style.display = "none";
   saveBtn.style.display = "none";
   curText.innerHTML = "";
   searchError.style.gridRow = "4";
@@ -200,7 +201,6 @@ var queuePageNotLoggedIn = () => {
   newQueueBtn.style.display = "none";
   queueName.style.display = "none";
   videoSearch.style.display = "none";
-  undoBtn.style.display = "none";
   saveBtn.style.display = "none";
   curText.innerHTML = "";
   searchError.innerHTML = "You are not logged in.";
@@ -216,32 +216,38 @@ var newQueuePage = () => {
   cancelBtn.style.display = "block";
   queueName.style.display = "block";
   videoSearch.style.display = "block";
-  undoBtn.style.display = "none";
   saveBtn.style.display = "block";
   curText.innerHTML = "";
   searchError.innerHTML = "Click on song to delete.";
   curText.style.gridRow = "5";
+  curText.style.height = "195px";
 };
 
-var deleteQueueFromFirestore = (queueName) => {
+var deleteQueueFromFirestore = queueName => {
   deleteQueue(queueName);
   addQueuesToHTML(DELETE);
 };
 
-var editQueueFromFirestore = (queueName) => {
+var editQueueFromFirestore = queueName => {
   curNum = 0;
   curText.innerHTML = "";
 
   newQueuePage();
+
+
+  queueNames = queueNames.filter(e => e !== queueName);
+  console.log(queueNames);
 
   udb
     .doc(queueName)
     .get()
     .then(snapshot => {
       
-      tempQueue = snapshot.data()
+      tempQueue = snapshot.data();
+      delete tempQueue.valid;
+      deleteQueue(queueName);
 
-      Object.values(snapshot.data()).forEach((obj, index) => {
+      Object.values(tempQueue).forEach((obj, index) => {
         var button = document.createElement("button");
         var br = document.createElement("br");
         button.setAttribute("id", curNum);
@@ -259,6 +265,5 @@ var editQueueFromFirestore = (queueName) => {
         curText.appendChild(br);
         curNum ++;
       });
-      deleteQueue(queueName);
     });
 };

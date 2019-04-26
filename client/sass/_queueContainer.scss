@@ -60,20 +60,14 @@
     grid-column: 3;
   }
 
-  #undo {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-    width: 200px;
-    grid-row: 6;
-  }
-
   #save {
     display: block;
     margin-right: auto;
     margin-left: auto;
     width: 200px;
     grid-row: 7;
+    grid-column-start: 1;
+    grid-column-end: 4;
   }
 
   #queueNameBtn {
@@ -142,7 +136,7 @@
     grid-row: 3;
     font-size: 14px;
     vertical-align: top;
-    height: 270px;
+    height: 250px;
     grid-column-start: 1;
     grid-column-end: 4;
   }
