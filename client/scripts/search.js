@@ -49,6 +49,7 @@ var NextSongListener = () => {
     msg.sendMessage();
     current ++;
     displayThumbnail();
+    addCurrentQueueToHTML();
   });
   
 };
@@ -64,17 +65,6 @@ var PauseListener = () => {
 };
 
 var APISearch = searchTerm => {
-/*   var arr;
-  var nextSong;
-  chrome.storage.sync.get(null, result => {
-    arr = Object.values(result);
-    nextSong = arr.shift();
-    chrome.storage.sync.clear(() => {
-      chrome.storage.set(arr, ()=>{
-        //Stuff here
-      });
-    });
-  }); */
 
   chrome.storage.sync.get(null, result => {
     curQueue = result;
@@ -109,21 +99,14 @@ var APISearch = searchTerm => {
 
     document.getElementById("queue").innerHTML = "";
 
-    Object.values(curQueue).forEach((obj, index) => {
-      document.getElementById("queue").innerHTML += Object.values(obj)[0] + "<br>";
-    });
-
     chrome.storage.sync.set(curQueue, () => {
-      console.log("Storage has been set to: ", curQueue);
+      addCurrentQueueToHTML();
     });
 
     currentVideo = video.id.videoId;
-  
-    console.log("current video: ",curQueue);
-    console.log("current song", currentVideo);
 
     var msg = new Message();
-    msg.requestType = "changeQueue";
+    msg.requestType = Object.keys(curQueue).length == 0 ? "changeQueue" : "addToQueue";
     msg.data = currentVideo;
     msg.sendMessage();
 
@@ -159,5 +142,18 @@ var clearQueue = () =>{
     msg.requestType = "clearedQueue";
     msg.data = currentVideo;
     msg.sendMessage();
-}
+};
+
+var addCurrentQueueToHTML = () => {
+  document.getElementById("queue").innerHTML = "";
+  chrome.storage.sync.get(null, obj => {
+    Object.values(obj).forEach((e, i) => {
+      if (Object.keys(e)[0] != "thumbURL") {
+        document.getElementById("queue").innerHTML += Object.values(e)[0] + "<br>";
+      } else {
+        document.getElementById("queue").innerHTML += Object.values(e)[1] + "<br>";
+      }
+    });
+  });
+};
 

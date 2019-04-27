@@ -12,7 +12,23 @@ document.body.appendChild(primaryPlayer);
 
 primaryPlayer.onended = () => {
   songPlaying = false;
-  playerEvent();
+  queueUpToDate = false;
+
+    var arr;
+
+    chrome.storage.sync.get(null, result => {
+      arr = Object.values(result);
+      arr.shift();
+
+      var obj = Object.assign({}, arr);
+      console.log(obj);
+
+      chrome.storage.sync.clear(() => {
+        chrome.storage.sync.set(obj, ()=>{
+          playerEvent();
+        });
+      });
+    });
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendRepsonse) => {
@@ -77,11 +93,11 @@ var playerEvent = () => {
   } else if (start && songPlaying) {
     return;
   } else if (start && !songPlaying) {
-    console.log("song number:", songNum);
-    if (queue[songNum] == undefined) {
-      songNum = 0;
+    if (Object.keys(queue[0])[0] != "thumbURL") {
+      queueAudio(Object.keys(queue[0])[0]);
+    } else {
+      queueAudio(Object.keys(queue[0])[1]);
     }
-    queueAudio(Object.keys(queue[songNum])[0]);
   }
 };
 
@@ -94,7 +110,6 @@ var getQueue = () => {
 var updateQueue = updatedQueue => {
   queue = updatedQueue;
   queueUpToDate = true;
-  console.log(queue);
   playerEvent();
 };
 
@@ -120,4 +135,10 @@ var queueAudio = videoID => {
     console.log("playing song:" + videoID);
     songNum++;
   };
+};
+
+var printArray = arr => {
+  arr.forEach(element => {
+    console.log(element);
+  });
 };
