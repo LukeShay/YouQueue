@@ -6,13 +6,6 @@
   align-items: center;
   text-align: center;
 
-  #searchError {
-    color: white;
-    font-size: 14px;
-    text-align: center;
-    grid-row: 4;
-  }
-
   button {
     border-radius: 5px;
     height: 20px;
@@ -109,6 +102,8 @@
     padding: 0px 0px 0px 10px;
     width: 200px;
     grid-row: 2;
+    grid-column-start: 1;
+    grid-column-end: 4;
   }
 
   #videoSearch {
@@ -120,6 +115,8 @@
 
     width: 80%;
     grid-row: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
   }
 
   #searchError {

@@ -12,6 +12,9 @@ const PLAY = 0;
 const DELETE = 1;
 const EDIT = 2;
 
+var edditingQueue = false;
+var nameOfQueueBeingEdited = "";
+
 var tempQueue = {};
 var queueNames = [];
 var curNum = 0;
@@ -28,11 +31,17 @@ videoSearch.addEventListener("keyup", e => {
 
 saveBtn.addEventListener("click", e => {
   var invalid = 0;
+  var name;
 
   if (Object.keys(tempQueue).length == 0) {
     searchError.innerHTML = "No songs in queue.";
     invalid = 1;
-  } else if (queueName.value.trim().length != 0) {
+  } else if (edditingQueue) {
+    name = nameOfQueueBeingEdited;
+    edditingQueue = false;
+
+
+  }else if (queueName.value.trim().length != 0) {
     queueNames.forEach((value, index) => {
       if (queueName.value.trim() == value) {
         searchError.innerHTML = "Name in use.";
@@ -42,11 +51,12 @@ saveBtn.addEventListener("click", e => {
   } else if (queueName.value.trim().length == 0) {
     searchError.innerHTML = "No name entered";
     invalid = 1;
+  } else {
+    name = queueName.value.trim();
   }
 
   if (!invalid) {
-    newQueue(queueName.value.trim(), tempQueue);
-    console.log(tempQueue);
+    newQueue(name, tempQueue);
     tempQueue = {};
     curNum = 0;
 
@@ -167,7 +177,6 @@ var runSearch = keyword => {
     curText.appendChild(br);
 
     curNum++;
-    console.log(tempQueue);
   };
 };
 
@@ -182,8 +191,6 @@ var removeNum = (object, index) => {
 var queuePageHome = () => {
   document.getElementById("queueContainer").style.gridTemplateRows =
     "1px 30px auto auto";
-  document.getElementById("queueContainer").style.gridTemplateColumns =
-    "133px 133px 133px";
   newQueueBtn.style.display = "block";
   editQueueBtn.style.display = "block";
   deleteQueueBtn.style.display = "block";
@@ -211,7 +218,6 @@ var queuePageNotLoggedIn = () => {
 var newQueuePage = () => {
   document.getElementById("queueContainer").style.gridTemplateRows =
     "0px 25px 25px 20px 195px 22px 20px";
-  document.getElementById("queueContainer").style.gridTemplateColumns = "auto";
   newQueueBtn.style.display = "none";
   editQueueBtn.style.display = "none";
   deleteQueueBtn.style.display = "none";
@@ -223,6 +229,10 @@ var newQueuePage = () => {
   searchError.innerHTML = "Click on song to delete.";
   curText.style.gridRow = "5";
   curText.style.height = "195px";
+
+  if (edditingQueue) {
+    queueName.style.display = "none";
+  }
 };
 
 var deleteQueueFromFirestore = queueName => {
@@ -233,12 +243,10 @@ var deleteQueueFromFirestore = queueName => {
 var editQueueFromFirestore = queueName => {
   curNum = 0;
   curText.innerHTML = "";
+  edditingQueue = true;
+  nameOfQueueBeingEdited = queueName;
 
   newQueuePage();
-
-
-  queueNames = queueNames.filter(e => e !== queueName);
-  console.log(queueNames);
 
   udb
     .doc(queueName)
@@ -247,7 +255,6 @@ var editQueueFromFirestore = queueName => {
       
       tempQueue = snapshot.data();
       delete tempQueue.valid;
-      deleteQueue(queueName);
 
       Object.values(tempQueue).forEach((obj, index) => {
         var button = document.createElement("button");

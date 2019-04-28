@@ -221,12 +221,6 @@ body {
   align-items: center;
   text-align: center;
 }
-#queueContainer #searchError {
-  color: white;
-  font-size: 14px;
-  text-align: center;
-  grid-row: 4;
-}
 #queueContainer button {
   border-radius: 5px;
   height: 20px;
@@ -268,19 +262,14 @@ body {
   grid-row: 2;
   grid-column: 3;
 }
-#queueContainer #undo {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  width: 200px;
-  grid-row: 6;
-}
 #queueContainer #save {
   display: block;
   margin-right: auto;
   margin-left: auto;
   width: 200px;
   grid-row: 7;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 #queueContainer #queueNameBtn {
   width: 100%;
@@ -318,6 +307,8 @@ body {
   padding: 0px 0px 0px 10px;
   width: 200px;
   grid-row: 2;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 #queueContainer #videoSearch {
   background-color: white;
@@ -327,6 +318,8 @@ body {
   padding: 0px 0px 0px 30px;
   width: 80%;
   grid-row: 3;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 #queueContainer #searchError {
   color: red;
@@ -341,7 +334,7 @@ body {
   grid-row: 3;
   font-size: 14px;
   vertical-align: top;
-  height: 270px;
+  height: 250px;
   grid-column-start: 1;
   grid-column-end: 4;
 }
