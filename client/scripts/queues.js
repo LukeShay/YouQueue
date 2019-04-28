@@ -31,7 +31,7 @@ videoSearch.addEventListener("keyup", e => {
 
 saveBtn.addEventListener("click", e => {
   var invalid = 0;
-  var name;
+  var name = queueName.value.trim();
 
   if (Object.keys(tempQueue).length == 0) {
     searchError.innerHTML = "No songs in queue.";
@@ -52,7 +52,6 @@ saveBtn.addEventListener("click", e => {
     searchError.innerHTML = "No name entered";
     invalid = 1;
   } else {
-    name = queueName.value.trim();
   }
 
   if (!invalid) {

@@ -17,10 +17,16 @@ function createUDB() {
  */
 function newQueue(queueName, list) {
   // List must be an object in the following format {1: {videoID:Title}}
-  var newQ = udb.doc(queueName); // Creates new queue
 
-  newQ.set(list);
-  newQ.update({ valid: true });
+  udb
+    .doc(queueName)
+    .delete()
+    .then(() => {
+      var newQ = udb.doc(queueName); // Creates new queue
+
+      newQ.set(list);
+      newQ.update({ valid: true });
+    });
 }
 
 /**
@@ -59,7 +65,8 @@ function addQueueToStorage(queueName) {
       });
 
       Object.values(snapshot.data()).forEach((obj, index) => {
-        document.getElementById("queue").innerHTML += Object.values(obj) + "<br>";
+        document.getElementById("queue").innerHTML +=
+          Object.values(obj) + "<br>";
       });
 
       var msg = new Message();
@@ -69,7 +76,10 @@ function addQueueToStorage(queueName) {
 }
 
 function deleteQueue(queueName) {
-  udb.doc(queueName).delete().then(() =>{
-    console.log(queueName + " has been deleted.");
-  });
+  udb
+    .doc(queueName)
+    .delete()
+    .then(() => {
+      console.log(queueName + " has been deleted.");
+    });
 }
