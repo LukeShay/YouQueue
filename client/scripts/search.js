@@ -17,9 +17,19 @@ var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
   searchBar.addEventListener("keyup", event => {
     if (event.key === "Enter") {
-      APISearch(searchBar.value);
+      parseSearch(searchBar.value);
     }
   });
+};
+
+var parseSearch = keyword => {
+  var link = keyword.includes("www.youtube.com");
+  if (link) {
+    var split = keyword.split("=");
+    APISearch(split[split.length - 1]);
+  } else {
+    APISearch(keyword);
+  }
 };
 
 
