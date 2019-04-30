@@ -6,6 +6,7 @@ body {
   background-color: #36454f;
   width: 400px;
   height: 400px;
+  font-family: "Karla", sans-serif;
 }
 .extensionContainer #app_name {
   text-align: center;
@@ -87,6 +88,7 @@ body {
   background-color: #36454f;
 }
 #searchContainer #clearQueue {
+  font-family: "Karla", sans-serif;
   background: #dedbdb;
   background: radial-gradient(circle, #dedbdb 0%, #878787 87%, #62696a 100%);
   width: 42px;

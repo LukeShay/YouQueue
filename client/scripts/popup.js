@@ -23,20 +23,7 @@ window.onload = () => {
   addQueueToSearch();
   setContainer();
   addNavListeners();
-
-  /* document.getElementById("containerSelector").style.display = "grid"; */
 };
-
-/* Main view controller:
-  - View prcedence 
-    1. Sign-Up/Sign-In Page
-      -> based on user authentication status
-    2. User application page
-      -> includes search elements
-      -> includes active playlist
-      -> includes logout element
-    3. User settings page?
-*/
 
 var addNavListeners = () =>
 {
@@ -55,25 +42,21 @@ var addNavListeners = () =>
     loadContainer("queueContainer");
   });
 
+  document.getElementById("checkbox").addEventListener("click", e =>
+  {
+    var searchBox = document.getElementById("searchBox");
+  });
+
+
+
 }
 
 
 var setContainer = () => {
   if (!extInfo.currentUser) {
     loadContainer("searchContainer");
-    /* Check user data
-        - Has active/favorited/recent/saved playlist?
-          - Show active/favorited/recent/saved playlist
-          - Show search elements
-          - Show logout button
-        - Else:
-          - Show search elements
-          - Show create playlist
-          - SHow logout button
-    */
   } else {
-    // Show login page
-    loadContainer("authContainer"); //<----Change this manually during development to change the container shown (unless you're logged in)
+    loadContainer("authContainer"); 
   }
 };
 
@@ -97,4 +80,3 @@ var addQueueToSearch = () => {
   });
 };
 
-//-----Functions

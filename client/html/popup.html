@@ -18,7 +18,7 @@
 
         <nav role="navigation" id="navigation">
           <div id="menuToggle">
-            <input type="checkbox" />
+            <input type="checkbox" id="checkbox" />
 
             <span></span>
             <span></span>
@@ -30,7 +30,8 @@
               <a href="#" id="queueNav"><li>View Queues</li></a>
             </ul>
           </div>
-        </nav>              
+        </nav> 
+
         <div id="searchContainer">
             <input id="searchBox" type="text" placeholder="Search..."  />
             <div id="player"></div>
@@ -42,9 +43,10 @@
             </div>  
             <div id="thumbnail"></div>
             <div id="queueControls">
-              <button id="clearQueue" type="button">clear</button>
+              <button id="clearQueue" type="button">Clear</button>
             </div> 
         </div>
+        
         <div id="authContainer">
                 <input type="text" id="name" placeholder="Name"></input>
                 <input type="text" id="email" placeholder="Email"></input>
@@ -68,10 +70,6 @@
           <div id="curText"></div>
         </div>
     </div>
-
-   <!--  <div id = "qunit"></div>
-    <div id = "qunit-fixture"></div> -->
-    
     <script src="../scripts/authentication.js"></script>
     <script src="../scripts/storage.js"></script>
     <script src="../scripts/queues.js"></script>

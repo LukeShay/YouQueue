@@ -3,7 +3,6 @@ var songPlaying = false;
 var queueUpToDate = false;
 var queue = null;
 var songNum = 0;
-var thumbnail = new Image();
 
 var primaryPlayer = document.createElement('video');
 primaryPlayer.id = "primaryPlayer";
