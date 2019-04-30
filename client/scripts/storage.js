@@ -17,10 +17,16 @@ function createUDB() {
  */
 function newQueue(queueName, list) {
   // List must be an object in the following format {1: {videoID:Title}}
-  var newQ = udb.doc(queueName); // Creates new queue
 
-  newQ.set(list);
-  newQ.update({ valid: true });
+  udb
+    .doc(queueName)
+    .delete()
+    .then(() => {
+      var newQ = udb.doc(queueName); // Creates new queue
+
+      newQ.set(list);
+      newQ.update({ valid: true });
+    });
 }
 
 /**
@@ -33,20 +39,6 @@ function addToQueue(queueName, list) {
   var q = udb.doc(queueName);
 
   q.update(list);
-}
-
-/**
- * Gets the names of all the queues and returns them as an object.
- */
-function getNamesOfQueues() {
-  udb
-    .where("valid", "==", true)
-    .get()
-    .then(querySnap => {
-      querySnap.forEach(doc => {
-        console.log(doc.id, " => ", doc.data());
-      });
-    });
 }
 
 function getCurQueue() {
@@ -73,11 +65,21 @@ function addQueueToStorage(queueName) {
       });
 
       Object.values(snapshot.data()).forEach((obj, index) => {
-        document.getElementById("queue").innerHTML += Object.values(obj) + "<br>";
+        document.getElementById("queue").innerHTML +=
+          Object.values(obj) + "<br>";
       });
 
       var msg = new Message();
       msg.requestType = "changeQueue";
       msg.sendMessage();
+    });
+}
+
+function deleteQueue(queueName) {
+  udb
+    .doc(queueName)
+    .delete()
+    .then(() => {
+      console.log(queueName + " has been deleted.");
     });
 }

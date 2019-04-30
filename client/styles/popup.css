@@ -41,10 +41,10 @@ body {
   position: fixed;
   transform: translate(-50%, -50%);
   left: 50%;
-  top: 50%;
+  top: 26%;
 }
 #searchContainer #queue {
-  top: 100px;
+  top: 150px;
   width: 90%;
   position: fixed;
   transform: translate(5%, 0);
@@ -218,16 +218,10 @@ body {
 #queueContainer {
   display: grid;
   grid-template-rows: 20px 25px auto auto;
-  grid-template-columns: 400px;
+  grid-template-columns: 133px 133px 133px;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-#queueContainer #searchError {
-  color: white;
-  font-size: 14px;
-  text-align: center;
-  grid-row: 4;
 }
 #queueContainer button {
   border-radius: 5px;
@@ -250,15 +244,25 @@ body {
   display: block;
   margin-right: auto;
   margin-left: auto;
-  width: 200px;
+  width: 130px;
   grid-row: 2;
+  grid-column: 1;
 }
-#queueContainer #undo {
+#queueContainer #editQueueBtn {
   display: block;
   margin-right: auto;
   margin-left: auto;
-  width: 200px;
-  grid-row: 6;
+  width: 130px;
+  grid-row: 2;
+  grid-column: 2;
+}
+#queueContainer #deleteQueueBtn {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 130px;
+  grid-row: 2;
+  grid-column: 3;
 }
 #queueContainer #save {
   display: block;
@@ -266,6 +270,8 @@ body {
   margin-left: auto;
   width: 200px;
   grid-row: 7;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 #queueContainer #queueNameBtn {
   width: 100%;
@@ -273,6 +279,15 @@ body {
   background-color: #36454f;
   height: 15px;
   padding: 0 0 0 0;
+}
+#queueContainer #cancelQueueBtn {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 200px;
+  grid-row: 8;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 #queueContainer input {
   border-radius: 5px;
@@ -294,6 +309,8 @@ body {
   padding: 0px 0px 0px 10px;
   width: 200px;
   grid-row: 2;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 #queueContainer #videoSearch {
   background-color: white;
@@ -303,11 +320,15 @@ body {
   padding: 0px 0px 0px 30px;
   width: 80%;
   grid-row: 3;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 #queueContainer #searchError {
   color: red;
   grid-row: 4;
   font-size: 14px;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 #queueContainer #curText {
   align-self: top;
@@ -316,6 +337,8 @@ body {
   font-size: 14px;
   vertical-align: top;
   height: 250px;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 
 a {

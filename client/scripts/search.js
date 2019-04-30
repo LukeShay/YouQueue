@@ -1,5 +1,3 @@
-
-
 var searchParams = {
   apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
   previousInput: null,
@@ -12,7 +10,6 @@ var cur = "curQueueKey";
 var thumbnail = new Image();
 var current = 0;
 
-
 var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
   searchBar.addEventListener("keyup", event => {
@@ -20,6 +17,16 @@ var addSearchListener = () => {
       APISearch(searchBar.value);
     }
   });
+};
+
+var parseSearchTempQueue = keyword => {
+  var link = keyword.includes("www.youtube.com");
+  if (link) {
+    var split = keyword.split("=");
+    APISearch(split[split.length - 1]);
+  } else {
+    APISearch(keyword);
+  }
 };
 
 
@@ -49,6 +56,7 @@ var NextSongListener = () => {
     msg.sendMessage();
     current ++;
     displayThumbnail();
+    addCurrentQueueToHTML();
   });
   
 };
@@ -64,6 +72,7 @@ var PauseListener = () => {
 };
 
 var APISearch = searchTerm => {
+
   chrome.storage.sync.get(null, result => {
     curQueue = result;
   });
@@ -97,21 +106,14 @@ var APISearch = searchTerm => {
 
     document.getElementById("queue").innerHTML = "";
 
-    Object.values(curQueue).forEach((obj, index) => {
-      document.getElementById("queue").innerHTML += Object.values(obj) + "<br>";
-    });
-
     chrome.storage.sync.set(curQueue, () => {
-      console.log("Storage has been set to: ", curQueue);
+      addCurrentQueueToHTML();
     });
 
     currentVideo = video.id.videoId;
-  
-    console.log("current video: ",curQueue);
-    console.log("current song", currentVideo);
 
     var msg = new Message();
-    msg.requestType = "changeQueue";
+    msg.requestType = Object.keys(curQueue).length == 0 ? "changeQueue" : "addToQueue";
     msg.data = currentVideo;
     msg.sendMessage();
 
@@ -123,13 +125,13 @@ var APISearch = searchTerm => {
 
 var displayThumbnail = () =>{
   console.log(current);
-  if(thumbnail.src == curQueue[current].thumbURL){
+  if(thumbnail.src == curQueue[0].thumbURL){
     
   } else{
     if(current != 0){
       document.getElementById('thumbnail').removeChild(thumbnail);
     }
-    thumbnail.src = curQueue[current].thumbURL;
+    thumbnail.src = curQueue[0].thumbURL;
     document.getElementById('thumbnail').appendChild(thumbnail);
   }
 }
@@ -147,5 +149,18 @@ var clearQueue = () =>{
     msg.requestType = "clearedQueue";
     msg.data = currentVideo;
     msg.sendMessage();
-}
+};
+
+var addCurrentQueueToHTML = () => {
+  document.getElementById("queue").innerHTML = "";
+  chrome.storage.sync.get(null, obj => {
+    Object.values(obj).forEach((e, i) => {
+      if (Object.keys(e)[0] != "thumbURL") {
+        document.getElementById("queue").innerHTML += Object.values(e)[0] + "<br>";
+      } else {
+        document.getElementById("queue").innerHTML += Object.values(e)[1] + "<br>";
+      }
+    });
+  });
+};
 

@@ -2,9 +2,9 @@ var name;
 var uid;
 var udb;
 var queues = {};
+var firestore = firebase.firestore();
 
 const elements = [
-  "name",
   "password",
   "email",
   "showSignUp",
@@ -15,8 +15,6 @@ const elements = [
   "cancel",
   "msg"
 ];
-
-var firestore = firebase.firestore();
 
 document.getElementById("showSignIn").addEventListener("click", e => {
   showSignIn();
@@ -42,27 +40,11 @@ document.getElementById("login").addEventListener("click", e => {
   // Catches error
   promise.catch(e => {
     console.log(e.code + ": " + e.message);
-
-    if (e.code === "auth/user-not-found") {
-      document.getElementById("invalid").innerHTML = "User not found";
-    } else if (e.code === "auth/wrong-password") {
-      var s;
-      if (passwordCheck(pass)) {
-        s = "Invalid password";
-      } else {
-        s = "Wrong password";
-      }
-      document.getElementById("invalid").innerHTML = s;
-    } else if (e.code === "auth/invalid-email") {
-      document.getElementById("invalid").innerHTML = "Invalid email";
-    } else {
-      document.getElementById("invalid").innerHTML = "Error";
-    }
+    document.getElementById("invalid").innerHTML = "Invalid login credentials.";
   });
 });
 
 document.getElementById("signup").addEventListener("click", e => {
-  const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const pass = document.getElementById("password").value;
   const auth = firebase.auth();
@@ -73,14 +55,9 @@ document.getElementById("signup").addEventListener("click", e => {
   if (e && p) {
     const promise = auth
       .createUserWithEmailAndPassword(email, pass)
-      .then(user => {
-        user.updateProfile({
-          displayName: name
-        });
-        console.log(user.displayName);
-      })
       .catch(e => {
         console.log(e.code + ": " + e.message);
+        document.getElementById("msg").innerHTML = "Error when making account. Try again.";
       });
   } else if (!e && p) {
     document.getElementById("msg").innerHTML = "Invalid email";
@@ -111,16 +88,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     createUDB();
     loggedIn();
     queuePageHome();
-
-    /*     newQueue("queue1", {
-      0: { videoID: "title" },
-      1: { videoID: "title" },
-      2: { videoID: "title" }
-    });
-    newQueue("queue2", {});
-    newQueue("queue3", {});
-
-    getNamesOfQueues(); */
   } else {
     console.log("Not logged in");
     notLoggedIn();
@@ -155,7 +122,6 @@ function showSignIn() {
 function showSignUp() {
   clearContainer();
 
-  document.getElementById("name").style.display = "block";
   document.getElementById("email").style.display = "block";
   document.getElementById("password").style.display = "block";
   document.getElementById("signup").style.display = "block";
