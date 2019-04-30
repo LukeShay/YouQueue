@@ -4,6 +4,18 @@ var udb;
 var queues = {};
 var firestore = firebase.firestore();
 
+const elements = [
+  "password",
+  "email",
+  "showSignUp",
+  "showSignIn",
+  "login",
+  "signup",
+  "logout",
+  "cancel",
+  "msg"
+];
+
 document.getElementById("showSignIn").addEventListener("click", e => {
   showSignIn();
 });

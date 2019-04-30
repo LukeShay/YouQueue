@@ -1,5 +1,3 @@
-
-
 var searchParams = {
   apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
   previousInput: null,
@@ -12,17 +10,16 @@ var cur = "curQueueKey";
 var thumbnail = new Image();
 var current = 0;
 
-
 var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
   searchBar.addEventListener("keyup", event => {
     if (event.key === "Enter") {
-      parseSearch(searchBar.value);
+      APISearch(searchBar.value);
     }
   });
 };
 
-var parseSearch = keyword => {
+var parseSearchTempQueue = keyword => {
   var link = keyword.includes("www.youtube.com");
   if (link) {
     var split = keyword.split("=");
@@ -128,13 +125,13 @@ var APISearch = searchTerm => {
 
 var displayThumbnail = () =>{
   console.log(current);
-  if(thumbnail.src == curQueue[current].thumbURL){
+  if(thumbnail.src == curQueue[0].thumbURL){
     
   } else{
     if(current != 0){
       document.getElementById('thumbnail').removeChild(thumbnail);
     }
-    thumbnail.src = curQueue[current].thumbURL;
+    thumbnail.src = curQueue[0].thumbURL;
     document.getElementById('thumbnail').appendChild(thumbnail);
   }
 }
