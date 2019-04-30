@@ -23,13 +23,10 @@ window.onload = () => {
   addQueueToSearch();
   setContainer();
   addNavListeners();
-<<<<<<< HEAD
-=======
   addCurrentQueueToHTML();
   // displayThumbnail(); not working
 
   /* document.getElementById("containerSelector").style.display = "grid"; */
->>>>>>> 492cedc675750d2a3eb5f3c3c28ab286c43402a8
 };
 
 var addNavListeners = () =>

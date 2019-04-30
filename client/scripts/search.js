@@ -153,12 +153,21 @@ var clearQueue = () =>{
 
 var addCurrentQueueToHTML = () => {
   document.getElementById("queue").innerHTML = "";
+  
   chrome.storage.sync.get(null, obj => {
     Object.values(obj).forEach((e, i) => {
       if (Object.keys(e)[0] != "thumbURL") {
-        document.getElementById("queue").innerHTML += Object.values(e)[0] + "<br>";
+        let ul = document.createElement("li");
+        ul.id = "queueTitles";
+        ul.innerText = "" + Object.values(e)[0];
+        document.getElementById("queue").appendChild(ul);
+        /* document.getElementById("queue").innerHTML += Object.values(e)[0] + "<br>"; */
       } else {
-        document.getElementById("queue").innerHTML += Object.values(e)[1] + "<br>";
+        let ul = document.createElement("li");
+        ul.id = "queueTitles";
+        ul.value = "" + Object.values(e)[0];
+        document.getElementById("queue").appendChild(ul);
+        /* document.getElementById("queue").innerHTML += Object.values(e)[1] + "<br>"; */
       }
     });
   });
