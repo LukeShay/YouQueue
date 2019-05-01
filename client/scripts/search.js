@@ -7,7 +7,7 @@ var searchParams = {
 
 var curQueue = {};
 var cur = "curQueueKey";
-var thumbnail = new Image();
+//var thumbnail = new Image();
 var current = 0;
 
 var addSearchListener = () => {
@@ -55,8 +55,8 @@ var NextSongListener = () => {
     msg.data = "";
     msg.sendMessage();
     current ++;
-    displayThumbnail();
-    addCurrentQueueToHTML();
+    //displayThumbnail();
+    //addCurrentQueueToHTML();
   });
   
 };
@@ -95,7 +95,6 @@ var APISearch = searchTerm => {
   Http.onload = e => {
     var video = Http.response.items[0];
     var videoID = video.id.videoId;
-    var thumbURL = "default";
 
     var obj = {};
 
@@ -107,7 +106,6 @@ var APISearch = searchTerm => {
     document.getElementById("queue").innerHTML = "";
 
     chrome.storage.sync.set(curQueue, () => {
-      addCurrentQueueToHTML();
     });
 
     currentVideo = video.id.videoId;
@@ -117,25 +115,9 @@ var APISearch = searchTerm => {
     msg.data = currentVideo;
     msg.sendMessage();
 
-    displayThumbnail();
-
     return currentVideo;
   };
 };
-
-var displayThumbnail = () =>{
-  console.log(current);
-  if(thumbnail.src == curQueue[0].thumbURL){
-    
-  } else{
-    if(current != 0){
-      document.getElementById('thumbnail').removeChild(thumbnail);
-    }
-    thumbnail.src = curQueue[0].thumbURL;
-    document.getElementById('thumbnail').appendChild(thumbnail);
-  }
-}
-
 
 var clearQueue = () =>{
   chrome.storage.sync.clear(()=>{
@@ -143,7 +125,7 @@ var clearQueue = () =>{
   }); 
   current = 0;
   document.getElementById("queue").innerHTML = "";
-  document.getElementById('thumbnail').removeChild(thumbnail);
+  document.getElementById("thumbImg").src = "";
   curQueue = {};
   var msg = new Message();
     msg.requestType = "clearedQueue";
@@ -173,3 +155,13 @@ var addCurrentQueueToHTML = () => {
   });
 };
 
+chrome.storage.onChanged.addListener((changes, namespace)=> {
+  changeThumbnail();
+  addCurrentQueueToHTML();
+});
+
+var changeThumbnail = () => {
+  chrome.storage.sync.get(null, obj => {
+    document.getElementById("thumbImg").src = obj[0].thumbURL;
+  });
+};

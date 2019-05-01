@@ -24,15 +24,7 @@ window.onload = () => {
   setContainer();
   addNavListeners();
   addCurrentQueueToHTML();
-  // displayThumbnail(); not working
-
-  chrome.storage.sync.get(null, obj => {
-    thumbnail.src = obj[0].thumbURL;
-    if (thumbnail.src != null)
-    document.getElementById("thumbnail").appendChild(thumbnail);
-  });
-
-  /* document.getElementById("containerSelector").style.display = "grid"; */
+  changeThumbnail();
 };
 
 var addNavListeners = () =>
@@ -40,7 +32,6 @@ var addNavListeners = () =>
   document.getElementById("searchNav").addEventListener("click", e =>
   {
     loadContainer("searchContainer");
-    document.getElementById("navigation").style.transform = "translate(-100%, 0)";
   });
 
   document.getElementById("loginNav").addEventListener("click", e =>
