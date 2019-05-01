@@ -156,6 +156,7 @@ var runSearch = keyword => {
     var video = Http.response.items[0];
     var tempObj = {};
     tempObj[video.id.videoId] = video.snippet.title;
+    tempObj.thumbURL = video.snippet.thumbnails.default.url;
 
     tempQueue[curNum] = tempObj;
 
@@ -216,7 +217,7 @@ var queuePageNotLoggedIn = () => {
 
 var newQueuePage = () => {
   document.getElementById("queueContainer").style.gridTemplateRows =
-    "0px 25px 25px 20px 195px 22px 20px";
+    "0px 25px 25px 20px 210px 30px 20px";
   newQueueBtn.style.display = "none";
   editQueueBtn.style.display = "none";
   deleteQueueBtn.style.display = "none";
