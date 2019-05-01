@@ -15,11 +15,19 @@ body {
   color: #ffffff;
   font-family: "Exo 2", sans-serif;
 }
+.extensionContainer #navigation {
+  width: 20px;
+}
 
 #searchContainer {
   display: grid;
   grid-template-columns: 30px, auto, 30px;
   grid-template-rows: 50px, auto, 50px, 50px;
+}
+#searchContainer button {
+  margin: 5px;
+  width: 25px;
+  height: 25px;
 }
 #searchContainer #searchBox {
   background-color: white;
@@ -29,12 +37,11 @@ body {
   padding: 0px 0px 0px 30px;
   border-radius: 5px;
   border: none;
-  width: 78%;
+  width: 76.5%;
   height: 25px;
   position: fixed;
   left: 13%;
   top: 7%;
-  z-index: 2;
 }
 #searchContainer #thumbnail {
   position: fixed;
@@ -67,10 +74,9 @@ body {
   margin: 0 0 3px 0;
 }
 #searchContainer #controls {
-  top: 90%;
+  top: 86%;
   position: fixed;
-  left: 36.5%;
-  transform: translate(-12%, -50%);
+  left: 37%;
   color: white;
 }
 #searchContainer #queueControls {
@@ -83,42 +89,33 @@ body {
   z-index: 0;
 }
 #searchContainer #pause {
-  background-image: url("../resources/iconfinder_button_grey_pause_50038.png");
+  background-image: url("../resources/image_pause_white.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 50px;
-  height: 50px;
   border: none;
   background-color: #222222;
 }
 #searchContainer #play {
-  background-image: url("../resources/iconfinder_button_grey_play_50039.png");
+  background-image: url("../resources/image_play_white.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 50px;
-  height: 50px;
   border: none;
   background-color: #222222;
 }
 #searchContainer #clearQueue {
   font-family: "Karla", sans-serif;
-  background: #dedbdb;
-  background: radial-gradient(circle, #dedbdb 0%, #878787 87%, #62696a 100%);
-  width: 42px;
-  height: 42px;
+  color: white;
+  background-color: #222222;
   border: none;
-  background-color: #C0C0C0;
-  border-radius: 50%;
+  font-size: 20px;
 }
 #searchContainer #nextSong {
-  background-image: url("../resources/iconfinder_Button Next_58484.png");
+  background-image: url("../resources/image_skip_white.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 50px;
-  height: 50px;
   border: none;
   background-color: #222222;
 }

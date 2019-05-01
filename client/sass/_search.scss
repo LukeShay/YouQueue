@@ -3,6 +3,12 @@
     grid-template-columns: 30px, auto, 30px;
     grid-template-rows: 50px, auto, 50px, 50px;
 
+    button {
+      margin: 5px;
+      width: 25px;
+      height: 25px;
+    }
+
     #searchBox{
       background-color: white;
       background-image: url('../resources/iconfinder_icon-111-search_314478.png');
@@ -12,14 +18,12 @@
 
       border-radius: 5px;
       border: none;
-      width: 78%;
+      width: 76.5%;
       height: 25px;
       position: fixed;
       //transform: translate(-50%, -50%);
       left: 13%;
       top: 7%;
-      z-index: 2;
-
     }
 
     #thumbnail {
@@ -57,10 +61,9 @@
     }
 
     #controls {
-        top: 90%;
+        top: 86%;
         position: fixed;
-        left: 36.5%;
-        transform: translate(-12%, -50%);
+        left: 37%;
         color: white;
         
     }
@@ -77,48 +80,37 @@
     }
 
     #pause {
-        background-image: url('../resources/iconfinder_button_grey_pause_50038.png');
+        background-image: url('../resources/image_pause_white.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        width: 50px;
-        height: 50px;
         border: none;
         background-color: #222222;
         
     }
 
     #play {
-        background-image: url('../resources/iconfinder_button_grey_play_50039.png');
+        background-image: url('../resources/image_play_white.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        width: 50px;
-        height: 50px;
         border: none;
         background-color: #222222;
     }
 
     #clearQueue {
         font-family: 'Karla', sans-serif;
-        background: rgb(222,219,219);
-        background: radial-gradient(circle, rgba(222,219,219,1) 0%, rgba(135,135,135,1) 87%, rgba(98,105,106,1) 100%);
-        width: 42px;
-        height: 42px;
+        color: white;
+        background-color: #222222;
         border: none;
-        background-color: 	#C0C0C0;
-        border-radius: 50%;
-        
-        
+        font-size: 20px;
     }
 
     #nextSong {
-        background-image: url('../resources/iconfinder_Button\ Next_58484.png');
+        background-image: url('../resources/image_skip_white.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        width: 50px;
-        height: 50px;
         border: none;
         background-color: #222222;
     }
