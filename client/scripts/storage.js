@@ -26,6 +26,7 @@ function newQueue(queueName, list) {
 
       newQ.set(list);
       newQ.update({ valid: true });
+      queuePageHome();
     });
 }
 
@@ -38,7 +39,13 @@ function addToQueue(queueName, list) {
   // List must be an object in the following format {1: {videoID:Title}}. Overwrites any with matching keys.
   var q = udb.doc(queueName);
 
-  q.update(list);
+  q.update(list)
+    .then(() => {
+      queuePageHome();
+    })
+    .catch(e => {
+      newQueue(queueName, list);
+    });
 }
 
 function getCurQueue() {
@@ -67,7 +74,7 @@ function addQueueToStorage(queueName) {
         console.log("Storage set to: ", t);
       });
 
-/*       Object.values(snapshot.data()).forEach((obj, index) => {
+      /*       Object.values(snapshot.data()).forEach((obj, index) => {
         document.getElementById("queue").innerHTML +=
           Object.values(obj) + "<br>";
       }); */
