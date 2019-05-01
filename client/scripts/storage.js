@@ -60,14 +60,17 @@ function addQueueToStorage(queueName) {
     .doc(queueName)
     .get()
     .then(snapshot => {
-      chrome.storage.sync.set(snapshot.data(), () => {
-        console.log("Storage set to: ", snapshot.data());
+      var t = snapshot.data();
+      delete t.valid;
+
+      chrome.storage.sync.set(t, () => {
+        console.log("Storage set to: ", t);
       });
 
-      Object.values(snapshot.data()).forEach((obj, index) => {
+/*       Object.values(snapshot.data()).forEach((obj, index) => {
         document.getElementById("queue").innerHTML +=
           Object.values(obj) + "<br>";
-      });
+      }); */
 
       var msg = new Message();
       msg.requestType = "changeQueue";
