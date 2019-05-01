@@ -59,8 +59,6 @@ saveBtn.addEventListener("click", e => {
     tempQueue = {};
     curNum = 0;
     edditingQueue = 0;
-
-    queuePageHome();
   }
 });
 
