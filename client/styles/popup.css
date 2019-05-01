@@ -3,7 +3,7 @@ body {
 }
 
 .extensionContainer {
-  background-color: #36454f;
+  background-color: #222222;
   width: 400px;
   height: 400px;
   font-family: "Karla", sans-serif;
@@ -29,12 +29,11 @@ body {
   padding: 0px 0px 0px 30px;
   border-radius: 5px;
   border: none;
-  width: 70%;
+  width: 78%;
   height: 25px;
   position: fixed;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 10%;
+  left: 13%;
+  top: 7%;
   z-index: 2;
 }
 #searchContainer #thumbnail {
@@ -47,7 +46,7 @@ body {
   top: 150px;
   width: 90%;
   height: 40%;
-  overflow: scroll;
+  overflow: hidden;
   position: fixed;
   transform: translate(15%, 0);
   text-align: center;
@@ -64,9 +63,8 @@ body {
   list-style-type: none;
   list-style-position: outside;
   padding: 10px 0px 0px 0px;
-  background-color: rgba(192, 192, 192, 0.822);
+  background-color: rgba(192, 192, 192, 0.2);
   margin: 0 0 3px 0;
-  box-shadow: #232323;
 }
 #searchContainer #controls {
   top: 90%;
@@ -92,7 +90,7 @@ body {
   width: 50px;
   height: 50px;
   border: none;
-  background-color: #36454f;
+  background-color: #222222;
 }
 #searchContainer #play {
   background-image: url("../resources/iconfinder_button_grey_play_50039.png");
@@ -102,7 +100,7 @@ body {
   width: 50px;
   height: 50px;
   border: none;
-  background-color: #36454f;
+  background-color: #222222;
 }
 #searchContainer #clearQueue {
   font-family: "Karla", sans-serif;
@@ -122,7 +120,7 @@ body {
   width: 50px;
   height: 50px;
   border: none;
-  background-color: #36454f;
+  background-color: #222222;
 }
 
 #authContainer {
