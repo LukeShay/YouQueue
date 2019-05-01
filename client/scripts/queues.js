@@ -55,9 +55,10 @@ saveBtn.addEventListener("click", e => {
   }
 
   if (!invalid) {
-    newQueue(name, tempQueue);
+    addToQueue(name, tempQueue);
     tempQueue = {};
     curNum = 0;
+    edditingQueue = 0;
 
     queuePageHome();
   }
@@ -265,7 +266,13 @@ var editQueueFromFirestore = queueName => {
         var br = document.createElement("br");
         button.setAttribute("id", curNum);
         button.setAttribute("class", "videoNameBtn");
-        button.innerHTML = Object.values(obj);
+
+        if (Object.values(obj)[0] != "thumbURL") {
+          button.innerHTML = Object.values(obj)[0];
+        } else {
+          button.innerHTML = Object.values(obj)[1];
+        }
+        
     
         button.addEventListener("click", e => {
           button.parentNode.removeChild(button);

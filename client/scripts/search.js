@@ -27,7 +27,6 @@ var parseSearchTempQueue = keyword => {
   }
 };
 
-
 var ClearQueueListener = () => {
   var clearButton = document.getElementById("clearQueue");
   clearButton.addEventListener("click", event => {
@@ -53,7 +52,6 @@ var NextSongListener = () => {
     msg.data = "";
     msg.sendMessage();
   });
-  
 };
 
 var PauseListener = () => {
@@ -62,12 +60,11 @@ var PauseListener = () => {
     var msg = new Message();
     msg.requestType = "pause";
     msg.data = "";
-    msg.sendMessage();  
+    msg.sendMessage();
   });
 };
 
 var APISearch = searchTerm => {
-
   chrome.storage.sync.get(null, result => {
     curQueue = result;
   });
@@ -100,13 +97,13 @@ var APISearch = searchTerm => {
 
     document.getElementById("queue").innerHTML = "";
 
-    chrome.storage.sync.set(curQueue, () => {
-    });
+    chrome.storage.sync.set(curQueue, () => {});
 
     currentVideo = video.id.videoId;
 
     var msg = new Message();
-    msg.requestType = Object.keys(curQueue).length == 0 ? "changeQueue" : "addToQueue";
+    msg.requestType =
+      Object.keys(curQueue).length == 0 ? "changeQueue" : "addToQueue";
     msg.data = currentVideo;
     msg.sendMessage();
 
@@ -114,22 +111,22 @@ var APISearch = searchTerm => {
   };
 };
 
-var clearQueue = () =>{
-  chrome.storage.sync.clear(()=>{
+var clearQueue = () => {
+  chrome.storage.sync.clear(() => {
     console.log("Storage cleared.");
-  });
-  document.getElementById("queue").innerHTML = "";
-  document.getElementById("thumbImg").src = "";
-  curQueue = {};
-  var msg = new Message();
+    curQueue = {};
+    var msg = new Message();
     msg.requestType = "clearedQueue";
     msg.data = currentVideo;
     msg.sendMessage();
+    document.getElementById("queue").innerHTML = "";
+    document.getElementById("thumbImg").src = "";
+  });
 };
 
 var addCurrentQueueToHTML = () => {
   document.getElementById("queue").innerHTML = "";
-  
+
   chrome.storage.sync.get(null, obj => {
     Object.values(obj).forEach((e, i) => {
       if (Object.keys(e)[0] != "thumbURL") {
@@ -149,13 +146,16 @@ var addCurrentQueueToHTML = () => {
   });
 };
 
-chrome.storage.onChanged.addListener((changes, namespace)=> {
+chrome.storage.onChanged.addListener((changes, namespace) => {
   changeThumbnail();
   addCurrentQueueToHTML();
 });
 
 var changeThumbnail = () => {
   chrome.storage.sync.get(null, obj => {
+    if (Object.values(obj).length == 0) {
+      document.getElementById("thumbImg").src = "";
+    }
     document.getElementById("thumbImg").src = obj[0].thumbURL;
   });
 };
