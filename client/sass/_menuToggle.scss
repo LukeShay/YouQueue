@@ -52,7 +52,7 @@ a:hover
   margin-bottom: 5px;
   position: relative;
   
-  background: #cdcdcd;
+  background: #cdcdcdd3;
   border-radius: 3px;
   
   z-index: 2;
@@ -110,12 +110,12 @@ a:hover
 {
   position: absolute;
   width: 150px;
-  height: 269.5px;
+  height: 269px;
   margin: -100px 0 0 -50px;
   padding: 50px;
   padding-top: 125px;
   
-  background: #ededed;
+  background: rgba(187, 186, 186, 0.993);
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
   /* to stop flickering of text in safari */

@@ -46,7 +46,7 @@ var addNavListeners = () =>
 
   document.getElementById("checkbox").addEventListener("click", e =>
   {
-    var searchBox = document.getElementById("searchBox");
+    
   });
 
 
