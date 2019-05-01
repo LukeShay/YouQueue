@@ -267,6 +267,7 @@ body {
   width: 130px;
   grid-row: 2;
   grid-column: 2;
+  background-color: lightskyblue;
 }
 #queueContainer #deleteQueueBtn {
   display: block;
@@ -284,11 +285,12 @@ body {
   grid-row: 6;
   grid-column-start: 1;
   grid-column-end: 4;
+  background-color: lightskyblue;
 }
 #queueContainer #queueNameBtn {
   width: 100%;
   color: #ffffff;
-  background-color: #36454f;
+  background-color: #222222;
   height: 15px;
   padding: 0 0 0 0;
 }

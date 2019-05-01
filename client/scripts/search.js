@@ -7,8 +7,6 @@ var searchParams = {
 
 var curQueue = {};
 var cur = "curQueueKey";
-//var thumbnail = new Image();
-var current = 0;
 
 var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
@@ -54,9 +52,6 @@ var NextSongListener = () => {
     msg.requestType = "nextSong";
     msg.data = "";
     msg.sendMessage();
-    current ++;
-    //displayThumbnail();
-    //addCurrentQueueToHTML();
   });
   
 };
@@ -122,8 +117,7 @@ var APISearch = searchTerm => {
 var clearQueue = () =>{
   chrome.storage.sync.clear(()=>{
     console.log("Storage cleared.");
-  }); 
-  current = 0;
+  });
   document.getElementById("queue").innerHTML = "";
   document.getElementById("thumbImg").src = "";
   curQueue = {};

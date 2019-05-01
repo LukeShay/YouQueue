@@ -40,7 +40,7 @@ document.getElementById("login").addEventListener("click", e => {
   // Catches error
   promise.catch(e => {
     console.log(e.code + ": " + e.message);
-    document.getElementById("invalid").innerHTML = "Invalid login credentials.";
+    document.getElementById("msg").innerHTML = "Invalid login credentials.";
   });
 });
 

@@ -208,6 +208,8 @@ var queuePageNotLoggedIn = () => {
   newQueueBtn.style.display = "none";
   deleteQueueBtn.style.display = "none";
   editQueueBtn.style.display = "none";
+  saveBtn.style.display = "none";
+  cancelBtn.style.display = "none";
   queueName.style.display = "none";
   videoSearch.style.display = "none";
   saveBtn.style.display = "none";
