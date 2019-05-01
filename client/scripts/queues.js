@@ -156,6 +156,7 @@ var runSearch = keyword => {
     var video = Http.response.items[0];
     var tempObj = {};
     tempObj[video.id.videoId] = video.snippet.title;
+    tempObj.thumbURL = video.snippet.thumbnails.default.url;
 
     tempQueue[curNum] = tempObj;
 
