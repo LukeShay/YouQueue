@@ -70,6 +70,7 @@ deleteQueueBtn.addEventListener("click", e => {
 
 editQueueBtn.addEventListener("click", e => {
   addQueuesToHTML(EDIT);
+  cancelQueueBtn.style.display = "block";
 });
 
 cancelQueueBtn.addEventListener("click", e=> {
