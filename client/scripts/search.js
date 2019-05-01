@@ -14,7 +14,7 @@ var addSearchListener = () => {
   var searchBar = document.getElementById("searchBox");
   searchBar.addEventListener("keyup", event => {
     if (event.key === "Enter") {
-      APISearch(searchBar.value);
+      parseSearchTempQueue(searchBar.value);
     }
   });
 };
