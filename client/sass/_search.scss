@@ -10,7 +10,7 @@
     }
 
     #searchBox{
-      background-color: white;
+      background-color: whitesmoke;
       background-image: url('../resources/iconfinder_icon-111-search_314478.png');
       background-size: contain;
       background-repeat: no-repeat;
@@ -18,7 +18,7 @@
 
       border-radius: 5px;
       border: none;
-      width: 76.5%;
+      width: 70%;
       height: 25px;
       position: fixed;
       //transform: translate(-50%, -50%);
@@ -38,17 +38,18 @@
         width: 90%;
         height: 40%;
         overflow: hidden;
+        overflow-y: scroll;
         position: fixed;
-        transform: translate(15%, 0);
+        transform: translate(10%, 0);
         text-align: center;
-        color: white;
+        color: whitesmoke;
     }
 
     #queueTitles{
-        width: 76.5%;
+        width: 90%;
         height: 25px;
-        color: white;
-        
+        color: whitesmoke;
+        overflow: hidden;
         text-align: center;
         border: 2px solid;
         border-color: rgba(192,192,192 , 0.5);
@@ -64,7 +65,7 @@
         top: 86%;
         position: fixed;
         left: 37%;
-        color: white;
+        color: whitesmoke;
         
     }
 
@@ -100,7 +101,7 @@
 
     #clearQueue {
         font-family: 'Karla', sans-serif;
-        color: white;
+        color: whitesmoke;
         background-color: #222222;
         border: none;
         font-size: 20px;

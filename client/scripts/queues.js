@@ -190,7 +190,8 @@ var removeNum = (object, index) => {
 
 var queuePageHome = () => {
   document.getElementById("queueContainer").style.gridTemplateRows =
-    "1px 30px auto auto";
+    "1px 30px 275px auto";
+  curText.style.gridRow = "3";
   newQueueBtn.style.display = "block";
   editQueueBtn.style.display = "block";
   deleteQueueBtn.style.display = "block";
