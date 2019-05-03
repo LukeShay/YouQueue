@@ -144,7 +144,7 @@ var runSearch = keyword => {
     "part=snippet" +
     "&max-results=1" +
     `&q=${keyword}` +
-    "&order=viewCount" +
+    "&order=relevance" +
     "&type=video" +
     "&videoDefinition=high" +
     `&key=${searchParams.apiKey}`;

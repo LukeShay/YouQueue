@@ -11,6 +11,8 @@ var extInfo = {
   }
 };
 
+var curQueue = {};
+
 firebase.initializeApp(extInfo.config);
 extInfo.currentUser = firebase.auth().currentUser;
 
@@ -25,6 +27,10 @@ window.onload = () => {
   addNavListeners();
   addCurrentQueueToHTML();
   changeThumbnail();
+
+  chrome.storage.sync.get(null, result => {
+    curQueue = result;
+  });
 };
 
 var addNavListeners = () =>

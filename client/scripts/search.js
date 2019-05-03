@@ -5,7 +5,6 @@ var searchParams = {
   currentVideo: null
 };
 
-var curQueue = {};
 var cur = "curQueueKey";
 
 var addSearchListener = () => {
@@ -65,18 +64,13 @@ var PauseListener = () => {
 };
 
 var APISearch = searchTerm => {
-  chrome.storage.sync.get(null, result => {
-    curQueue = result;
-  });
-  console.log(curQueue);
-
   const Http = new XMLHttpRequest();
   const url =
     "https://www.googleapis.com/youtube/v3/search?" +
     "part=snippet" +
     "&max-results=1" +
     `&q=${searchTerm}` +
-    "&order=viewCount" +
+    "&order=relevance" +
     "&type=video" +
     "&videoDefinition=high" +
     `&key=${searchParams.apiKey}`;
@@ -113,14 +107,14 @@ var APISearch = searchTerm => {
 
 var clearQueue = () => {
   chrome.storage.sync.clear(() => {
-    console.log("Storage cleared.");
     curQueue = {};
+
     var msg = new Message();
     msg.requestType = "clearedQueue";
     msg.data = currentVideo;
     msg.sendMessage();
-    document.getElementById("queue").innerHTML = "";
-    document.getElementById("thumbImg").src = "";
+    
+    currentVideo = null;
   });
 };
 
@@ -129,19 +123,16 @@ var addCurrentQueueToHTML = () => {
 
   chrome.storage.sync.get(null, obj => {
     Object.values(obj).forEach((e, i) => {
+      let ul = document.createElement("li");
+      ul.id = "queueTitles";
+
       if (Object.keys(e)[0] != "thumbURL") {
-        let ul = document.createElement("li");
-        ul.id = "queueTitles";
         ul.innerText = "" + Object.values(e)[0];
-        document.getElementById("queue").appendChild(ul);
-        /* document.getElementById("queue").innerHTML += Object.values(e)[0] + "<br>"; */
       } else {
-        let ul = document.createElement("li");
-        ul.id = "queueTitles";
-        ul.value = "" + Object.values(e)[0];
-        document.getElementById("queue").appendChild(ul);
-        /* document.getElementById("queue").innerHTML += Object.values(e)[1] + "<br>"; */
+        ul.innerText = "" + Object.values(e)[1];
       }
+
+      document.getElementById("queue").appendChild(ul);
     });
   });
 };
