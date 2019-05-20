@@ -1,13 +1,13 @@
 var extInfo = {
   currentUser: null,
   containers: ["searchContainer", "authContainer", "queueContainer"],
-  config: {
-    apiKey: "AIzaSyCwvG2g1PJZeAMtiR1qKA9xG8SJhMKWgRg",
-    authDomain: "youqueue-c89b9.firebaseapp.com",
-    databaseURL: "https://youqueue-c89b9.firebaseio.com",
-    projectId: "youqueue-c89b9",
-    storageBucket: "youqueue-c89b9.appspot.com",
-    messagingSenderId: "420416303698"
+  config: { // TODO
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
   }
 };
 
